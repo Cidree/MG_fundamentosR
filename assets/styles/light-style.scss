@@ -1,0 +1,27 @@
+/*-- scss:variables --*/
+$light-main-color: #fff;
+$color-note: #0F5257;
+$color-tip: #A0E8AF;
+$color-caution: #EC7505;
+$color-warning: #FFCF56;
+$color-important: #FF5D73;
+
+/*-- scss:defaults --*/
+$body-bg: $light-main-color;
+$body-color: #333;
+$link-color: #08c;
+$input-bg: $light-main-color;
+$popover-bg: red;
+
+$font-family-sans-serif: 'Inter', sans-serif;
+$font-family-monospace: 'Consolas', monospace;
+
+$code-block-border-left-size: 10px;
+$code-block-bg: #CCDDE2;
+$code-block-border-left: #433E3F;
+
+$callout-color-note: $color-note;
+$callout-color-tip: $color-tip;
+$callout-color-caution: $color-caution;
+$callout-color-warning: $color-warning;
+$callout-color-important: $color-important;
