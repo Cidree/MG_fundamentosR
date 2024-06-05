@@ -1,0 +1,38 @@
+---
+execute: 
+  warning: false
+filters:
+  - webr
+webr:
+    packages: ["ggplot2"]
+---
+
+```{r}
+#| include: false
+library(ggplot2)
+```
+
+# Webr test
+
+Replicar el siguiente histograma:
+
+```{r}
+#| echo: false
+#| message: false
+
+iris |> 
+    ggplot(aes(Sepal.Width)) +
+    geom_histogram(fill = "darkblue") +
+    theme_bw()
+```
+
+```{webr-r}
+## Introducir código
+```
+
+```{r}
+iris |> 
+    ggplot(aes(Sepal.Width)) +
+    geom_histogram(fill = "darkblue") +
+    theme_bw()
+```

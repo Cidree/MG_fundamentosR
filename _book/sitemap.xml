@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://cidree.github.io/test_book/index.html</loc>
+    <lastmod>2024-06-05T17:09:34.049Z</lastmod>
+  </url>
+  <url>
+    <loc>https://cidree.github.io/test_book/chapters/introduction.html</loc>
+    <lastmod>2024-06-05T16:38:59.108Z</lastmod>
+  </url>
+  <url>
+    <loc>https://cidree.github.io/test_book/chapters/testing.html</loc>
+    <lastmod>2024-06-05T16:52:40.226Z</lastmod>
+  </url>
+  <url>
+    <loc>https://cidree.github.io/test_book/chapters/references.html</loc>
+    <lastmod>2024-06-05T16:19:22.504Z</lastmod>
+  </url>
+  <url>
+    <loc>https://cidree.github.io/test_book/chapters/installation.html</loc>
+    <lastmod>2024-06-05T16:43:48.397Z</lastmod>
+  </url>
+</urlset>

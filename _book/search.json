@@ -1,0 +1,63 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Fundamentos de programación con R",
+    "section": "",
+    "text": "Bienvenida\nEste libro …",
+    "crumbs": [
+      "Bienvenida"
+    ]
+  },
+  {
+    "objectID": "index.html#sección-primera",
+    "href": "index.html#sección-primera",
+    "title": "Fundamentos de programación con R",
+    "section": "Sección primera",
+    "text": "Sección primera\nSección rimera",
+    "crumbs": [
+      "Bienvenida"
+    ]
+  },
+  {
+    "objectID": "index.html#sección-segunda",
+    "href": "index.html#sección-segunda",
+    "title": "Fundamentos de programación con R",
+    "section": "Sección segunda",
+    "text": "Sección segunda\nSección segunda\n\n\n\n\n\n\nPrueba\n\n\n\nPor defecto\n\n\n\n\n\n\n\n\nPrueba 2\n\n\n\nSimple\n\n\n\n\n\n\n\n\nPrueba 3\n\n\n\nMinimal",
+    "crumbs": [
+      "Bienvenida"
+    ]
+  },
+  {
+    "objectID": "chapters/introduction.html",
+    "href": "chapters/introduction.html",
+    "title": "Introducción",
+    "section": "",
+    "text": "Introducción …",
+    "crumbs": [
+      "Introducción"
+    ]
+  },
+  {
+    "objectID": "chapters/testing.html",
+    "href": "chapters/testing.html",
+    "title": "1  Webr test",
+    "section": "",
+    "text": "Replicar el siguiente histograma:\n\n\n\n\n\n\n\n\n\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\niris |&gt; \n    ggplot(aes(Sepal.Width)) +\n    geom_histogram(fill = \"darkblue\") +\n    theme_bw()",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Webr test</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/installation.html",
+    "href": "chapters/installation.html",
+    "title": "Apéndice A — Instalación",
+    "section": "",
+    "text": "Para instalar R …",
+    "crumbs": [
+      "Apéndices",
+      "<span class='chapter-number'>A</span>  <span class='chapter-title'>Instalación</span>"
+    ]
+  }
+]
