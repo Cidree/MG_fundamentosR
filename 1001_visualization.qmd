@@ -1,0 +1,5 @@
+# Visualización {.unnumbered}
+
+En este capítulo se presenta una introducción a la visualización de datos y a la generación de gráficos en R con el paquete `{ggplot2}`. En el primer capítulo, veremos una introducción a la visualización de datos para resaltar su importancia y cómo puede ayudar a entender los datos. En el segundo capítulo, se presentará el paquete `{ggplot2}` y se mostrará cómo se puede utilizar para generar gráficos sencillos en R.
+
+Aunque la visualización de datos es un tema amplio y complejo, en este libro se presentarán los conceptos básicos y se mostrarán ejemplos sencillos para que el estudiante pueda comenzar a utilizarlos en sus propios proyectos.
