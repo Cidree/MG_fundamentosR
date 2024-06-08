@@ -1,15 +1,13 @@
 project:
   type: book
 
-filters: 
-  - lightbox
 lightbox: auto
 
 book:
   ## Book metadata
   title: "Fundamentos de programación con R"
   abstract: "Libro de programación en R correspondiente al curso de Fundamentos de Programación con R del Máster Geoforest de la Universidad de Córdoba."
-  description: "Descripcion..."
+  #description: "Descripcion..."
   author: "Adrián Cidre"
   date: "2024/05/28"
   ## Book opts
@@ -35,9 +33,9 @@ book:
       Este libro ha sido escrito con <a href="https://quarto.org/" target="_blank">Quarto</a>.
   ## Book structure
     center: |
-      <a href="https://mastergeoforest.es//" target="_blank">Máster Geoforest</a><br>
-      <a href="https://www.uco.es/eguiado/guias/2023-24/20286es_2023-24.pdf" target="_blank">Guía docente</a><br>
-      <a href="https://moodle.uco.es/m2223/" target="_blank">Moodle</a>
+        <a href="https://mastergeoforest.es//" target="_blank">Máster Geoforest</a><br>
+        <a href="https://www.uco.es/eguiado/guias/2023-24/20286es_2023-24.pdf" target="_blank">Guía docente</a><br>
+        <a href="https://moodle.uco.es/m2223/" target="_blank">Moodle</a>
   ## Chapters
   chapters:
     - index.qmd
@@ -46,9 +44,9 @@ book:
       chapters:
         - 1002_introduction.qmd
         - 1003_first_steps.qmd
+        - 1004_components.qmd
         
     - chapters/testing.qmd
-   # - chapters/references.qmd
   ## Appendices
   appendices:
     - chapters/installation.qmd
@@ -67,10 +65,12 @@ format:
     ## References and similars
     bibliography: references.bib
     lang: es
+    ## Figuras
+    fig-align: center
     crossref: 
       fig-title: "Fig."
     ## Page layout
     grid: 
       sidebar-width: 300px
-      content-mode: full
+      content-mode: auto
       gutter-width: 3rem

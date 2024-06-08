@@ -1,0 +1,177 @@
+---
+execute: 
+  warning: false
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r}
+#| include: false
+library(ggplot2)
+library(readr)
+
+inventario_completo_tbl <- read_rds("data/inventario_prep.rds") |> 
+    na.omit()
+```
+
+# Componentes
+
+Este capítulo tiene el objetivo de mostrar los componentes de un gráfico en `{ggplot2}`. Utilizaremos un ejemplo sencillo y exploraremos sus componentes. No será un capítulo impresionante, pero nos ayudará a entender qué funciones utiliza `{ggplot2}` por defecto según el tipo de datos que grafiquemos.
+
+## Capas
+
+En primer lugar, vamos a generar un gráfico utilizando los datos del inventario forestal visto en el capítulo anterior, donde mostraremos la relación entre la altura y el diámetro de los árboles por especie.
+
+```{r}
+#| label: fig-components-layer
+#| fig-cap: Gráfico con capas
+## Crear gráfico
+base_gg <- inventario_completo_tbl |> 
+    ggplot(
+      aes(x = dbh_mm, y = height_m, color = nombre_ifn)
+    ) +
+    geom_point()
+## Imprimir gráfico
+base_gg
+```
+
+## Facetas
+
+Las facetas son una forma de dividir un gráfico en subgráficos, de acuerdo a una variable categórica. Por defecto, `{ggplot2}` utiliza la función `facet_null()` que indica que no se desea dividir el gráfico. Para comprobar que esto es cierto, vamos a añadir esta función al gráfico anterior.
+
+::: callout-tip
+Una característica de `{ggplot2}` es que podemos guardar el gráfico en un objeto y añadir capas adicionales posteriormente.
+:::
+
+```{r}
+#| label: fig-components-facet
+#| fig-cap: Gráfico sin facetas
+## Añadir facetas
+facets_gg <- base_gg + 
+    facet_null()
+## Imprimir gráfico
+facets_gg
+```
+
+Vemos que el resultado de la @fig-components-facet es exactamente igual al de la @fig-components-layer. En el capítulo <!--# añadir referencia --> veremos otras opciones de facetas.
+
+## Escalas
+
+Las escalas se encargar de mapear los valores de los datos a los valores estéticos [@layered-grammar]. En nuestro gráfico, hemos utilizado un total de tres estéticas:
+
+-   `x`: diámetro del árbol en milímetros
+-   `y`: altura del árbol en metros
+-   `color`: especie del árbol
+
+Por ello, por defecto se genera una escala para cada una de estas estéticas. Vamos a ver las que se generan por defecto:
+
+```{r}
+#| label: fig-components-scale
+#| fig-cap: Escalas por defecto
+##  Añadir escalas
+scales_gg <- base_gg + 
+    scale_x_continuous() +
+    scale_y_continuous() +
+    scale_color_discrete()
+## Imprimir gráfico
+scales_gg
+```
+
+Vemos varias cosas interesantes en el código que hemos añadido:
+
+-   Las funciones de escalas empiezan por `scale_*` 
+-   En siguiente lugar, se añade el nombre de la estética que se quiere modificar
+-   Finalmente, se añaden los argumentos necesarios para modificar la escala
+
+El tercer punto es importante. Si tenemos una variable numérica, su escala será `scale_*_continuous()`, mientras que si es categórica, será `scale_*_discrete()`. 
+
+Veremos los detalles de las escalas en el capítulo <!--# añadir referencia -->.
+
+## Coordenadas
+
+Las coordenadas definen cómo se representan los datos en el gráfico. Por defecto, `{ggplot2}` utiliza un sistema de coordenadas cartesianas. Vamos a ver cómo se ve nuestro gráfico con las coordenadas por defecto.
+
+```{r}
+#| label: fig-components-coord
+#| fig-cap: Coordenadas por defecto
+## Añadir coordenadas
+coord_gg <- base_gg + 
+    coord_cartesian()
+## Imprimir gráfico
+coord_gg
+```
+
+De nuevo, vemos que no se ha modificado el gráfico. Las funciones de coordenadas empiezan por `coord_*`, y en el capítulo <!--# añadir referencia --> veremos otras opciones de coordenadas.
+
+## Temas
+
+Los temas definen el aspecto visual del gráfico. Por defecto, `{ggplot2}` utiliza el tema `theme_gray()`:
+
+```{r}
+#| label: fig-components-theme
+#| fig-cap: Tema por defecto
+## Añadir tema
+theme_gg <- base_gg + 
+    theme_gray() +
+    theme()
+## Imprimir gráfico
+theme_gg
+```
+
+En el código anterior vemos dos funciones:
+
+-   `theme_*`: se utilizan para aplicar un tema predeterminado que trae una serie de valores de los temas por defecto.
+
+-   `theme()`: se utiliza para personalizar propiedades de forma unitaria.
+
+De nuevo, veremos los detalles de los temas en el capítulo <!--# añadir referencia -->.
+
+## Resumen
+
+En este capítulo hemos visto los componentes de un gráfico en `{ggplot2}` que vienen por defecto. Vamos a unir todo lo que vimos en un bloque de código:
+
+```{r}
+#| label: fig-components-all
+#| fig-cap: Gráfico con todos los componentes
+inventario_completo_tbl |> 
+    ## Añadir capas
+    ggplot(
+      aes(x = dbh_mm, y = height_m, color = nombre_ifn)
+    ) +
+    geom_point() +
+    ## Añadir facetas
+    facet_null() +
+    ## Añadir escalas
+    scale_x_continuous() +
+    scale_y_continuous() +
+    scale_color_discrete() +
+    ## Añadir coordenadas
+    coord_cartesian() +
+    ## Añadir tema
+    theme_gray() +
+    theme()
+```
+
+{{< include references.qmd >}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

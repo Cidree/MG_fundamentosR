@@ -5,6 +5,7 @@ $color-tip: #A0E8AF;
 $color-caution: #EC7505;
 $color-warning: #FFCF56;
 $color-important: #FF5D73;
+$color-lightblue: #DBEBEA ;
 
 /*-- scss:defaults --*/
 $body-bg: $light-main-color;
@@ -25,3 +26,17 @@ $callout-color-tip: $color-tip;
 $callout-color-caution: $color-caution;
 $callout-color-warning: $color-warning;
 $callout-color-important: $color-important;
+
+// Base
+p {
+    text-align: justify;
+}
+
+// Code results
+.cell {
+    padding-bottom: 1rem;
+}
+.cell-output {
+    background-color: $color-lightblue;
+    border: 2px solid #777;
+}

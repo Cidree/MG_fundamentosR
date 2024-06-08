@@ -1,14 +1,10 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.5.41">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
-<meta name="author" content="Adrián Cidre">
-
-<title>Fundamentos de programación con R</title>
+<title>Fundamentos de programación con R – 3&nbsp; Componentes</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,8 +17,61 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
-
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/quarto-nav/headroom.min.js"></script>
@@ -31,7 +80,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./1001_visualization.html" rel="next">
+<link href="./chapters/testing.html" rel="next">
+<link href="./1003_first_steps.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -45,8 +95,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script src="site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
 <link href="site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
-<link href="site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
-<script id="quarto-search-options" type="application/json">{
+<link href="site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet"><script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
@@ -73,36 +122,26 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Buscar"
   }
 }</script>
-
-
 </head>
-
 <body class="nav-sidebar docked">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Bienvenida</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./1001_visualization.html">Visualización</a></li><li class="breadcrumb-item"><a href="./1004_components.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Componentes</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
-  </nav>
-</header>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
-    <div class="pt-lg-2 mt-2 text-center sidebar-header sidebar-header-stacked">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto"><div class="pt-lg-2 mt-2 text-center sidebar-header sidebar-header-stacked">
       <a href="./index.html" class="sidebar-logo-link">
-      <img src="./assets/img/logo-geoforest.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
-      </a>
+      <img src="./assets/img/logo-geoforest.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none"></a>
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Fundamentos de programación con R</a> 
         <div class="sidebar-tools-main tools-wide">
@@ -123,9 +162,9 @@ ul.task-list li input[type="checkbox"] {
         </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Bienvenida</span></a>
   </div>
 </li>
@@ -137,8 +176,8 @@ ul.task-list li input[type="checkbox"] {
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./1002_introduction.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introducción a la visualización de datos</span></span></a>
@@ -152,12 +191,12 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./1004_components.html" class="sidebar-item-text sidebar-link">
+  <a href="./1004_components.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Componentes</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./chapters/testing.html" class="sidebar-item-text sidebar-link">
@@ -172,130 +211,237 @@ ul.task-list li input[type="checkbox"] {
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./chapters/installation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Instalación</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
     </ul>
-    </div>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Tabla de contenidos</h2>
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Tabla de contenidos</h2>
    
   <ul>
-  <li><a href="#bienvenida" id="toc-bienvenida" class="nav-link active" data-scroll-target="#bienvenida">Bienvenida</a>
-  <ul class="collapse">
-  <li><a href="#sección-primera" id="toc-sección-primera" class="nav-link" data-scroll-target="#sección-primera">Sección primera</a></li>
-  <li><a href="#sección-segunda" id="toc-sección-segunda" class="nav-link" data-scroll-target="#sección-segunda">Sección segunda</a></li>
-  </ul></li>
-  </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/Cidree/test_book/issues" class="toc-action"><i class="bi bi-github"></i>Informar de un problema</a></li></ul></div></nav>
+<li><a href="#capas" id="toc-capas" class="nav-link active" data-scroll-target="#capas"><span class="header-section-number">3.1</span> Capas</a></li>
+  <li><a href="#facetas" id="toc-facetas" class="nav-link" data-scroll-target="#facetas"><span class="header-section-number">3.2</span> Facetas</a></li>
+  <li><a href="#escalas" id="toc-escalas" class="nav-link" data-scroll-target="#escalas"><span class="header-section-number">3.3</span> Escalas</a></li>
+  <li><a href="#coordenadas" id="toc-coordenadas" class="nav-link" data-scroll-target="#coordenadas"><span class="header-section-number">3.4</span> Coordenadas</a></li>
+  <li><a href="#temas" id="toc-temas" class="nav-link" data-scroll-target="#temas"><span class="header-section-number">3.5</span> Temas</a></li>
+  <li><a href="#resumen" id="toc-resumen" class="nav-link" data-scroll-target="#resumen"><span class="header-section-number">3.6</span> Resumen</a></li>
+  <li><a href="#referencias" id="toc-referencias" class="nav-link" data-scroll-target="#referencias">Referencias</a></li>
+  </ul><div class="toc-actions"><ul><li><a href="https://github.com/Cidree/test_book/issues" class="toc-action"><i class="bi bi-github"></i>Informar de un problema</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Fundamentos de programación con R</h1>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./1001_visualization.html">Visualización</a></li><li class="breadcrumb-item"><a href="./1004_components.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Componentes</span></a></li></ol></nav><div class="quarto-title">
+<h1 class="title">
+<span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Componentes</span>
+</h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Autor/a</div>
-    <div class="quarto-title-meta-contents">
-             <p>Adrián Cidre </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Fecha de publicación</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">28 de mayo de 2024</p>
-    </div>
-  </div>
   
     
   </div>
   
-<div>
-  <div class="abstract">
-    <div class="block-title">Resumen</div>
-    Libro de programación en R correspondiente al curso de Fundamentos de Programación con R del Máster Geoforest de la Universidad de Córdoba.
-  </div>
+
+
+</header><p>Este capítulo tiene el objetivo de mostrar los componentes de un gráfico en <a href="https://ggplot2.tidyverse.org">ggplot2</a>. Utilizaremos un ejemplo sencillo y exploraremos sus componentes. No será un capítulo impresionante, pero nos ayudará a entender qué funciones utiliza <a href="https://ggplot2.tidyverse.org">ggplot2</a> por defecto según el tipo de datos que grafiquemos.</p>
+<section id="capas" class="level2" data-number="3.1"><h2 data-number="3.1" class="anchored" data-anchor-id="capas">
+<span class="header-section-number">3.1</span> Capas</h2>
+<p>En primer lugar, vamos a generar un gráfico utilizando los datos del inventario forestal visto en el capítulo anterior, donde mostraremos la relación entre la altura y el diámetro de los árboles por especie.</p>
+<div class="cell">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">## Crear gráfico</span></span>
+<span><span class="va">base_gg</span> <span class="op">&lt;-</span> <span class="va">inventario_completo_tbl</span> <span class="op">|&gt;</span> </span>
+<span>    <span class="fu">ggplot</span><span class="op">(</span></span>
+<span>      <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">dbh_mm</span>, y <span class="op">=</span> <span class="va">height_m</span>, color <span class="op">=</span> <span class="va">nombre_ifn</span><span class="op">)</span></span>
+<span>    <span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">## Imprimir gráfico</span></span>
+<span><span class="va">base_gg</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-components-layer" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-components-layer-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="1004_components_files/figure-html/fig-components-layer-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Fig.&nbsp;3.1: Gráfico con capas"><img src="1004_components_files/figure-html/fig-components-layer-1.png" class="img-fluid figure-img" width="672"></a>
 </div>
-
-
-</header>
-
-
-<p><a href="assets/img/logo-geoforest.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="assets/img/logo-geoforest.png" title="Fundamentos de programación con R" class="quarto-cover-image img-fluid"></a></p>
-<section id="bienvenida" class="level1 unnumbered">
-<h1 class="unnumbered">Bienvenida</h1>
-<p>Este libro …</p>
-<section id="sección-primera" class="level2">
-<h2 class="anchored" data-anchor-id="sección-primera">Sección primera</h2>
-<p>Sección rimera</p>
-</section>
-<section id="sección-segunda" class="level2">
-<h2 class="anchored" data-anchor-id="sección-segunda">Sección segunda</h2>
-<p>Sección segunda</p>
-<div class="callout callout-style-default callout-note callout-titled">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-components-layer-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Fig.&nbsp;3.1: Gráfico con capas
+</figcaption></figure>
+</div>
+</div>
+</div>
+</section><section id="facetas" class="level2" data-number="3.2"><h2 data-number="3.2" class="anchored" data-anchor-id="facetas">
+<span class="header-section-number">3.2</span> Facetas</h2>
+<p>Las facetas son una forma de dividir un gráfico en subgráficos, de acuerdo a una variable categórica. Por defecto, <a href="https://ggplot2.tidyverse.org">ggplot2</a> utiliza la función <code>facet_null()</code> que indica que no se desea dividir el gráfico. Para comprobar que esto es cierto, vamos a añadir esta función al gráfico anterior.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Prueba
+Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Por defecto</p>
+<p>Una característica de <a href="https://ggplot2.tidyverse.org">ggplot2</a> es que podemos guardar el gráfico en un objeto y añadir capas adicionales posteriormente.</p>
 </div>
 </div>
-<div class="callout callout-style-simple callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<div class="cell">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">## Añadir facetas</span></span>
+<span><span class="va">facets_gg</span> <span class="op">&lt;-</span> <span class="va">base_gg</span> <span class="op">+</span> </span>
+<span>    <span class="fu">facet_null</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">## Imprimir gráfico</span></span>
+<span><span class="va">facets_gg</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-components-facet" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-components-facet-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="1004_components_files/figure-html/fig-components-facet-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Fig.&nbsp;3.2: Gráfico sin facetas"><img src="1004_components_files/figure-html/fig-components-facet-1.png" class="img-fluid figure-img" width="672"></a>
 </div>
-<div class="callout-title-container flex-fill">
-Prueba 2
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Simple</p>
-</div>
-</div>
-<div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Prueba 3
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-components-facet-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Fig.&nbsp;3.2: Gráfico sin facetas
+</figcaption></figure>
 </div>
 </div>
-<div class="callout-body-container callout-body">
-<p>Minimal</p>
+</div>
+<p>Vemos que el resultado de la <a href="#fig-components-facet" class="quarto-xref">Figura&nbsp;<span>3.2</span></a> es exactamente igual al de la <a href="#fig-components-layer" class="quarto-xref">Figura&nbsp;<span>3.1</span></a>. En el capítulo <!--# añadir referencia --> veremos otras opciones de facetas.</p>
+</section><section id="escalas" class="level2" data-number="3.3"><h2 data-number="3.3" class="anchored" data-anchor-id="escalas">
+<span class="header-section-number">3.3</span> Escalas</h2>
+<p>Las escalas se encargar de mapear los valores de los datos a los valores estéticos <span class="citation" data-cites="layered-grammar">(<a href="#ref-layered-grammar" role="doc-biblioref">Wickham 2010</a>)</span>. En nuestro gráfico, hemos utilizado un total de tres estéticas:</p>
+<ul>
+<li>
+<code>x</code>: diámetro del árbol en milímetros</li>
+<li>
+<code>y</code>: altura del árbol en metros</li>
+<li>
+<code>color</code>: especie del árbol</li>
+</ul>
+<p>Por ello, por defecto se genera una escala para cada una de estas estéticas. Vamos a ver las que se generan por defecto:</p>
+<div class="cell">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">##  Añadir escalas</span></span>
+<span><span class="va">scales_gg</span> <span class="op">&lt;-</span> <span class="va">base_gg</span> <span class="op">+</span> </span>
+<span>    <span class="fu">scale_x_continuous</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">scale_y_continuous</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">scale_color_discrete</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">## Imprimir gráfico</span></span>
+<span><span class="va">scales_gg</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-components-scale" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-components-scale-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="1004_components_files/figure-html/fig-components-scale-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Fig.&nbsp;3.3: Escalas por defecto"><img src="1004_components_files/figure-html/fig-components-scale-1.png" class="img-fluid figure-img" width="672"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-components-scale-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Fig.&nbsp;3.3: Escalas por defecto
+</figcaption></figure>
+</div>
+</div>
+</div>
+<p>Vemos varias cosas interesantes en el código que hemos añadido:</p>
+<ul>
+<li>Las funciones de escalas empiezan por <code>scale_*</code>
+</li>
+<li>En siguiente lugar, se añade el nombre de la estética que se quiere modificar</li>
+<li>Finalmente, se añaden los argumentos necesarios para modificar la escala</li>
+</ul>
+<p>El tercer punto es importante. Si tenemos una variable numérica, su escala será <code>scale_*_continuous()</code>, mientras que si es categórica, será <code>scale_*_discrete()</code>.</p>
+<p>Veremos los detalles de las escalas en el capítulo <!--# añadir referencia -->.</p>
+</section><section id="coordenadas" class="level2" data-number="3.4"><h2 data-number="3.4" class="anchored" data-anchor-id="coordenadas">
+<span class="header-section-number">3.4</span> Coordenadas</h2>
+<p>Las coordenadas definen cómo se representan los datos en el gráfico. Por defecto, <a href="https://ggplot2.tidyverse.org">ggplot2</a> utiliza un sistema de coordenadas cartesianas. Vamos a ver cómo se ve nuestro gráfico con las coordenadas por defecto.</p>
+<div class="cell">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">## Añadir coordenadas</span></span>
+<span><span class="va">coord_gg</span> <span class="op">&lt;-</span> <span class="va">base_gg</span> <span class="op">+</span> </span>
+<span>    <span class="fu">coord_cartesian</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">## Imprimir gráfico</span></span>
+<span><span class="va">coord_gg</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-components-coord" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-components-coord-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="1004_components_files/figure-html/fig-components-coord-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Fig.&nbsp;3.4: Coordenadas por defecto"><img src="1004_components_files/figure-html/fig-components-coord-1.png" class="img-fluid figure-img" width="672"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-components-coord-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Fig.&nbsp;3.4: Coordenadas por defecto
+</figcaption></figure>
+</div>
+</div>
+</div>
+<p>De nuevo, vemos que no se ha modificado el gráfico. Las funciones de coordenadas empiezan por <code>coord_*</code>, y en el capítulo <!--# añadir referencia --> veremos otras opciones de coordenadas.</p>
+</section><section id="temas" class="level2" data-number="3.5"><h2 data-number="3.5" class="anchored" data-anchor-id="temas">
+<span class="header-section-number">3.5</span> Temas</h2>
+<p>Los temas definen el aspecto visual del gráfico. Por defecto, <a href="https://ggplot2.tidyverse.org">ggplot2</a> utiliza el tema <code>theme_gray()</code>:</p>
+<div class="cell">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">## Añadir tema</span></span>
+<span><span class="va">theme_gg</span> <span class="op">&lt;-</span> <span class="va">base_gg</span> <span class="op">+</span> </span>
+<span>    <span class="fu">theme_gray</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">theme</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">## Imprimir gráfico</span></span>
+<span><span class="va">theme_gg</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-components-theme" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-components-theme-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="1004_components_files/figure-html/fig-components-theme-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Fig.&nbsp;3.5: Tema por defecto"><img src="1004_components_files/figure-html/fig-components-theme-1.png" class="img-fluid figure-img" width="672"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-components-theme-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Fig.&nbsp;3.5: Tema por defecto
+</figcaption></figure>
+</div>
+</div>
+</div>
+<p>En el código anterior vemos dos funciones:</p>
+<ul>
+<li><p><code>theme_*</code>: se utilizan para aplicar un tema predeterminado que trae una serie de valores de los temas por defecto.</p></li>
+<li><p><code>theme()</code>: se utiliza para personalizar propiedades de forma unitaria.</p></li>
+</ul>
+<p>De nuevo, veremos los detalles de los temas en el capítulo <!--# añadir referencia -->.</p>
+</section><section id="resumen" class="level2" data-number="3.6"><h2 data-number="3.6" class="anchored" data-anchor-id="resumen">
+<span class="header-section-number">3.6</span> Resumen</h2>
+<p>En este capítulo hemos visto los componentes de un gráfico en <a href="https://ggplot2.tidyverse.org">ggplot2</a> que vienen por defecto. Vamos a unir todo lo que vimos en un bloque de código:</p>
+<div class="cell">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">inventario_completo_tbl</span> <span class="op">|&gt;</span> </span>
+<span>    <span class="co">## Añadir capas</span></span>
+<span>    <span class="fu">ggplot</span><span class="op">(</span></span>
+<span>      <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">dbh_mm</span>, y <span class="op">=</span> <span class="va">height_m</span>, color <span class="op">=</span> <span class="va">nombre_ifn</span><span class="op">)</span></span>
+<span>    <span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="co">## Añadir facetas</span></span>
+<span>    <span class="fu">facet_null</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="co">## Añadir escalas</span></span>
+<span>    <span class="fu">scale_x_continuous</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">scale_y_continuous</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">scale_color_discrete</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="co">## Añadir coordenadas</span></span>
+<span>    <span class="fu">coord_cartesian</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="co">## Añadir tema</span></span>
+<span>    <span class="fu">theme_gray</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">theme</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-components-all" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-components-all-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="1004_components_files/figure-html/fig-components-all-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="Fig.&nbsp;3.6: Gráfico con todos los componentes"><img src="1004_components_files/figure-html/fig-components-all-1.png" class="img-fluid figure-img" width="672"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-components-all-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Fig.&nbsp;3.6: Gráfico con todos los componentes
+</figcaption></figure>
+</div>
+</div>
+</div>
+</section><section id="referencias" class="level2 unnumbered"><h2 class="unnumbered anchored" data-anchor-id="referencias">Referencias</h2>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-layered-grammar" class="csl-entry" role="listitem">
+Wickham, Hadley. 2010. <span>«A layered grammar of graphics»</span>. <em>Journal of Computational and Graphical Statistics</em> 19 (1): 3-28. <a href="https://doi.org/10.1198/jcgs.2009.07098">https://doi.org/10.1198/jcgs.2009.07098</a>.
 </div>
 </div>
 
 
-</section>
-</section>
-
-</main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -858,31 +1004,30 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="./1003_first_steps.html" class="pagination-link" aria-label="Primeros pasos con ggplot2">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Primeros pasos con ggplot2</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./1001_visualization.html" class="pagination-link" aria-label="Visualización">
-        <span class="nav-page-text">Visualización</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./chapters/testing.html" class="pagination-link" aria-label="Webr test">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Webr test</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
 </div> <!-- /content -->
-<footer class="footer">
-  <div class="nav-footer">
+<footer class="footer"><div class="nav-footer">
     <div class="nav-footer-left">
 <p>Fundamentos de Programación con R (1e). Adrián Cidre, 2024</p>
 </div>   
     <div class="nav-footer-center">
-<p><a href="https://mastergeoforest.es//" target="_blank">Máster Geoforest</a><br> <a href="https://www.uco.es/eguiado/guias/2023-24/20286es_2023-24.pdf" target="_blank">Guía docente</a><br> <a href="https://moodle.uco.es/m2223/" target="_blank">Moodle</a></p>
+<p><a href="https://mastergeoforest.es//" target="_blank">Máster Geoforest</a><br><a href="https://www.uco.es/eguiado/guias/2023-24/20286es_2023-24.pdf" target="_blank">Guía docente</a><br><a href="https://moodle.uco.es/m2223/" target="_blank">Moodle</a></p>
 <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/Cidree/test_book/issues" class="toc-action"><i class="bi bi-github"></i>Informar de un problema</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>Este libro ha sido escrito con <a href="https://quarto.org/" target="_blank">Quarto</a>.</p>
 </div>
   </div>
-</footer>
-<script>var lightboxQuarto = GLightbox({"loop":false,"selector":".lightbox","closeEffect":"zoom","openEffect":"zoom","descPosition":"bottom"});
+</footer><script>var lightboxQuarto = GLightbox({"descPosition":"bottom","openEffect":"zoom","closeEffect":"zoom","loop":false,"selector":".lightbox"});
 (function() {
   let previousOnload = window.onload;
   window.onload = () => {
@@ -914,8 +1059,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   
 })();
           </script>
-
-
 
 
 </body></html>

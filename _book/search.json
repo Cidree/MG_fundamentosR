@@ -34,18 +34,7 @@
     "href": "1002_introduction.html",
     "title": "\n1  Introducción a la visualización de datos\n",
     "section": "",
-    "text": "1.1 Objetivos",
-    "crumbs": [
-      "Visualización",
-      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introducción a la visualización de datos</span>"
-    ]
-  },
-  {
-    "objectID": "1002_introduction.html#objetivos",
-    "href": "1002_introduction.html#objetivos",
-    "title": "\n1  Introducción a la visualización de datos\n",
-    "section": "",
-    "text": "Entender la necesidad de comunicar nuestros datos de una forma clara\nAprender algunos de los principios de la visualización de datos\nAprender a elegir el gráfico adecuado para nuestros datos y nuestros objetivos\nEntender la gramática de gráficos y su implicación dentro de ggplot2\nCrear gráficos sencillos pero comunicativos con ggplot2",
+    "text": "1.1 Ejemplos de visualización de datos\nAntes de comenzar, vamos a ver una serie de ejemplos de visualizaciones de datos que nos ayudarán a entender la importancia de la visualización de datos y cómo puede ayudarnos a entender mejor la información que nos rodea.",
     "crumbs": [
       "Visualización",
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introducción a la visualización de datos</span>"
@@ -55,8 +44,8 @@
     "objectID": "1002_introduction.html#ejemplos-de-visualización-de-datos",
     "href": "1002_introduction.html#ejemplos-de-visualización-de-datos",
     "title": "\n1  Introducción a la visualización de datos\n",
-    "section": "\n1.2 Ejemplos de visualización de datos",
-    "text": "1.2 Ejemplos de visualización de datos\nAntes de comenzar, vamos a ver una serie de ejemplos de visualizaciones de datos que nos ayudarán a entender la importancia de la visualización de datos y cómo puede ayudarnos a entender mejor la información que nos rodea.\n\n1.2.1 Artículos científicos\nLos artículos científicos son una fuente importante de información para la comunidad científica. En ellos, los autores presentan sus resultados y conclusiones, y utilizan gráficos para ilustrar sus hallazgos. A continuación, se muestra un ejemplo de un gráfico extraído de un artículo científico:\n\n\n\n\n\nFig. 1.1: Gráfico de barras con barras de error extraído de Modesto et al. (2021)\n\n\n\n1.2.2 Periódicos\nLos periódicos son una fuente de información para el público en general. En ellos, los periodistas utilizan gráficos para ilustrar noticias y tendencias. A continuación, se muestra un ejemplo de un gráfico extraído de un periódico:\n\n\n\n\n\nFig. 1.2: Visualización del periódico TIME\n\n\nEn esta visualización se compara la mortalidad de cuatro enfermedades. Echa un vistazo a los detalles de esta visualización. Crees que es una buena representación gráfica?\n\n1.2.3 Aplicaciones\nHoy en día existen muchas aplicaciones que utilizan gráficos para presentar información a los usuarios, como pueden ser aplicaciones bancarias, de salud o de deportes. El siguiente ejemplo muestra la aplicación de Huawei Health:\n\n\n\n\n\nFig. 1.3: Visualización de la aplicación Huawei Health\n\n\nAquí podemos ver un gráfico de barras donde se representan las kcal quemadas por el usuario cada día de la útlima semana. A continuación, se muestran unos indicadores del total de kcal quemadas en la última semana y la media semanal, ya que son valores que usualmente consultamos. Finalmente, se muestra un gráfico de barras apilado con el tipo de actividad que ha consumido las kcal anteriores. Además, nos permite consultar las mismas estadísticas por día, mes y año.\n\n\nJoining with `by = join_by(ID_ARBOL)`\nJoining with `by = join_by(BAJA, PUNTO)`\nJoining with `by = join_by(COD_AGE)`\nJoining with `by = join_by(COD_PROV)`",
+    "section": "",
+    "text": "1.1.1 Artículos científicos\nLos artículos científicos son una fuente importante de información para la comunidad científica. En ellos, los autores presentan sus resultados y conclusiones, y utilizan gráficos para ilustrar sus hallazgos. A continuación, se muestra un ejemplo de un gráfico extraído de un artículo científico:\n\n\n\n\n\nFig. 1.1: Gráfico de barras con barras de error extraído de Modesto et al. (2021)\n\n\n\n1.1.2 Periódicos\nLos periódicos son una fuente de información para el público en general. En ellos, los periodistas utilizan gráficos para ilustrar noticias y tendencias. A continuación, se muestra un ejemplo de un gráfico extraído del periódico español El País:\n\n\n\n\n\nFig. 1.2: Visualización del periódico El País\n\n\nEn la Figura 1.2 tenemos dos tipos de figuras que seguramente todos hemos visto. Dirías que la forma de representar estos datos es adecuada?\nPuede que inicialmente sea complejo de ver, pero si te fijas, aunque los dos gráficos parecen de barras con la misma estructura, verás que el superior es un gráfico de barras donde ambas barras empiezan en 0, mientras que el inferior es otro gráfico de barras donde las barras se acumulan, de forma que el final de una barra es el inicio de la siguiente. Esto trae una serie de implicaciones en la interpretación de los datos, ya que en el primer caso se pueden comparar las barras directamente, mientras que en el segundo caso, aunque se pueden comparar las barras, es más complicado ver la diferencia entre ellas. Sabrías decirme si la producción de petróleo de esquisto será mayor en 2025 o en 2040? La producción de gas de esquisto de 2040, cuánto de mayor es que la de 2010? Cinco veces mayor, siete veces mayor?\nEn este curso, aunque no podremos introducirnos en la teoría y fundamentos de la visualización de datos, intentaremos enseñaros a crear gráficos sencillos que muestran la información de forma clara y comunicativa siguiendo los principios básicos de la visualización de datos.\n\n1.1.3 Aplicaciones\nHoy en día existen muchas aplicaciones que utilizan gráficos para presentar información a los usuarios, como pueden ser aplicaciones bancarias, de salud o de deportes. El siguiente ejemplo muestra la aplicación de Huawei Health:\n\n\n\n\n\nFig. 1.3: Visualización de la aplicación Huawei Health\n\n\nAquí podemos ver un gráfico de barras donde se representan las kcal quemadas por el usuario cada día de la útlima semana. A continuación, se muestran unos indicadores del total de kcal quemadas en la última semana y la media semanal, ya que son valores que usualmente consultamos. Finalmente, se muestra un gráfico de barras apilado con el tipo de actividad que ha consumido las kcal anteriores. Además, nos permite consultar las mismas estadísticas por día, mes y año.\n\n1.1.4 Facturas\nSi revisas tus facturas, verás que muchas de ellas incluyen gráficos para ilustrar tus gastos o consumos. A continuación, se muestra un ejemplo de una factura de Naturgy:\n\n\n\n\n\nFig. 1.4: Visualización de la factura de Naturgy\n\n\nAquí podemos ver dos gráficos. Una gráfico de barras apilado y un gráfico circular. Desafortunadamente, muchos profesionales utilizan este tipo de gráficos para presentar información, pero no son los más adecuados para ello. Por ejemplo, en el gráfico circular, es difícil comparar las proporciones de los diferentes conceptos, ya que no es fácil comparar ángulos. Para tener una idea clara de lo que estamos comparando, tenemos que acudir a las etiquetas, lo que no es lo más adecuado.\n\n\n\n\n\n\nAdvertencia\n\n\n\nLos gráficos circulares son utilizados por un montón de gente, y odiados por los expertos en visualización de datos. En el siguiente ejemplo puedes ver un ejemplo de por qué no son recomendables.\n\n\n\n\n\n\n\nFig. 1.5: Comparación de gráficos circulares y de barras\n\n\n\n\nEn el gráfico anterior, se comparan los mismos datos utilizando un gráfico circular y un gráfico de barras. Cuál de los dos gráficos te parece más fácil de interpretar?\n\n\nPor otro lado, en el gráfico de barras apilado, es sencillo comparar la primera barra ya que todas tienen el mismo origen (0). Sin embargo, comparar las barras siguientes es más complicado, ya que no podemos comparar directamente las alturas de las barras. Además, al no tener un eje de referencia, no podemos saber cuánto representa cada barra.\n\n1.1.5 Otros\nEn general, la visualización de datos está presente en muchos aspectos de nuestra vida diaria, desde la televisión, las redes sociales hasta la ciencia. Desafortunadamente, en este curso no nos dará tiempo a cubrir muchos aspectos de la visualización de datos y de las buenas prácticas, si no que estará enfocado principalmente en aprender a utilizar ggplot2 para crear gráficos sencillos pero efectivos.\n\n\nJoining with `by = join_by(ID_ARBOL)`\nJoining with `by = join_by(BAJA, PUNTO)`\nJoining with `by = join_by(COD_AGE)`\nJoining with `by = join_by(COD_PROV)`",
     "crumbs": [
       "Visualización",
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introducción a la visualización de datos</span>"
@@ -76,22 +65,187 @@
   {
     "objectID": "1003_first_steps.html",
     "href": "1003_first_steps.html",
-    "title": "2  Primeros pasos con ggplot2",
+    "title": "\n2  Primeros pasos con ggplot2\n",
     "section": "",
-    "text": "Texto…",
+    "text": "2.1 Objetivos\nEn esta sección, trabajaremos con los siguientes paquetes:\nlibrary(dplyr)\nlibrary(ggplot2)\nlibrary(skimr)\nlibrary(readr)",
     "crumbs": [
       "Visualización",
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Primeros pasos con  ggplot2</span>"
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Primeros pasos con ggplot2</span>"
+    ]
+  },
+  {
+    "objectID": "1003_first_steps.html#sec-vis-objectives",
+    "href": "1003_first_steps.html#sec-vis-objectives",
+    "title": "\n2  Primeros pasos con ggplot2\n",
+    "section": "",
+    "text": "Entender la gramática de gráficos y su implicación dentro de ggplot2\nEstudiar los componentes que formar un gráfico en ggplot2\nCrear gráficos sencillos\nEntender como funciona la herencia de datos y estéticas\nEstudiar la diferencia entre mapear y asignar una estética",
+    "crumbs": [
+      "Visualización",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Primeros pasos con ggplot2</span>"
+    ]
+  },
+  {
+    "objectID": "1003_first_steps.html#sec-vis-data",
+    "href": "1003_first_steps.html#sec-vis-data",
+    "title": "\n2  Primeros pasos con ggplot2\n",
+    "section": "\n2.2 Datos de trabajo",
+    "text": "2.2 Datos de trabajo\nAntes de comenzar a trabajar con ggplot2, vamos a explorar los datos con los que vamos a trabajar. En este caso, vamos a utilizar un conjunto de datos de ejemplo que contiene información sobre una serie de árboles. Para cargar los datos, utilizaremos la función read_rds() del paquete readr:\n\ninventario_tbl &lt;- read_rds(\"data/inventario_prep.rds\")\n\nUna vez que hemos cargado los datos, vamos a utilizar la función skim del paquete skimr para obtener un resumen de los datos:\n\nskim(inventario_tbl)\n\n\nData summary\n\n\nName\ninventario_tbl\n\n\nNumber of rows\n1540\n\n\nNumber of columns\n4\n\n\n_______________________\n\n\n\nColumn type frequency:\n\n\n\nfactor\n2\n\n\nnumeric\n2\n\n\n________________________\n\n\n\nGroup variables\nNone\n\n\n\nVariable type: factor\n\n\n\n\n\n\n\n\n\n\nskim_variable\nn_missing\ncomplete_rate\nordered\nn_unique\ntop_counts\n\n\n\nid_plots\n0\n1\nFALSE\n27\n17: 111, 11: 91, 5: 89, 14: 79\n\n\nnombre_ifn\n0\n1\nFALSE\n2\nPin: 1302, Pin: 238\n\n\n\nVariable type: numeric\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nskim_variable\nn_missing\ncomplete_rate\nmean\nsd\np0\np25\np50\np75\np100\nhist\n\n\n\ndbh_mm\n12\n0.99\n184.85\n50.97\n65.0\n153.75\n177.00\n207.00\n531.00\n▃▇▁▁▁\n\n\nheight_m\n1120\n0.27\n9.49\n3.27\n3.3\n7.39\n8.57\n10.47\n21.99\n▂▇▂▁▁\n\n\n\n\n\nEsta función nos proporciona información sobre las variables del conjunto de datos, incluyendo el tipo de variable, el número de observaciones, el número de valores faltantes (NA), la media, la desviación estándar, los valores mínimos y máximos, y los cuartiles.\nTenemos 2 variables numéricas que son el diámetro y la altura de los árboles, y 2 variables categóricas que son la especie (Pinus nigra o Pinus sylvestris) y un identificador de la parcela de inventario (27 parcelas distintas). Para el diámetro, tenemos un total de 12 valores ausentes (NA) que son aproximadamente un 1% de los datos. Para la altura, tenemos 1120 valores ausentes, que son aproximadamente un 73% de los datos. En este sentido, es importante tener en cuenta que los valores ausentes pueden afectar a los análisis y visualizaciones que realicemos con los datos.\n\n\n\n\n\n\nNota\n\n\n\nAunque estos datos tengan una estructura muy sencilla, nos servirán a la perfección para los objetivos de este curso. Nuestro objetivo será entender la gramática de gráficos como una base fundamental que nos permitirá transmitir el mensaje que deseemos con nuestros datos.",
+    "crumbs": [
+      "Visualización",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Primeros pasos con ggplot2</span>"
+    ]
+  },
+  {
+    "objectID": "1003_first_steps.html#sec-gog",
+    "href": "1003_first_steps.html#sec-gog",
+    "title": "\n2  Primeros pasos con ggplot2\n",
+    "section": "\n2.3 Gramática de gráficos",
+    "text": "2.3 Gramática de gráficos\nLa gramática de gráficos es un conjunto de reglas que definen cómo se pueden construir gráficos a partir de componentes básicos, y fue creada por Wilkinson (2005). La idea de crear una gramática de gráficos es que, al igual que en la gramática de un idioma, se pueden combinar diferentes elementos para crear gráficos complejos. Cuando aprendemos a hablar un idioma, aprendemos las reglas gramaticales y el vocabulario, y con estos elementos podemos crear frases y textos. De la misma forma, al aprender la gramática de gráficos, podemos crear gráficos complejos a partir de componentes básicos.\nPosteriormente se creó ggplot2 (Wickham 2010), que utiliza las reglas gramaticales de la gramática de gráficos para crear gráficos en R. ggplot2 se basa en la idea de que un gráfico se puede construir a partir de capas, y cada capa se puede añadir al gráfico para añadir información adicional.",
+    "crumbs": [
+      "Visualización",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Primeros pasos con ggplot2</span>"
+    ]
+  },
+  {
+    "objectID": "1003_first_steps.html#sec-components",
+    "href": "1003_first_steps.html#sec-components",
+    "title": "\n2  Primeros pasos con ggplot2\n",
+    "section": "\n2.4 Componentes",
+    "text": "2.4 Componentes\nLa gramática de gráficos tiene una serie de componentes diferenciados Figura 2.1 que se definen en Wickham (2010). Estos componentes son:\n\nDatos (data): conjunto de datos que utilizamos para generar el gráfico.\nGeometrías (geom): se refiere a la forma de representación de nuestros datos. Algunos ejemplos de geometrías son: puntos, líneas, histograma, diagramas de caja, etc.\nEstéticas (aes): también denominados aesthetic mappings. Se refiere a los elementos que definen la estética de las geometrías. Si ponemos el ejemplo de un gráfico de puntos (scatter plot), las estéticas pueden ser: su forma (punto, rectángulo, triángulo…), su tamaño, color, transparencia …\nTransformaciones estadísticas (stat):se refiere al estadístico utilizado para resumir nuestros datos. Por ejemplo, para crear un histograma resumimos nuestros datos en intervalos (bins) y contamos el número de observaciones que existen dentro de este intervalo. Este componente es más avanzado que el resto, por lo que trabajaremos solamente con los valores que vienen por defecto.\nEscalas (scale): transforman los valores de los datos en estéticas. Nos permiten controlar los colores, tamaños, formas, etc. También nos permiten controlar aspectos de las leyendas y ejes.\n\n\n\n\n\n\n\nImportante\n\n\n\nExiste una escala por cada estética utilizada.\n\n\n\nFacetas (facets): consiste en generar subgráficos según un atributo. Por ejemplo, utilizando nuestros datos de inventario, podemos generar un gráfico de puntos donde representemos la relación diámetro-altura para todos los datos, o bien podemos generar facetas que generen un gráfico por cada una de las especies (es decir, un scatter plot para P. nigra y otro distinto para P. sylvestris).\nCoordenadas (coord): sistema de coordenadas utilizado para mapear los datos. Por defecto y normalmente, utilizaremos el sistema de coordenadas cartesiano. Otros sistemas disponibles son el sistema de coordenadas polares (que nos permiten crear los increíbles gráficos circulares), o también sistemas de referencia de coordenadas para generar mapas (sí, con ggplot2 podemos generar mapas🗺️).\nTema (theme): nos permite controlar todos los aspectos relacionados con la apariencia del gráfico, como puede ser la fuente de texto, tamaño de fuente, posición de elementos como la leyenda, colores de relleno, etc.\n\n\n\n\n\n\nFig. 2.1: Componentes principales de la gramática de gráficos\n\n\nFinalmente, podemos definir una capa como la combinación de datos, estéticas, geometrías y transformaciones estadísticas (Wickham, Navarro, y Pedersen 2021), y en la mayoría de las ocasiones, estos cuatro componentes se especificarán dentro de una función que comienza por geom_*, aunque los datos y las estéticas también se pueden especificar dentro de la función ggplot(). No os preocupéis, pronto veremos las diferencias entre estas opciones.\n\n\n\n\n\n\nImportante\n\n\n\nUn mismo gráfico puede contener más de una capa y estas capas pueden (o no) compartir los mismo datos:\n\nCapa 1: utiliza los datos de inventario, como estéticas utiliza las variables DBH_mm y height_m, la geometría de punto y como transformación estadística utiliza identity. Esta transformación es utilizada por muchas geometrías y significa que va a utilizar los valores tal cual aparecen en la tabla de datos, sin realizar ninguna transformación. En términos matemáticos significa que \\(f(x)= x\\).\nCapa 2: utiliza los datos de inventario, como estéticas utiliza las variables DBH_mm y height_m, la geometría de línea y como transformación estadística utiliza smooth. Esta transformación utiliza un método de suavizado (por defecto una Regresión Local (LOESS)) donde se genera una línea que aproxima la tendencia de los datos.\n\n\n\n\n\n\n\n\n\n\n\nEl tipo de gráfico viene definido por dos elementos: el tipo de geometría y la transformación estadística. Por poner un ejemplo relacionado con el anterior:\n\nGráfico de líneas: se define por una geometría de línea y una transformación estadística identity (geom_line(stat = \"identity\")).\nGráfico suavizado: utiliza la geometría de línea y una transformación estadística smooth (geom_line(stat = \"smooth\")).\n\nNo obstante, los gráficos comunes como el gráfico suavizado vienen incluidos en ggplot2 a través de una función que utiliza la transformación estadística adecuada por defecto, y solamente nos hará falta llamar a la función adecuada sin utilizar el argumento stat:\n\n\nFunción\nT.E. por defecto\n\n\n\ngeom_line()\nidentity\n\n\ngeom_smooth()\nsmooth",
+    "crumbs": [
+      "Visualización",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Primeros pasos con ggplot2</span>"
+    ]
+  },
+  {
+    "objectID": "1003_first_steps.html#sec-first-example",
+    "href": "1003_first_steps.html#sec-first-example",
+    "title": "\n2  Primeros pasos con ggplot2\n",
+    "section": "\n2.5 Ejemplo rápido",
+    "text": "2.5 Ejemplo rápido\nPara digerir los conceptos anteriores, vamos a ver un ejemplo rápido. Para este ejemplo, vamos a eliminar los valores ausentes, ya que el objetivo es solamente entender los conceptos anteriores y no generar un gráfico para publicar.\n\ninventario_completo_tbl &lt;- na.omit(inventario_tbl)\nprint(inventario_completo_tbl)\n\n# A tibble: 418 × 4\n   id_plots dbh_mm height_m nombre_ifn      \n   &lt;fct&gt;     &lt;int&gt;    &lt;dbl&gt; &lt;fct&gt;           \n 1 0           296     9.26 Pinus sylvestris\n 2 0           303    10.1  Pinus sylvestris\n 3 0           105     5.48 Pinus sylvestris\n 4 0           138     7.07 Pinus nigra     \n 5 0           153     7.54 Pinus sylvestris\n 6 0           233     9.60 Pinus sylvestris\n 7 0           140     7.01 Pinus sylvestris\n 8 0           200     7.36 Pinus sylvestris\n 9 0           210    10.1  Pinus sylvestris\n10 0           142     6.25 Pinus sylvestris\n# ℹ 408 more rows\n\n\nDe este modo nos quedamos con 418 observaciones.\n\n\nLíneas\nSuavizado 1\nSuavizado 2\n\n\n\n\ninventario_completo_tbl |&gt; \n    ggplot(\n        aes(x = dbh_mm, y = height_m)\n    ) +\n    geom_line()\n\n\n\n\n\n\nFig. 2.2: Ejemplo básico de gráfico de líneas\n\n\n\n\n\n\n\ninventario_completo_tbl |&gt; \n    ggplot(\n        aes(x = dbh_mm, y = height_m)\n    ) +\n    geom_line(\n        stat = \"smooth\"\n    )\n\n\n\n\n\n\nFig. 2.3: Ejemplo básico de línea suavizada con geom_line()\n\n\n\n\n\n\n\ninventario_completo_tbl |&gt; \n    ggplot(\n        aes(x = dbh_mm, y = height_m)\n    ) +\n    geom_smooth()\n\n\n\n\n\n\nFig. 2.4: Ejemplo básico de línea suavizada con geom_smooth()\n\n\n\n\n\n\n\nCompara las tres gráficas. En Figura 2.2 no utilizamos el argumento stat ya que el que viene por defecto es identity. Del mismo modo, en Figura 2.4 tampoco es necesario utilizar el argumento ya que stat = \"smooth\" viene por defecto.\n\n\n\n\n\n\nNota\n\n\n\nEn este curso no vamos a trabajar con transformaciones estadísticas en mayor profundidad. Esta sección solamente quiere remarcar que detrás de cada geometría existe una transformación estadística que viene dada por defecto.\n\n\nTambién te habrás dado cuenta de que no hemos utilizado los componentes: facetas, escalas, coordenadas ni tema. Esto se debe a que estos componentes siempre, en todos los gráficos tienen un valor por defecto. Pero todo a su tiempo. Vamos a empezar desengranando el código anterior. Para tener una idea de los argumentos que estamos utilizando vamos a comparar los siguientes gráficos derivados de Figura 2.4:\n\n\nMétodo 1\nMétodo 2\nMétodo 3\nMétodo 4\n\n\n\n\nggplot(\n    data    = inventario_completo_tbl,\n    mapping = aes(x = dbh_mm, y = height_m)\n) +\n    geom_smooth()\n\n\n\n\n\n\n\n\n\n\nggplot(inventario_completo_tbl, aes(x = dbh_mm, y = height_m)) +\n    geom_smooth()\n\n\n\n\n\n\n\n\n\n\nggplot(\n    inventario_completo_tbl, \n    aes(x = dbh_mm, y = height_m)\n) +\n    geom_smooth()\n\n\n\n\n\n\n\n\n\n\ninventario_completo_tbl |&gt; \n    ggplot(\n        aes(x = dbh_mm, y = height_m)\n    ) +\n    geom_smooth()\n\n\n\n\n\n\n\n\n\n\nComo veis, el resultado es exactamente el mismo. Normalmente utilizaremos el pipe operator (|&gt; o %&gt;%) como hacemos en el método 4 para inyectar los datos en el primer argumento de la función ggplot() que es data. El argumento mapping también se sabe perfectamente que es el segundo argumento de la función, por lo que no es necesario escribir mapping = ... si no directamente aes(...). En resumen, cualquier método de escritura de código de los anteriores se adecua en mayor o menor medida a los principios de diseño ordenado (Wickham 2014). No obstante, los métodos más adecuados serán los métodos 3 y 4 ya que nos ayudarán a que nuestro código sea más legible dado que la indentación nos ayuda a ver a qué función pertenece cada argumento y hará que nuestro código sea mucho más fácil de leer y mantener. Finalmente, para añadir componentes a nuestro gráfico utilizamos el operador matemático +.\n\n\n\n\n\n\nAdvertencia\n\n\n\nDesgraciadamente, mucha gente utiliza el método 2 para escribir código. Aunque en el ejemplo anterior no es algo grave, es una mala costumbre para muchos otros casos. Entiendes el siguiente código?\n\nfilter(select(filter(inventario_completo_tbl, dbh_mm &gt;= 300), dbh_mm:nombre_ifn), nombre_ifn == \"Pinus sylvestris\")\n\n# A tibble: 29 × 3\n   dbh_mm height_m nombre_ifn      \n    &lt;int&gt;    &lt;dbl&gt; &lt;fct&gt;           \n 1    303     10.1 Pinus sylvestris\n 2    309     10.3 Pinus sylvestris\n 3    494     14.3 Pinus sylvestris\n 4    335     18.9 Pinus sylvestris\n 5    300     12.3 Pinus sylvestris\n 6    326     15.1 Pinus sylvestris\n 7    325     14.7 Pinus sylvestris\n 8    343     14.9 Pinus sylvestris\n 9    329     11.6 Pinus sylvestris\n10    328     18.9 Pinus sylvestris\n# ℹ 19 more rows\n\n\nY si lo escribo de este modo?\n\nfilter(\n    select(\n        filter(\n            inventario_completo_tbl, dbh_mm &gt;= 300\n        ), \n        dbh_mm:nombre_ifn), \n    nombre_ifn == \"Pinus sylvestris\"\n)\n\n# A tibble: 29 × 3\n   dbh_mm height_m nombre_ifn      \n    &lt;int&gt;    &lt;dbl&gt; &lt;fct&gt;           \n 1    303     10.1 Pinus sylvestris\n 2    309     10.3 Pinus sylvestris\n 3    494     14.3 Pinus sylvestris\n 4    335     18.9 Pinus sylvestris\n 5    300     12.3 Pinus sylvestris\n 6    326     15.1 Pinus sylvestris\n 7    325     14.7 Pinus sylvestris\n 8    343     14.9 Pinus sylvestris\n 9    329     11.6 Pinus sylvestris\n10    328     18.9 Pinus sylvestris\n# ℹ 19 more rows\n\n\nY de este?\n\ninventario_completo_tbl |&gt; \n    filter(dbh_mm &gt;= 300) |&gt; \n    select(dbh_mm:nombre_ifn) |&gt; \n    filter(nombre_ifn == \"Pinus sylvestris\")\n\n# A tibble: 29 × 3\n   dbh_mm height_m nombre_ifn      \n    &lt;int&gt;    &lt;dbl&gt; &lt;fct&gt;           \n 1    303     10.1 Pinus sylvestris\n 2    309     10.3 Pinus sylvestris\n 3    494     14.3 Pinus sylvestris\n 4    335     18.9 Pinus sylvestris\n 5    300     12.3 Pinus sylvestris\n 6    326     15.1 Pinus sylvestris\n 7    325     14.7 Pinus sylvestris\n 8    343     14.9 Pinus sylvestris\n 9    329     11.6 Pinus sylvestris\n10    328     18.9 Pinus sylvestris\n# ℹ 19 more rows\n\n\nComo ves, tres formas de escribir el mismo código aumentando la legibilidad del mismo. Estos principios se utilizarán a lo largo de este curso. Una lectura muy recomendable es The tidyverse style guide.",
+    "crumbs": [
+      "Visualización",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Primeros pasos con ggplot2</span>"
+    ]
+  },
+  {
+    "objectID": "1003_first_steps.html#sec-inheritance-aes",
+    "href": "1003_first_steps.html#sec-inheritance-aes",
+    "title": "\n2  Primeros pasos con ggplot2\n",
+    "section": "\n2.6 Herencia de estéticas",
+    "text": "2.6 Herencia de estéticas\nVamos a continuar con el ejemplo de la línea suavizada. Vamos a añadir otra capa donde se muestre la distribución de las observaciones con una geometría de punto:\n\ninventario_completo_tbl |&gt; \n    ggplot(\n        aes(x = dbh_mm, y = height_m)\n    ) +\n    geom_point() +\n    geom_smooth()\n\n\n\n\n\n\n\nEn este ejemplo estamos viendo una propiedad MUY IMPORTANTE en relación a la generación de gráficos con ggplot2. Dentro de la función ggplot() introducimos las estéticas y los datos. En siguiente lugar, las geometrías heredan estos elementos. Es decir, este gráfico podría ser algo más verboso del siguiente modo:\n\nggplot() +\n    geom_point(\n        data = inventario_completo_tbl,\n        aes(x = dbh_mm, y = height_m)\n    ) +\n    geom_smooth(\n        data = inventario_completo_tbl,\n        aes(x = dbh_mm, y = height_m)\n    ) \n\n\n\n\n\n\n\nEn este caso, estamos especificando los datos y las estéticas en cada una de las geometrías. Aunque esto es posible, no es recomendable ya que aumenta la longitud del código y puede llevar a errores si no se especifican correctamente los datos y las estéticas en cada una de las geometrías. No obstante, en muchos casos es necesario especificar los datos y las estéticas en cada una de las geometrías, ya que pueden utilizar estéticas diferentes o incluso datos diferentes. Vamos a ver un caso sencillo donde queremos representar la relación entre el diámetro y la altura de los árboles, pero queremos que los puntos de una especie sean de un color diferente a los de la otra especie. Vamos a ver una serie de ejemplos:\n\n\nColor - Todos\nColor - Puntos\nColor - Smooth\n\n\n\nEn este caso introducimos la estética color dentro de la función de ggplot(). En este caso todas las geometrías heredan las estéticas:\n\ninventario_completo_tbl |&gt; \n    ggplot(\n        aes(x = dbh_mm, y = height_m, color = nombre_ifn)\n    ) +\n    geom_point() +\n    geom_smooth() \n\n\n\n\n\n\nFig. 2.5: Ejemplo de scatter plot y línea de tendencia con estética de color para ambas geometrías\n\n\n\n\n\n\nEn este otro caso, introducimos la estética color solamente dentro de la función geom_point(), por lo que solamente los puntos utilizan esta estética:\n\ninventario_completo_tbl |&gt; \n    ggplot(\n        aes(x = dbh_mm, y = height_m)\n    ) +\n    geom_point(aes(color = nombre_ifn)) +\n    geom_smooth()\n\n\n\n\n\n\nFig. 2.6: Ejemplo de scatter plot y línea de tendencia con estética de color para la geometría de punto\n\n\n\n\n\n\nEn este último caso, añadimos la estética color a función geom_smooth(), por lo que solamente se colorean las líneas de tendencia:\n\ninventario_completo_tbl |&gt; \n    ggplot(\n        aes(x = dbh_mm, y = height_m)\n    ) +\n    geom_point() +\n    geom_smooth(aes(color = nombre_ifn))\n\n\n\n\n\n\nFig. 2.7: Ejemplo de scatter plot y línea de tendencia con estética de color para la geometría de la línea de tendencia\n\n\n\n\n\n\n\nTambién puedes ver que en los ejemplos anteriores, la geometría de punto la escribimos antes que la línea de tendencia. De este modo se dibujan en el gráfico, primero los puntos, y en siguiente lugar se dibuja la línea de tendencia sobre los puntos.",
+    "crumbs": [
+      "Visualización",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Primeros pasos con ggplot2</span>"
+    ]
+  },
+  {
+    "objectID": "1003_first_steps.html#sec-map-assign-aes",
+    "href": "1003_first_steps.html#sec-map-assign-aes",
+    "title": "\n2  Primeros pasos con ggplot2\n",
+    "section": "\n2.7 Mapear y asignar estéticas",
+    "text": "2.7 Mapear y asignar estéticas\nPara finalizar este capítulo, vamos a ver dos conceptos que al principio pueden parecer un poco confusos, pero que veréis que tienen todo el sentido del mundo dentro de la gramática de gráficos. Vamos a comenzar viendo estas dos frases que inicialmente no tendrán mucho sentido, pero que entenderemos al final de esta sección:\n\nMapeamos estéticas a variables\nAsignamos estéticas a valores constantes\n\nVamos a seguir trabajando con la geometría de puntos, ya que es una de las más sencillas para aprender la teoría. Si buscáis en la documentación oficial de las funciones geom_*, encontraréis una sección de estéticas como la que se muestra en la Figura 2.8:\n\n\n\n\n\nFig. 2.8: Estétitcas de la geometría de punto (geom_point)\n\n\n\n\n\n\n\n\nImportante\n\n\n\nTodas las geometrías tienen una serie de estéticas obligatorias y otras opcionales. Para la geometría de punto las obligatorias son x e y\n\n\nTODAS estas estéticas se pueden mapear a variables, es decir, todas pueden ir dentro de la función aes(x, y, alpha, color, fill ...). Siempre que vayan dentro de la función aes(), estaremos mapeando la estética a una variable, y por lo tanto, el valor de la estética debe ser una variable de nuestros datos como en el siguiente exagerado ejemplo:\n\ninventario_completo_tbl |&gt; \n    ggplot(\n        aes(\n            x     = dbh_mm,\n            y     = height_m,\n            color = nombre_ifn,\n            shape = nombre_ifn,\n            size  = height_m\n        )\n    ) +\n    geom_point()\n\n\n\n\n\n\n\nSin embargo, algunas de las estéticas también se pueden asignar a valores constantes. Es decir, en lugar de generar un color de punto por cada especie, podemos elegir que todos los puntos sean de color verde oscuro. O que la forma de todos los puntos sea triangular. En este caso hablamos de asignar constantes, y las estéticas se escriben dentro de la función de geom_* y fuera de aes():\n\ninventario_completo_tbl |&gt; \n    ggplot(\n        aes(x = dbh_mm, y = height_m)\n    ) +\n    geom_point(\n        color = \"darkgreen\",\n        shape = \"triangle\",\n        size  = 3\n    )\n\n\n\n\n\n\n\nEn este sentido, algo que NO podemos hacer y que suele ser un fallo común al empezar con ggplot2 es lo siguiente:\n\ninventario_completo_tbl |&gt; \n    ggplot(\n        aes(x = dbh_mm, y = height_m)\n    ) +\n    geom_point(\n        color = nombre_ifn\n    )\n\nNos dará el error “Error : objeto ‘nombre_ifn’ no encontrado”. Como color está fuera de aes(), la función está buscando si en el entorno existe el objeto nombre_ifn. Para entender este concepto, vamos a ver el siguiente código:\n\n## Asignar un color a un objeto\nnombre_ifn &lt;- \"#456435\"\n## Gráfico\ninventario_completo_tbl |&gt; \n    ggplot(\n        aes(x = dbh_mm, y = height_m)\n    ) +\n    geom_point(\n        color = nombre_ifn\n    )\n\n\n\n\n\n\n\nCuando una estética se encuentra fuera de aes(), no busca nombre_ifn dentro de las columnas de los datos, si no que lo busca en el Global Environment. Finalmente, tampoco podemos introducir constantes dentro de aes():\n\ninventario_completo_tbl |&gt; \n    ggplot(\n        aes(x = dbh_mm, y = height_m, color = \"blue\")\n    ) +\n    geom_point()\n\n\n\n\n\n\n\nEsto no funciona porque lo que hace es crear una variable constante cuyos valores son “blue”. Es decir, esto es equivalente a:\n\ninventario_completo_tbl |&gt; \n    mutate(\n        colour = \"blue\"\n    ) |&gt; \n    ggplot(\n        aes(x = dbh_mm, y = height_m, color = colour)\n    ) +\n    geom_point()\n\n\n\n\n\n\n\nEs decir, no tiene nada de sentido. Para finalizar, vamos a resumir esta sección de nuevo en las frases que veíamos al inicio:\n\nMapeamos estéticas a variables\nAsignamos estéticas a valores constantes",
+    "crumbs": [
+      "Visualización",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Primeros pasos con ggplot2</span>"
+    ]
+  },
+  {
+    "objectID": "1003_first_steps.html#referencias",
+    "href": "1003_first_steps.html#referencias",
+    "title": "\n2  Primeros pasos con ggplot2\n",
+    "section": "Referencias",
+    "text": "Referencias\n\n\nWickham, Hadley. 2010. «A layered grammar of graphics». Journal of Computational and Graphical Statistics 19 (1): 3-28. https://doi.org/10.1198/jcgs.2009.07098.\n\n\n———. 2014. Tidy Data. Springer International Publishing. https://doi.org/10.1007/978-3-319-24277-4.\n\n\nWickham, Hadley, Danielle Navarro, y Thomas Lin Pedersen. 2021. ggplot2: Elegant Graphics for Data Analysis. Springer International Publishing. https://doi.org/10.1007/978-3-319-24277-4.\n\n\nWilkinson, Leland. 2005. The Grammar of Graphics. https://doi.org/10.1007/0-387-28695-0.",
+    "crumbs": [
+      "Visualización",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Primeros pasos con ggplot2</span>"
+    ]
+  },
+  {
+    "objectID": "1004_components.html",
+    "href": "1004_components.html",
+    "title": "\n3  Componentes\n",
+    "section": "",
+    "text": "3.1 Capas\nEn primer lugar, vamos a generar un gráfico utilizando los datos del inventario forestal visto en el capítulo anterior, donde mostraremos la relación entre la altura y el diámetro de los árboles por especie.\n## Crear gráfico\nbase_gg &lt;- inventario_completo_tbl |&gt; \n    ggplot(\n      aes(x = dbh_mm, y = height_m, color = nombre_ifn)\n    ) +\n    geom_point()\n## Imprimir gráfico\nbase_gg\n\n\n\n\n\n\nFig. 3.1: Gráfico con capas",
+    "crumbs": [
+      "Visualización",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Componentes</span>"
+    ]
+  },
+  {
+    "objectID": "1004_components.html#facetas",
+    "href": "1004_components.html#facetas",
+    "title": "\n3  Componentes\n",
+    "section": "\n3.2 Facetas",
+    "text": "3.2 Facetas\nLas facetas son una forma de dividir un gráfico en subgráficos, de acuerdo a una variable categórica. Por defecto, ggplot2 utiliza la función facet_null() que indica que no se desea dividir el gráfico. Para comprobar que esto es cierto, vamos a añadir esta función al gráfico anterior.\n\n\n\n\n\n\nTip\n\n\n\nUna característica de ggplot2 es que podemos guardar el gráfico en un objeto y añadir capas adicionales posteriormente.\n\n\n\n## Añadir facetas\nfacets_gg &lt;- base_gg + \n    facet_null()\n## Imprimir gráfico\nfacets_gg\n\n\n\n\n\n\nFig. 3.2: Gráfico sin facetas\n\n\n\n\nVemos que el resultado de la Figura 3.2 es exactamente igual al de la Figura 3.1. En el capítulo  veremos otras opciones de facetas.",
+    "crumbs": [
+      "Visualización",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Componentes</span>"
+    ]
+  },
+  {
+    "objectID": "1004_components.html#escalas",
+    "href": "1004_components.html#escalas",
+    "title": "\n3  Componentes\n",
+    "section": "\n3.3 Escalas",
+    "text": "3.3 Escalas\nLas escalas se encargar de mapear los valores de los datos a los valores estéticos (Wickham 2010). En nuestro gráfico, hemos utilizado un total de tres estéticas:\n\n\nx: diámetro del árbol en milímetros\n\ny: altura del árbol en metros\n\ncolor: especie del árbol\n\nPor ello, por defecto se genera una escala para cada una de estas estéticas. Vamos a ver las que se generan por defecto:\n\n##  Añadir escalas\nscales_gg &lt;- base_gg + \n    scale_x_continuous() +\n    scale_y_continuous() +\n    scale_color_discrete()\n## Imprimir gráfico\nscales_gg\n\n\n\n\n\n\nFig. 3.3: Escalas por defecto\n\n\n\n\nVemos varias cosas interesantes en el código que hemos añadido:\n\nLas funciones de escalas empiezan por scale_*\n\nEn siguiente lugar, se añade el nombre de la estética que se quiere modificar\nFinalmente, se añaden los argumentos necesarios para modificar la escala\n\nEl tercer punto es importante. Si tenemos una variable numérica, su escala será scale_*_continuous(), mientras que si es categórica, será scale_*_discrete().\nVeremos los detalles de las escalas en el capítulo .",
+    "crumbs": [
+      "Visualización",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Componentes</span>"
+    ]
+  },
+  {
+    "objectID": "1004_components.html#coordenadas",
+    "href": "1004_components.html#coordenadas",
+    "title": "\n3  Componentes\n",
+    "section": "\n3.4 Coordenadas",
+    "text": "3.4 Coordenadas\nLas coordenadas definen cómo se representan los datos en el gráfico. Por defecto, ggplot2 utiliza un sistema de coordenadas cartesianas. Vamos a ver cómo se ve nuestro gráfico con las coordenadas por defecto.\n\n## Añadir coordenadas\ncoord_gg &lt;- base_gg + \n    coord_cartesian()\n## Imprimir gráfico\ncoord_gg\n\n\n\n\n\n\nFig. 3.4: Coordenadas por defecto\n\n\n\n\nDe nuevo, vemos que no se ha modificado el gráfico. Las funciones de coordenadas empiezan por coord_*, y en el capítulo  veremos otras opciones de coordenadas.",
+    "crumbs": [
+      "Visualización",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Componentes</span>"
+    ]
+  },
+  {
+    "objectID": "1004_components.html#temas",
+    "href": "1004_components.html#temas",
+    "title": "\n3  Componentes\n",
+    "section": "\n3.5 Temas",
+    "text": "3.5 Temas\nLos temas definen el aspecto visual del gráfico. Por defecto, ggplot2 utiliza el tema theme_gray():\n\n## Añadir tema\ntheme_gg &lt;- base_gg + \n    theme_gray() +\n    theme()\n## Imprimir gráfico\ntheme_gg\n\n\n\n\n\n\nFig. 3.5: Tema por defecto\n\n\n\n\nEn el código anterior vemos dos funciones:\n\ntheme_*: se utilizan para aplicar un tema predeterminado que trae una serie de valores de los temas por defecto.\ntheme(): se utiliza para personalizar propiedades de forma unitaria.\n\nDe nuevo, veremos los detalles de los temas en el capítulo .",
+    "crumbs": [
+      "Visualización",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Componentes</span>"
+    ]
+  },
+  {
+    "objectID": "1004_components.html#resumen",
+    "href": "1004_components.html#resumen",
+    "title": "\n3  Componentes\n",
+    "section": "\n3.6 Resumen",
+    "text": "3.6 Resumen\nEn este capítulo hemos visto los componentes de un gráfico en ggplot2 que vienen por defecto. Vamos a unir todo lo que vimos en un bloque de código:\n\ninventario_completo_tbl |&gt; \n    ## Añadir capas\n    ggplot(\n      aes(x = dbh_mm, y = height_m, color = nombre_ifn)\n    ) +\n    geom_point() +\n    ## Añadir facetas\n    facet_null() +\n    ## Añadir escalas\n    scale_x_continuous() +\n    scale_y_continuous() +\n    scale_color_discrete() +\n    ## Añadir coordenadas\n    coord_cartesian() +\n    ## Añadir tema\n    theme_gray() +\n    theme()\n\n\n\n\n\n\nFig. 3.6: Gráfico con todos los componentes",
+    "crumbs": [
+      "Visualización",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Componentes</span>"
+    ]
+  },
+  {
+    "objectID": "1004_components.html#referencias",
+    "href": "1004_components.html#referencias",
+    "title": "\n3  Componentes\n",
+    "section": "Referencias",
+    "text": "Referencias\n\n\nWickham, Hadley. 2010. «A layered grammar of graphics». Journal of Computational and Graphical Statistics 19 (1): 3-28. https://doi.org/10.1198/jcgs.2009.07098.",
+    "crumbs": [
+      "Visualización",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Componentes</span>"
     ]
   },
   {
     "objectID": "chapters/testing.html",
     "href": "chapters/testing.html",
-    "title": "\n3  Webr test\n",
+    "title": "\n4  Webr test\n",
     "section": "",
     "text": "Replicar el siguiente histograma:\n\n\n\n\n\n\n\n\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\niris |&gt; \n    ggplot(aes(Sepal.Width)) +\n    geom_histogram(fill = \"darkblue\") +\n    theme_bw()",
     "crumbs": [
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Webr test</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Webr test</span>"
     ]
   },
   {
@@ -110,7 +264,17 @@
     "href": "1001_visualization.html",
     "title": "Visualización",
     "section": "",
-    "text": "En este capítulo se presenta una introducción a la visualización de datos y a la generación de gráficos en R con el paquete {ggplot2}. En el primer capítulo, veremos una introducción a la visualización de datos para resaltar su importancia y cómo puede ayudar a entender los datos. En el segundo capítulo, se presentará el paquete {ggplot2} y se mostrará cómo se puede utilizar para generar gráficos sencillos en R.\nAunque la visualización de datos es un tema amplio y complejo, en este libro se presentarán los conceptos básicos y se mostrarán ejemplos sencillos para que el estudiante pueda comenzar a utilizarlos en sus propios proyectos.",
+    "text": "Objetivos",
+    "crumbs": [
+      "Visualización"
+    ]
+  },
+  {
+    "objectID": "1001_visualization.html#objetivos",
+    "href": "1001_visualization.html#objetivos",
+    "title": "Visualización",
+    "section": "",
+    "text": "Entender la necesidad de comunicar nuestros datos de una forma clara\nAprender algunos de los principios de la visualización de datos\nAprender a elegir el gráfico adecuado para nuestros datos y nuestros objetivos\nEntender la gramática de gráficos y su implicación dentro de {ggplot2}\nCrear gráficos sencillos pero comunicativos con {ggplot2}",
     "crumbs": [
       "Visualización"
     ]
