@@ -1,6 +1,6 @@
 /*-- scss:defaults --*/
 // Base
-p {
+body p {
     text-align: justify;
 }
 
@@ -12,4 +12,18 @@ p {
 // Figure captions
 figcaption {
     text-align: center;
+}
+
+// Callouts
+.callout {
+    margin-left: 0 !important;
+}
+
+// Footer aligment (conflict with body p)
+.nav-footer-center p {
+    text-align: center;
+}
+
+.nav-footer-right p {
+    text-align: right;
 }
