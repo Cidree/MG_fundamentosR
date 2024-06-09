@@ -10,11 +10,15 @@
   </url>
   <url>
     <loc>https://cidree.github.io/test_book/1003_first_steps.html</loc>
-    <lastmod>2024-06-08T18:05:35.577Z</lastmod>
+    <lastmod>2024-06-09T08:42:34.011Z</lastmod>
   </url>
   <url>
     <loc>https://cidree.github.io/test_book/1004_components.html</loc>
     <lastmod>2024-06-08T18:30:56.176Z</lastmod>
+  </url>
+  <url>
+    <loc>https://cidree.github.io/test_book/1102_distribution.html</loc>
+    <lastmod>2024-06-09T09:24:16.287Z</lastmod>
   </url>
   <url>
     <loc>https://cidree.github.io/test_book/chapters/testing.html</loc>
@@ -27,5 +31,9 @@
   <url>
     <loc>https://cidree.github.io/test_book/1001_visualization.html</loc>
     <lastmod>2024-06-08T09:12:07.113Z</lastmod>
+  </url>
+  <url>
+    <loc>https://cidree.github.io/test_book/1101_visualization_types.html</loc>
+    <lastmod>2024-06-09T07:43:39.178Z</lastmod>
   </url>
 </urlset>

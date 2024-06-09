@@ -1,7 +1,6 @@
+## Book options
 project:
   type: book
-
-lightbox: auto
 
 book:
   ## Book metadata
@@ -45,11 +44,23 @@ book:
         - 1002_introduction.qmd
         - 1003_first_steps.qmd
         - 1004_components.qmd
+    
+    - part: 1101_visualization_types.qmd
+      chapters:
+        - 1102_distribution.qmd
         
     - chapters/testing.qmd
   ## Appendices
   appendices:
     - chapters/installation.qmd
+
+## Code executions opts
+execute: 
+  warning: false
+  freeze: auto
+
+## Extensions
+lightbox: auto
 
 format:
   html:
@@ -60,8 +71,8 @@ format:
     code-block-border-left: true
     ## Theming
     theme:
-      light: [cosmo, assets/styles/light-style.scss]
-      dark: [darkly, assets/styles/dark-style.scss]
+      light: [cosmo, assets/styles/light-style.scss, assets/styles/common-styles.scss]
+      dark: [darkly, assets/styles/dark-style.scss, assets/styles/common-styles.scss]
     ## References and similars
     bibliography: references.bib
     lang: es
