@@ -1,5 +1,9 @@
 # Bienvenida {.unnumbered}
 
+::: callout-warning
+Este libro está en progreso. No se recomienda leer por el momento.
+:::
+
 Este libro ...
 
 ## Sección primera

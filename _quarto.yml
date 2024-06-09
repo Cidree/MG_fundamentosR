@@ -48,8 +48,7 @@ book:
     - part: 1101_visualization_types.qmd
       chapters:
         - 1102_distribution.qmd
-        
-    - chapters/testing.qmd
+
   ## Appendices
   appendices:
     - chapters/installation.qmd
