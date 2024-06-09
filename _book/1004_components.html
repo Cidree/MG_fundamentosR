@@ -271,7 +271,7 @@ div.csl-indent {
 <span class="header-section-number">3.1</span> Capas</h2>
 <p>En primer lugar, vamos a generar un gráfico utilizando los datos del inventario forestal visto en el capítulo anterior, donde mostraremos la relación entre la altura y el diámetro de los árboles por especie.</p>
 <div class="cell">
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">## Crear gráfico</span></span>
+<details class="code-fold"><summary>Código</summary><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">## Crear gráfico</span></span>
 <span><span class="va">base_gg</span> <span class="op">&lt;-</span> <span class="va">inventario_completo_tbl</span> <span class="op">|&gt;</span> </span>
 <span>    <span class="fu">ggplot</span><span class="op">(</span></span>
 <span>      <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">dbh_mm</span>, y <span class="op">=</span> <span class="va">height_m</span>, color <span class="op">=</span> <span class="va">nombre_ifn</span><span class="op">)</span></span>
@@ -279,7 +279,7 @@ div.csl-indent {
 <span>    <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">## Imprimir gráfico</span></span>
 <span><span class="va">base_gg</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
+</details><div class="cell-output-display">
 <div id="fig-components-layer" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-components-layer-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <a href="1004_components_files/figure-html/fig-components-layer-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Fig.&nbsp;3.1: Gráfico con capas"><img src="1004_components_files/figure-html/fig-components-layer-1.png" class="img-fluid figure-img" width="672"></a>
@@ -307,12 +307,12 @@ Tip
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">## Añadir facetas</span></span>
+<details class="code-fold"><summary>Código</summary><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">## Añadir facetas</span></span>
 <span><span class="va">facets_gg</span> <span class="op">&lt;-</span> <span class="va">base_gg</span> <span class="op">+</span> </span>
 <span>    <span class="fu">facet_null</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">## Imprimir gráfico</span></span>
 <span><span class="va">facets_gg</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
+</details><div class="cell-output-display">
 <div id="fig-components-facet" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-components-facet-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <a href="1004_components_files/figure-html/fig-components-facet-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Fig.&nbsp;3.2: Gráfico sin facetas"><img src="1004_components_files/figure-html/fig-components-facet-1.png" class="img-fluid figure-img" width="672"></a>
@@ -337,14 +337,14 @@ Fig.&nbsp;3.2: Gráfico sin facetas
 </ul>
 <p>Por ello, por defecto se genera una escala para cada una de estas estéticas. Vamos a ver las que se generan por defecto:</p>
 <div class="cell">
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">##  Añadir escalas</span></span>
+<details class="code-fold"><summary>Código</summary><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">##  Añadir escalas</span></span>
 <span><span class="va">scales_gg</span> <span class="op">&lt;-</span> <span class="va">base_gg</span> <span class="op">+</span> </span>
 <span>    <span class="fu">scale_x_continuous</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">scale_y_continuous</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">scale_color_discrete</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">## Imprimir gráfico</span></span>
 <span><span class="va">scales_gg</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
+</details><div class="cell-output-display">
 <div id="fig-components-scale" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-components-scale-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <a href="1004_components_files/figure-html/fig-components-scale-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Fig.&nbsp;3.3: Escalas por defecto"><img src="1004_components_files/figure-html/fig-components-scale-1.png" class="img-fluid figure-img" width="672"></a>
@@ -368,12 +368,12 @@ Fig.&nbsp;3.3: Escalas por defecto
 <span class="header-section-number">3.4</span> Coordenadas</h2>
 <p>Las coordenadas definen cómo se representan los datos en el gráfico. Por defecto, <a href="https://ggplot2.tidyverse.org">ggplot2</a> utiliza un sistema de coordenadas cartesianas. Vamos a ver cómo se ve nuestro gráfico con las coordenadas por defecto.</p>
 <div class="cell">
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">## Añadir coordenadas</span></span>
+<details class="code-fold"><summary>Código</summary><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">## Añadir coordenadas</span></span>
 <span><span class="va">coord_gg</span> <span class="op">&lt;-</span> <span class="va">base_gg</span> <span class="op">+</span> </span>
 <span>    <span class="fu">coord_cartesian</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">## Imprimir gráfico</span></span>
 <span><span class="va">coord_gg</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
+</details><div class="cell-output-display">
 <div id="fig-components-coord" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-components-coord-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <a href="1004_components_files/figure-html/fig-components-coord-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Fig.&nbsp;3.4: Coordenadas por defecto"><img src="1004_components_files/figure-html/fig-components-coord-1.png" class="img-fluid figure-img" width="672"></a>
@@ -389,13 +389,13 @@ Fig.&nbsp;3.4: Coordenadas por defecto
 <span class="header-section-number">3.5</span> Temas</h2>
 <p>Los temas definen el aspecto visual del gráfico. Por defecto, <a href="https://ggplot2.tidyverse.org">ggplot2</a> utiliza el tema <code>theme_gray()</code>:</p>
 <div class="cell">
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">## Añadir tema</span></span>
+<details class="code-fold"><summary>Código</summary><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">## Añadir tema</span></span>
 <span><span class="va">theme_gg</span> <span class="op">&lt;-</span> <span class="va">base_gg</span> <span class="op">+</span> </span>
 <span>    <span class="fu">theme_gray</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">theme</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">## Imprimir gráfico</span></span>
 <span><span class="va">theme_gg</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
+</details><div class="cell-output-display">
 <div id="fig-components-theme" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-components-theme-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <a href="1004_components_files/figure-html/fig-components-theme-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Fig.&nbsp;3.5: Tema por defecto"><img src="1004_components_files/figure-html/fig-components-theme-1.png" class="img-fluid figure-img" width="672"></a>
@@ -416,7 +416,7 @@ Fig.&nbsp;3.5: Tema por defecto
 <span class="header-section-number">3.6</span> Resumen</h2>
 <p>En este capítulo hemos visto los componentes de un gráfico en <a href="https://ggplot2.tidyverse.org">ggplot2</a> que vienen por defecto. Vamos a unir todo lo que vimos en un bloque de código:</p>
 <div class="cell">
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">inventario_completo_tbl</span> <span class="op">|&gt;</span> </span>
+<details class="code-fold"><summary>Código</summary><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">inventario_completo_tbl</span> <span class="op">|&gt;</span> </span>
 <span>    <span class="co">## Añadir capas</span></span>
 <span>    <span class="fu">ggplot</span><span class="op">(</span></span>
 <span>      <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">dbh_mm</span>, y <span class="op">=</span> <span class="va">height_m</span>, color <span class="op">=</span> <span class="va">nombre_ifn</span><span class="op">)</span></span>
@@ -433,7 +433,7 @@ Fig.&nbsp;3.5: Tema por defecto
 <span>    <span class="co">## Añadir tema</span></span>
 <span>    <span class="fu">theme_gray</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">theme</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
+</details><div class="cell-output-display">
 <div id="fig-components-all" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-components-all-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <a href="1004_components_files/figure-html/fig-components-all-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="Fig.&nbsp;3.6: Gráfico con todos los componentes"><img src="1004_components_files/figure-html/fig-components-all-1.png" class="img-fluid figure-img" width="672"></a>
@@ -1029,7 +1029,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div> <!-- /content -->
 <footer class="footer"><div class="nav-footer">
     <div class="nav-footer-left">
-<p>Fundamentos de Programación con R (1e). Adrián Cidre, 2024</p>
+<p>Fundamentos de Programación con R (1e).<br>Adrián Cidre, 2024</p>
 </div>   
     <div class="nav-footer-center">
 <p><a href="https://mastergeoforest.es//" target="_blank">Máster Geoforest</a><br><a href="https://www.uco.es/eguiado/guias/2023-24/20286es_2023-24.pdf" target="_blank">Guía docente</a><br><a href="https://moodle.uco.es/m2223/" target="_blank">Moodle</a></p>
@@ -1038,7 +1038,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <p>Este libro ha sido escrito con <a href="https://quarto.org/" target="_blank">Quarto</a>.</p>
 </div>
   </div>
-</footer><script>var lightboxQuarto = GLightbox({"descPosition":"bottom","closeEffect":"zoom","selector":".lightbox","loop":false,"openEffect":"zoom"});
+</footer><script>var lightboxQuarto = GLightbox({"descPosition":"bottom","selector":".lightbox","openEffect":"zoom","loop":false,"closeEffect":"zoom"});
 (function() {
   let previousOnload = window.onload;
   window.onload = () => {

@@ -27,7 +27,7 @@ book:
   ## Footer
   page-footer:
     left: |
-      Fundamentos de Programación con R (1e). Adrián Cidre, 2024
+      Fundamentos de Programación con R (1e).<br>Adrián Cidre, 2024
     right: |
       Este libro ha sido escrito con <a href="https://quarto.org/" target="_blank">Quarto</a>.
   ## Book structure
@@ -59,13 +59,14 @@ execute:
   freeze: auto
 
 ## Extensions
+lightbox: auto
 filters: 
     - shinylive
-lightbox: auto
 
 format:
   html:
     ## Code
+    code-fold: true
     resources: shinylive-sw.js
     highlight-style: tango
     code-copy: hover
