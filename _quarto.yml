@@ -10,9 +10,9 @@ book:
   author: "Adrián Cidre"
   date: "2024/05/28"
   ## Book opts
-  repo-url: https://github.com/Cidree/test_book/
-  issue-url: https://github.com/Cidree/test_book/issues
-  site-url: https://cidree.github.io/test_book/
+  repo-url: https://github.com/Cidree/MG_fundamentosR
+  issue-url: https://github.com/Cidree/MG_fundamentosR/issues
+  site-url: https://fundamentos-r.netlify.app/
   cover-image: assets/img/logo-geoforest.png
   reader-mode: true
   language: es

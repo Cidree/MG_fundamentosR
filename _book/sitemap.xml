@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://cidree.github.io/test_book/index.html</loc>
+    <loc>https://fundamentos-r.netlify.app/index.html</loc>
     <lastmod>2024-06-09T15:49:42.282Z</lastmod>
   </url>
   <url>
-    <loc>https://cidree.github.io/test_book/1002_introduction.html</loc>
+    <loc>https://fundamentos-r.netlify.app/1002_introduction.html</loc>
     <lastmod>2024-06-08T09:53:55.501Z</lastmod>
   </url>
   <url>
-    <loc>https://cidree.github.io/test_book/1003_first_steps.html</loc>
+    <loc>https://fundamentos-r.netlify.app/1003_first_steps.html</loc>
     <lastmod>2024-06-09T08:42:34.011Z</lastmod>
   </url>
   <url>
-    <loc>https://cidree.github.io/test_book/1004_components.html</loc>
+    <loc>https://fundamentos-r.netlify.app/1004_components.html</loc>
     <lastmod>2024-06-08T18:30:56.176Z</lastmod>
   </url>
   <url>
-    <loc>https://cidree.github.io/test_book/1102_distribution.html</loc>
-    <lastmod>2024-06-09T15:47:21.485Z</lastmod>
+    <loc>https://fundamentos-r.netlify.app/1102_distribution.html</loc>
+    <lastmod>2024-06-09T16:01:57.392Z</lastmod>
   </url>
   <url>
-    <loc>https://cidree.github.io/test_book/chapters/installation.html</loc>
+    <loc>https://fundamentos-r.netlify.app/chapters/installation.html</loc>
     <lastmod>2024-06-05T16:43:48.397Z</lastmod>
   </url>
   <url>
-    <loc>https://cidree.github.io/test_book/1001_visualization.html</loc>
+    <loc>https://fundamentos-r.netlify.app/1001_visualization.html</loc>
     <lastmod>2024-06-08T09:12:07.113Z</lastmod>
   </url>
   <url>
-    <loc>https://cidree.github.io/test_book/1101_visualization_types.html</loc>
+    <loc>https://fundamentos-r.netlify.app/1101_visualization_types.html</loc>
     <lastmod>2024-06-09T15:20:31.298Z</lastmod>
   </url>
 </urlset>

@@ -125,7 +125,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Fundamentos de programación con R</a> 
         <div class="sidebar-tools-main tools-wide">
-    <a href="https://github.com/Cidree/test_book/" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="https://github.com/Cidree/MG_fundamentosR" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Alternar modo oscuro"><i class="bi"></i></a>
   <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Alternar modo lector">
   <div class="quarto-reader-toggle-btn">
@@ -243,13 +243,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 Fig.&nbsp;1: Clasificación de los tipos de visualización. Fuente: Cédric Scherer, rstudio::conf 2022
 </figcaption></figure>
 </div>
-<p>En los ejercicios de muestra, trabajaremos con el <em>dataset</em> de iris, que viene dentro del paquete <code>{datasets}</code> de R. Este <em>dataset</em> contiene información sobre 150 flores de iris, con 4 variables numéricas y una variable categórica que indica la especie de la flor <span class="quarto-unresolved-ref">?fig-iris-species</span>.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure"><div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="images/iris-species.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Especies de flores del dataset iris. Fuente: Datacamp"><img src="images/iris-species.png" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="Especies de flores del dataset iris. Fuente: Datacamp"></a></p>
-</figure>
+<p>En los ejercicios de muestra, trabajaremos con el <em>dataset</em> de iris, que viene dentro del paquete <code>{datasets}</code> de R. Este <em>dataset</em> contiene información sobre 150 flores de iris, con 4 variables numéricas y una variable categórica que indica la especie de la flor <a href="#fig-iris-species" class="quarto-xref">Figura&nbsp;<span>2</span></a>.</p>
+<div id="fig-iris-species" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-iris-species-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="images/iris-species.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Fig.&nbsp;2: Especies de flores del dataset iris. Fuente: Datacamp"><img src="images/iris-species.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></a>
 </div>
-<figcaption>Especies de flores del <em>dataset</em> iris. Fuente: <a href="https://www.datacamp.com/tutorial/machine-learning-in-r" target="_blank">Datacamp</a></figcaption></figure>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-iris-species-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Fig.&nbsp;2: Especies de flores del <em>dataset</em> iris. Fuente: <a href="https://www.datacamp.com/tutorial/machine-learning-in-r" target="_blank">Datacamp</a>
+</figcaption></figure>
 </div>
 <p>A continuación mostramos la estructura del <em>dataset</em> utilizando la función <code>{skimr::skim}</code>:</p>
 <div class="cell">
@@ -408,6 +409,7 @@ Fig.&nbsp;1: Clasificación de los tipos de visualización. Fuente: Cédric Sche
 </table>
 </div>
 </div>
+<p>En resumen, tenemos 50 muestras de cada una de las tres especies (<em>I. versicolor, I. setosa</em> y <em>I. virginica</em>) a las cuales hemos medido cuatro variables cuantitativas.</p>
 
 
 
@@ -647,7 +649,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp("https:\/\/cidree\.github\.io\/test_book\/");
+      var filterRegex = new RegExp("https:\/\/fundamentos-r\.netlify\.app\/");
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
@@ -992,12 +994,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div>   
     <div class="nav-footer-center">
 <p><a href="https://mastergeoforest.es//" target="_blank">Máster Geoforest</a><br><a href="https://www.uco.es/eguiado/guias/2023-24/20286es_2023-24.pdf" target="_blank">Guía docente</a><br><a href="https://moodle.uco.es/m2223/" target="_blank">Moodle</a></p>
-<div class="toc-actions"><ul><li><a href="https://github.com/Cidree/test_book/issues" class="toc-action"><i class="bi bi-github"></i>Informar de un problema</a></li></ul></div></div>
+<div class="toc-actions"><ul><li><a href="https://github.com/Cidree/MG_fundamentosR/issues" class="toc-action"><i class="bi bi-github"></i>Informar de un problema</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>Este libro ha sido escrito con <a href="https://quarto.org/" target="_blank">Quarto</a>.</p>
 </div>
   </div>
-</footer><script>var lightboxQuarto = GLightbox({"loop":false,"descPosition":"bottom","closeEffect":"zoom","openEffect":"zoom","selector":".lightbox"});
+</footer><script>var lightboxQuarto = GLightbox({"openEffect":"zoom","selector":".lightbox","loop":false,"descPosition":"bottom","closeEffect":"zoom"});
 (function() {
   let previousOnload = window.onload;
   window.onload = () => {
