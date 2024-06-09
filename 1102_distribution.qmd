@@ -89,8 +89,7 @@ server <- function(input, output, session) {
     histogram_r <- reactive({
         ggplot(inventario_tbl, aes(x = dbh_mm / 10)) +
             geom_histogram(bins = input$bins, fill = "#0073C2FF", color = "white") +
-            labs(title = "Distribución diamétrica", x = "DBH (cm)", y = "Frecuencia") +
-            theme_minimal()
+            labs(title = "Distribución diamétrica", x = "DBH (cm)", y = "Frecuencia")
     
     })
 
