@@ -60,7 +60,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./chapters/installation.html" rel="next">
+<link href="./1103_relationship.html" rel="next">
 <link href="./1101_visualization_types.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -310,7 +310,7 @@ globalThis.qwebrCustomizedWebROptions = {
 };
 
 // Store cell data
-globalThis.qwebrCellDetails = [{"id":1,"options":{"fig-height":5,"classes":"","dpi":72,"comment":"","read-only":"false","editor-font-scale":1,"fig-cap":"","autorun":"false","message":"true","editor-max-height":"","fig-width":7,"out-height":"","context":"interactive","warning":"true","out-width":"700px","results":"markup","output":"true","label":"unnamed-chunk-1","editor-quick-suggestions":"false"},"code":"ggplot(iris, aes(x = Petal.Length)) +\n    geom_density() +\n    labs(\n        title = \"Distribución de longitud del pétalo\",\n        x     = \"Longitud (mm)\", \n        y     = \"Probabilidad (%)\"\n    ) +\n    theme_bw()"},{"id":2,"options":{"fig-height":5,"classes":"","dpi":72,"comment":"","read-only":"false","editor-font-scale":1,"fig-cap":"","autorun":"false","message":"true","editor-max-height":"","fig-width":7,"out-height":"","context":"interactive","warning":"true","out-width":"700px","results":"markup","output":"true","label":"unnamed-chunk-2","editor-quick-suggestions":"false"},"code":"head(inventario_tbl)"}];
+globalThis.qwebrCellDetails = [{"code":"ggplot(iris, aes(x = Petal.Length)) +\n    geom_density() +\n    labs(\n        title = \"Distribución de longitud del pétalo\",\n        x     = \"Longitud (mm)\", \n        y     = \"Probabilidad (%)\"\n    ) +\n    theme_bw()","id":1,"options":{"editor-font-scale":1,"warning":"true","classes":"","autorun":"false","out-width":"700px","editor-quick-suggestions":"false","output":"true","dpi":72,"message":"true","fig-height":5,"results":"markup","read-only":"false","out-height":"","editor-max-height":"","fig-cap":"","label":"unnamed-chunk-1","comment":"","fig-width":7,"context":"interactive"}},{"code":"head(inventario_tbl)","id":2,"options":{"editor-font-scale":1,"warning":"true","classes":"","autorun":"false","out-width":"700px","editor-quick-suggestions":"false","output":"true","dpi":72,"message":"true","fig-height":5,"results":"markup","read-only":"false","out-height":"","editor-max-height":"","fig-cap":"","label":"unnamed-chunk-2","comment":"","fig-width":7,"context":"interactive"}},{"code":"## Escribir código aquí","id":3,"options":{"editor-font-scale":1,"warning":"true","classes":"","autorun":"false","out-width":"700px","editor-quick-suggestions":"false","output":"true","dpi":72,"message":"true","fig-height":5,"results":"markup","read-only":"false","out-height":"","editor-max-height":"","fig-cap":"","label":"unnamed-chunk-3","comment":"","fig-width":7,"context":"interactive"}},{"code":"## Escribir código aquí","id":4,"options":{"editor-font-scale":1,"warning":"true","classes":"","autorun":"false","out-width":"700px","editor-quick-suggestions":"false","output":"true","dpi":72,"message":"true","fig-height":5,"results":"markup","read-only":"false","out-height":"","editor-max-height":"","fig-cap":"","label":"unnamed-chunk-4","comment":"","fig-width":7,"context":"interactive"}},{"code":"## Escribir código aquí","id":5,"options":{"editor-font-scale":1,"warning":"true","classes":"","autorun":"false","out-width":"700px","editor-quick-suggestions":"false","output":"true","dpi":72,"message":"true","fig-height":5,"results":"markup","read-only":"false","out-height":"","editor-max-height":"","fig-cap":"","label":"unnamed-chunk-5","comment":"","fig-width":7,"context":"interactive"}}];
 
 </script><script type="module">
 // Declare startupMessageQWebR globally
@@ -1232,6 +1232,12 @@ globalThis.qwebrExecuteCode = async function (
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Gráficos de distribución</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./1103_relationship.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">1103_relationship.html</span></span></a>
+  </div>
+</li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -1270,7 +1276,13 @@ globalThis.qwebrExecuteCode = async function (
   <li><a href="#extra---a%C3%B1adir-l%C3%ADneas" id="toc-extra---añadir-líneas" class="nav-link" data-scroll-target="#extra---a%C3%B1adir-l%C3%ADneas"><span class="header-section-number">4.3.4</span> Extra - Añadir líneas</a></li>
   </ul>
 </li>
-  <li><a href="#gr%C3%A1ficos-de-cajas" id="toc-gráficos-de-cajas" class="nav-link" data-scroll-target="#gr%C3%A1ficos-de-cajas"><span class="header-section-number">4.4</span> Gráficos de cajas</a></li>
+  <li>
+<a href="#boxplot" id="toc-boxplot" class="nav-link" data-scroll-target="#boxplot"><span class="header-section-number">4.4</span> Boxplot</a>
+  <ul class="collapse">
+<li><a href="#boxplot-jitter" id="toc-boxplot-jitter" class="nav-link" data-scroll-target="#boxplot-jitter"><span class="header-section-number">4.4.1</span> Boxplot + Jitter</a></li>
+  <li><a href="#ejercicio-4" id="toc-ejercicio-4" class="nav-link" data-scroll-target="#ejercicio-4"><span class="header-section-number">4.4.2</span> Ejercicio 4</a></li>
+  </ul>
+</li>
   </ul><div class="toc-actions"><ul><li><a href="https://github.com/Cidree/MG_fundamentosR/issues" class="toc-action"><i class="bi bi-github"></i>Informar de un problema</a></li></ul></div></nav>
     </div>
 <!-- main -->
@@ -1512,7 +1524,11 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
   
 
 
-</header><p>Los gráficos de distribución son una forma de visualizar la distribución de los datos. En este tipo de gráficos, se muestra la frecuencia de los valores de una variable o de un conjunto de variables. Los gráficos de distribución son útiles para identificar patrones en los datos, como la presencia de valores atípicos, la simetría de la distribución, la presencia de múltiples modas, entre otros. Generalmente, los gráficos de distribución se utilizan para visualizar <strong>una sola variable numérica</strong> aunque en la <a href="1101_visualization_types.html#fig-vis-classification" class="quarto-xref">Figura&nbsp;<span>1</span></a> se muestra que también es posible visualizar <strong>dos variables numéricas</strong> mediante el uso de gráficos de dispersión (<strong>scatter plot</strong>).</p>
+</header><div class="cell">
+<details class="code-fold"><summary>Código</summary><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://posit-dev.github.io/r-shinylive/">shinylive</a></span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Los gráficos de distribución son una forma de visualizar la distribución de los datos. En este tipo de gráficos, se muestra la frecuencia de los valores de una variable o de un conjunto de variables. Los gráficos de distribución son útiles para identificar patrones en los datos, como la presencia de valores atípicos, la simetría de la distribución, la presencia de múltiples modas, entre otros. Generalmente, los gráficos de distribución se utilizan para visualizar <strong>una sola variable numérica</strong> aunque en la <a href="1101_visualization_types.html#fig-vis-classification" class="quarto-xref">Figura&nbsp;<span>1</span></a> se muestra que también es posible visualizar <strong>dos variables numéricas</strong> mediante el uso de gráficos de dispersión (<strong>scatter plot</strong>).</p>
 <p>En este capítulo, veremos los siguientes tipos de gráficos de distribución:</p>
 <ol type="1">
 <li><p>Histogramas (<strong>histogram</strong>)</p></li>
@@ -1530,10 +1546,11 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 </ul>
 <p>Para comenzar, vamos a cargar los paquetes necesarios y a leer los datos que utilizaremos en este capítulo.</p>
 <div class="cell">
-<details class="code-fold"><summary>Código</summary><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Cargar paquetes</span></span>
+<details class="code-fold"><summary>Código</summary><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Cargar paquetes</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://readr.tidyverse.org">readr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com">patchwork</a></span><span class="op">)</span></span>
 <span><span class="co"># Cargar datos</span></span>
 <span><span class="va">inventario_tbl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_rds.html">read_rds</a></span><span class="op">(</span><span class="st">"data/inventario_prep.rds"</span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -1578,7 +1595,7 @@ Nota
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <p>Al especificar el número de intervalos lo que hacemos es básicamente indicar el número de barras que queremos generar:</p>
 <pre class="shinylive-r" data-engine="r"><code><a href="https://rstudio.github.io/bslib/">#| standalone: true
-#| viewerHeight: 500
+#| viewerHeight: 600
 
 ## Load packages
 library(bslib)
@@ -1631,7 +1648,7 @@ shinyApp(ui = ui, server = server)</a></code></pre>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
 <p>Cuando seleccionamos el ancho del intervalo (<em>binwidth</em>), estamos seleccionando el tamaño del intervalo en las unidades de la variable que estamos evaluando. Por ejemplo, si seleccionamos un ancho de banda de 0.3 para la longitud del pétalo, estamos indicando que cada barra agrupará observaciones de 3 en 3 milímetros. De 0-0.3 tendremos el primer intervalo, de 0.3-0.6 el segundo, y así sucesivamente.</p>
 <pre class="shinylive-r" data-engine="r"><code><a href="https://rstudio.github.io/bslib/">#| standalone: true
-#| viewerHeight: 500
+#| viewerHeight: 600
 
 ## Load packages
 library(bslib)
@@ -1709,7 +1726,7 @@ Tip
 <p>Si bien es cierto que los histogramas son una forma de visualizar la distribución de una sola variable, también podemos crear histogramas para comparar la distribución de una variable numérica entre diferentes grupos. Esto puede ser muy conveniente, ya que si nos fijamos en las figuras anteriores, podemos ver que si indicamos el número de intervalos adecuado sigue una <a href="#0" target="_blank">distribución bimodal</a>.</p>
 <p>Vamos a ver qué pasa si comparamos la distribución de la longitud de los pétalos de las flores del <em>dataset</em> <code>iris</code> entre las diferentes especies de flores. Para ello, utilizamos el argumento <code>fill</code> en la función <code><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes()</a></code> para indicar la variable categórica que queremos comparar:</p>
 <div class="cell">
-<details class="code-fold"><summary>Código</summary><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">iris</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Petal.Length</span>, fill <span class="op">=</span> <span class="va">Species</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<details class="code-fold"><summary>Código</summary><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">iris</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Petal.Length</span>, fill <span class="op">=</span> <span class="va">Species</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>bins <span class="op">=</span> <span class="fl">30</span>, color <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span></span>
 <span>        title    <span class="op">=</span> <span class="st">"Distribución de longitud del pétalo por especie"</span>, </span>
@@ -1749,7 +1766,7 @@ Nota
 <p>Los gráficos de densidad son una forma de visualizar la distribución de una variable numérica. A diferencia de los histogramas, los gráficos de densidad no agrupan los datos en intervalos, sino que muestran la estimación de densidad kernel de los datos. Los gráficos de densidad son útiles para identificar la forma de la distribución de los datos, ya que son una versión suavizada de los histogramas.</p>
 <p>Para crear un gráfico de densidad en <a href="https://ggplot2.tidyverse.org">ggplot2</a>, utilizamos la función <code><a href="https://ggplot2.tidyverse.org/reference/geom_density.html">geom_density()</a></code>. Básicamente, se va a generar una línea que nos va a indicar la densidad de probabilidad de los datos. Como es una línea, tiene una serie de estéticas que podemos modificar a continuación:</p>
 <pre class="shinylive-r" data-engine="r"><code><a href="https://rstudio.github.io/bslib/">#| standalone: true
-#| viewerHeight: 500
+#| viewerHeight: 600
 
 ## Load packages
 library(bslib)
@@ -1879,7 +1896,7 @@ Fig.&nbsp;4.2: Resultado del ejercicio 1
 </div>
 <div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
 <p>El argumento <code>aes(fill = Species)</code> también se puede introducir en la función <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot()</a></code>.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">iris</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Petal.Length</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">iris</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Petal.Length</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_density.html">geom_density</a></span><span class="op">(</span></span>
 <span>        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">Species</span><span class="op">)</span>,</span>
 <span>        color    <span class="op">=</span> <span class="cn">NA</span>,</span>
@@ -1907,8 +1924,8 @@ Fig.&nbsp;4.2: Resultado del ejercicio 1
 </ul>
 <div class="tab-content">
 <div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
-<pre class="{web-r}"><code>## Histograma de la distribución diamétrica
-</code></pre>
+<div id="qwebr-insertion-location-3"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </div>
 <div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
 <p>El siguiente código es una de muchas opciones.</p>
@@ -1953,13 +1970,13 @@ Fig.&nbsp;4.3: Resultado del ejercicio 2
 </ul>
 <div class="tab-content">
 <div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
-<pre class="{web-r}"><code>## Gráfico de densidad de alturas
-</code></pre>
+<div id="qwebr-insertion-location-4"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </div>
 <div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
 <p>El siguiente código es una de muchas opciones.</p>
 <div class="cell">
-<details class="code-fold"><summary>Código</summary><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span></span>
+<details class="code-fold"><summary>Código</summary><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span></span>
 <span>    <span class="va">inventario_tbl</span>, </span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">height_m</span>, fill <span class="op">=</span> <span class="va">nombre_ifn</span><span class="op">)</span></span>
 <span><span class="op">)</span> <span class="op">+</span></span>
@@ -1992,7 +2009,7 @@ Fig.&nbsp;4.4: Resultado del ejercicio 3
 <p>Algo común es añadir líneas a los gráficos que representen algún valor importante como la media o la mediana. En esta breve sección vamos a ver como añadir estas dos líneas a un histograma.</p>
 <p>Vamos a empezar con un histograma de la distribución diamétrica de <em>P. sylvestris</em>:</p>
 <div class="cell">
-<details class="code-fold"><summary>Código</summary><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">inventario_tbl</span> <span class="op">|&gt;</span> </span>
+<details class="code-fold"><summary>Código</summary><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">inventario_tbl</span> <span class="op">|&gt;</span> </span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">nombre_ifn</span> <span class="op">==</span> <span class="st">"Pinus sylvestris"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span></span>
 <span>        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">dbh_mm</span><span class="op">)</span></span>
@@ -2020,7 +2037,7 @@ Fig.&nbsp;4.5: Distribución diamétrica de <em>Pinus sylvestris</em>
 </ul>
 <p>El resto de argumentos pueden consultarse en la documentación de la función, y serán los comunes a geometrías de línea: <em>color, linewidth, linetype…</em></p>
 <div class="cell">
-<details class="code-fold"><summary>Código</summary><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">## Filtrar datos de Pinus sylvestris</span></span>
+<details class="code-fold"><summary>Código</summary><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">## Filtrar datos de Pinus sylvestris</span></span>
 <span><span class="co">## Crear columna de diámetro en cm</span></span>
 <span><span class="va">psylvestris_tbl</span> <span class="op">&lt;-</span> <span class="va">inventario_tbl</span> <span class="op">|&gt;</span> </span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">nombre_ifn</span> <span class="op">==</span> <span class="st">"Pinus sylvestris"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -2066,11 +2083,234 @@ Fig.&nbsp;4.6: Distribución diamétrica de <em>Pinus sylvestris</em> con línea
 </div>
 </div>
 <p>Como solamente utilizamos un valor que generamos con <code><a href="https://rdrr.io/r/base/mean.html">mean()</a></code> y <code><a href="https://rdrr.io/r/stats/median.html">median()</a></code>, no es necesario utilizar <code><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes()</a></code> en <code><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_vline()</a></code>. Se muestran ambas opciones para mostrar que es posible utilizar cualquiera de las dos opciones.</p>
-</section></section><section id="gráficos-de-cajas" class="level2" data-number="4.4"><h2 data-number="4.4" class="anchored" data-anchor-id="gráficos-de-cajas">
-<span class="header-section-number">4.4</span> Gráficos de cajas</h2>
+</section></section><section id="boxplot" class="level2" data-number="4.4"><h2 data-number="4.4" class="anchored" data-anchor-id="boxplot">
+<span class="header-section-number">4.4</span> Boxplot</h2>
+<p>Los <em>boxplot</em> (gráficos de cajas o bigotes) son una forma de visualizar la distribución de una variable numérica. En un gráfico de cajas, se muestra un resumen de la distribución de los datos, incluyendo la mediana, los cuartiles y los valores atípicos. Los gráficos de cajas son útiles para identificar la presencia de valores atípicos y la simetría de la distribución.</p>
+<div id="fig-boxplot-explanation" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-boxplot-explanation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="images/boxplot.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="Fig.&nbsp;4.7: Partes de un boxplot. Fuente: R Graph Gallery"><img src="images/boxplot.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-boxplot-explanation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Fig.&nbsp;4.7: Partes de un boxplot. Fuente: <a href="https://r-graph-gallery.com/boxplot.html" target="_blank">R Graph Gallery</a>
+</figcaption></figure>
+</div>
+<p>Aunque es un gráfico que nos da un resumen estadístico muy bueno, es un gráfico que <strong>nunca</strong> se debe utilizar solo. Un boxplot nos está mostrando cinco valores principales: mínimo, primer cuartil, mediana, tercer cuartil y máximo. Sin embargo, no sabemos nada del resto de valores. Fíjate en los siguientes boxplot:</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-boxplot-ex" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-boxplot-ex-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="1102_distribution_files/figure-html/fig-boxplot-ex-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8" title="Fig.&nbsp;4.8: Boxplots con datos ficticios con la misma forma"><img src="1102_distribution_files/figure-html/fig-boxplot-ex-1.png" class="img-fluid figure-img" width="672"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-boxplot-ex-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Fig.&nbsp;4.8: Boxplots con datos ficticios con la misma forma
+</figcaption></figure>
+</div>
+</div>
+</div>
+<p>Ambos gráficos tienen exactamente la misma forma, pero como puedes ver en los puntos, los datos son muy distintos. Es por ello que se suelen utilizar variantes del <em>boxplot</em> o el <em>boxplot</em> combinado con otras geometrías como el <em>violin plot</em>.</p>
+<p>Una vez vista esta debilidad de los <em>boxplot</em>, vamos a generar uno para la distribución de la longitud de los pétalos del <em>dataset</em> de iris. En este caso, va a ser el primer gráfico de distribución donde utilicemos ambas estéticas de los ejes <code>x</code> e <code>y</code>.</p>
+<p>La función <code><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot()</a></code> tiene un montón de argumentos que podemos modificar. Los <em>outliers</em> se representan como puntos, y por ende, podemos modificar todo aquello relacionado con ellos con argumentos que empiezan por <code>outlier.*</code>. Por ejemplo, <code>outlier.shape</code>, <code>outlier.size</code>, <code>outlier.color</code>…</p>
+<div class="cell">
+<details class="code-fold"><summary>Código</summary><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">base_boxplot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">iris</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Species</span>, y <span class="op">=</span> <span class="va">Petal.Length</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span></span>
+<span>        fill          <span class="op">=</span> <span class="st">"orangered"</span>,</span>
+<span>        outlier.shape <span class="op">=</span> <span class="fl">21</span>,</span>
+<span>        outlier.size  <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>        outlier.color <span class="op">=</span> <span class="st">"black"</span>,</span>
+<span>        varwidth      <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>    <span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span></span>
+<span>        title <span class="op">=</span> <span class="st">"Distribución de la longitud del pétalo por especie"</span>,</span>
+<span>        x     <span class="op">=</span> <span class="st">"Especie"</span>, </span>
+<span>        y     <span class="op">=</span> <span class="st">"Longitud (mm)"</span></span>
+<span>    <span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>    </span>
+<span><span class="va">base_boxplot</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div id="fig-boxplot-petal" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-boxplot-petal-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="1102_distribution_files/figure-html/fig-boxplot-petal-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9" title="Fig.&nbsp;4.9: Boxplot de la longitud del pétalo"><img src="1102_distribution_files/figure-html/fig-boxplot-petal-1.png" class="img-fluid figure-img" width="672"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-boxplot-petal-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Fig.&nbsp;4.9: Boxplot de la longitud del pétalo
+</figcaption></figure>
+</div>
+</div>
+</div>
+<p>Hemos guardo el gráfico en un objeto llamado <code>base_boxplot</code> para poder añadir más elementos en la siguiente sección.</p>
+<section id="boxplot-jitter" class="level3" data-number="4.4.1"><h3 data-number="4.4.1" class="anchored" data-anchor-id="boxplot-jitter">
+<span class="header-section-number">4.4.1</span> Boxplot + Jitter</h3>
+<p>Para añadir la distribución de los datos en un boxplot, podemos utilizar la función <code><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point()</a></code>:</p>
+<div class="cell">
+<details class="code-fold"><summary>Código</summary><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">base_boxplot</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div id="fig-boxplot-petal-point" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-boxplot-petal-point-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="1102_distribution_files/figure-html/fig-boxplot-petal-point-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10" title="Fig.&nbsp;4.10: Boxplot de la longitud del pétalo con geom_point()"><img src="1102_distribution_files/figure-html/fig-boxplot-petal-point-1.png" class="img-fluid figure-img" width="672"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-boxplot-petal-point-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Fig.&nbsp;4.10: Boxplot de la longitud del pétalo con geom_point()
+</figcaption></figure>
+</div>
+</div>
+</div>
+<p>Sin embargo, como puedes ver, los puntos están superpuestos. Para evitar esto, podemos utilizar la función <code><a href="https://ggplot2.tidyverse.org/reference/position_jitter.html">position_jitter()</a></code> dentro del argumento <code>position</code> que nos permite añadir un poco de ruido a los puntos para que no se superpongan. Esto significa que los puntos tendrán un determinando porcentaje (0-1) de variación en el eje <code>x</code> con el argumento <code>width</code> y en el eje <code>y</code> con el argumento <code>height</code>. Utiliza la siguiente herramienta para ver como funciona:</p>
+<pre class="shinylive-r" data-engine="r"><code><a href="https://rstudio.github.io/bslib/">#| standalone: true
+#| viewerHeight: 600
+
+## Load packages
+library(bslib)
+library(ggplot2)
+library(glue)
+library(shiny)
+
+## UI
+ui &lt;- page_sidebar(
+    sidebar = sidebar(
+        open = "open",
+        width = 200,
+        sliderInput("width_j", "Width", min = 0, max = 1, value = .5, step = .1),
+        sliderInput("height_j", "Height", min = 0, max = 1, value = .5, step = .1)
+    ),
+    verbatimTextOutput("code") |&gt; card(),
+    plotOutput("plot", width = 500) |&gt; card()
+)
+
+## Server
+server &lt;- function(input, output, session) {
+    
+    output$code &lt;- renderPrint({
+        glue(
+            '
+            base_boxplot +
+                geom_point(
+                    position = position_jitter(
+                        width  = {input$width_j},
+                        height = {input$height_j}
+                    ),
+                    alpha    = .7
+                )'
+            )
+    })
+
+    ## Plot
+    output$plot &lt;- renderPlot({
+        ggplot(iris, aes(x = Species, y = Petal.Length)) +
+            geom_boxplot(
+                fill          = "orangered",
+                outlier.shape = 21,
+                outlier.size  = 3,
+                outlier.color = "black",
+                varwidth      = TRUE
+            ) +
+            labs(
+                title = "Distribución de la longitud del pétalo por especie",
+                x     = "Especie", 
+                y     = "Longitud (mm)"
+            ) +
+            theme_minimal() +
+                        geom_point(
+                            position = position_jitter(
+                                width  = {input$width_j},
+                                height = {input$height_j}
+                            ),
+                            alpha    = .7
+                        ) +
+                    theme_gray(base_size = 8)
+    }, res = 96)
+}
+
+## Run app
+shinyApp(ui = ui, server = server)</a></code></pre>
+<p>Si ambos son igual a 0, significa que no se añade ruido. si aumentamos <code>width</code>, veremos que los datos se mantienen en sus valores originales según la variable de longitud del pétalo, pero se mueven aleatoriamente a lo largo del eje <code>x</code>. De este modo podemos ver mejor la distribución. No obstante, esto es recomendable solamente en variables categóricas para que los puntos no estén unos encima de otros. En variables numéricas no tiene sentido ya que estamos modificando los datos. Es decir, en este ejemplo <code>height</code> debe ser igual a 0.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Nota
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Si utilizamos un valor igual o superior a 0.5 los puntos de distintas categorías se superpondrán.</p>
+</div>
+</div>
+<p>Como esta geometría es muy común, <a href="https://ggplot2.tidyverse.org">ggplot2</a> tiene la función <code><a href="https://ggplot2.tidyverse.org/reference/geom_jitter.html">geom_jitter()</a></code> que es un atajo para <code>geom_point(position = position_jitter())</code>:</p>
+<div class="cell">
+<details class="code-fold"><summary>Código</summary><div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">base_boxplot</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_jitter.html">geom_jitter</a></span><span class="op">(</span>height <span class="op">=</span> <span class="fl">0</span>, width <span class="op">=</span> <span class="fl">.2</span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div id="fig-boxplot-petal-jitter" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-boxplot-petal-jitter-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="1102_distribution_files/figure-html/fig-boxplot-petal-jitter-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11" title="Fig.&nbsp;4.11: Boxplot de la longitud del pétalo con geom_jitter()"><img src="1102_distribution_files/figure-html/fig-boxplot-petal-jitter-1.png" class="img-fluid figure-img" width="672"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-boxplot-petal-jitter-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Fig.&nbsp;4.11: Boxplot de la longitud del pétalo con geom_jitter()
+</figcaption></figure>
+</div>
+</div>
+</div>
+</section><section id="ejercicio-4" class="level3" data-number="4.4.2"><h3 data-number="4.4.2" class="anchored" data-anchor-id="ejercicio-4">
+<span class="header-section-number">4.4.2</span> Ejercicio 4</h3>
+<p>Generar un <em>boxplot</em> de la distribución diamétrica por especie. Además, añadir la distribución de los puntos. Para practicar, utiliza la documentación de <code><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot()</a></code> para modificar distintos argumentos.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-5-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-1" role="tab" aria-controls="tabset-5-1" aria-selected="true">Ejercicio 4</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-2" role="tab" aria-controls="tabset-5-2" aria-selected="false">Resultado</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-5-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-5-1-tab">
+<div id="qwebr-insertion-location-5"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+</div>
+<div id="tabset-5-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-2-tab">
+<p>El siguiente código es una de muchas opciones.</p>
+<div class="cell">
+<details class="code-fold"><summary>Código</summary><div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">## Crear boxplot</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span></span>
+<span>    <span class="va">inventario_tbl</span>, </span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">nombre_ifn</span>, y <span class="op">=</span> <span class="va">dbh_mm</span> <span class="op">/</span> <span class="fl">10</span><span class="op">)</span></span>
+<span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span></span>
+<span>        fill          <span class="op">=</span> <span class="st">"#82BE1F"</span>,</span>
+<span>        outlier.shape <span class="op">=</span> <span class="fl">21</span>,</span>
+<span>        outlier.size  <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>        outlier.fill  <span class="op">=</span> <span class="st">"#E121DB"</span>,</span>
+<span>        varwidth      <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>        width         <span class="op">=</span> <span class="fl">.5</span></span>
+<span>    <span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_jitter.html">geom_jitter</a></span><span class="op">(</span></span>
+<span>        color <span class="op">=</span> <span class="st">"#7D9E69"</span>,</span>
+<span>        height <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>        width  <span class="op">=</span> <span class="fl">.4</span>,</span>
+<span>        alpha  <span class="op">=</span> <span class="fl">.3</span></span>
+<span>    <span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span></span>
+<span>        title <span class="op">=</span> <span class="st">"Distribución diamétrica por especie"</span>,</span>
+<span>        x     <span class="op">=</span> <span class="st">"Especie"</span>, </span>
+<span>        y     <span class="op">=</span> <span class="st">"Diámetro (cm)"</span></span>
+<span>    <span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div id="fig-boxplot-ej4" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-boxplot-ej4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="1102_distribution_files/figure-html/fig-boxplot-ej4-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12" title="Fig.&nbsp;4.12: Resultado del ejercicio 4"><img src="1102_distribution_files/figure-html/fig-boxplot-ej4-1.png" class="img-fluid figure-img" width="672"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-boxplot-ej4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Fig.&nbsp;4.12: Resultado del ejercicio 4
+</figcaption></figure>
+</div>
+</div>
+</div>
 
 
-</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</div>
+</div>
+</div>
+</section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -2639,8 +2879,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./chapters/installation.html" class="pagination-link" aria-label="Instalación">
-        <span class="nav-page-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Instalación</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./1103_relationship.html" class="pagination-link" aria-label="1103_relationship.html">
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">1103_relationship.html</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -2767,7 +3007,7 @@ qwebrInstance.then(
     );  
   }
 );
-</script><script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","openEffect":"zoom","loop":false,"selector":".lightbox","descPosition":"bottom"});
+</script><script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","selector":".lightbox","openEffect":"zoom","loop":false});
 (function() {
   let previousOnload = window.onload;
   window.onload = () => {
