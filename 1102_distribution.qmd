@@ -84,13 +84,19 @@ server <- function(input, output, session) {
 
     ## Load data
     inventario_tbl <- read_rds("data/inventario_prep.rds")
-
-    ## Plot
-    output$plot <- renderPlot({
+    
+    ## React
+    histogram_r <- reactive({
         ggplot(inventario_tbl, aes(x = dbh_mm / 10)) +
             geom_histogram(bins = input$bins, fill = "#0073C2FF", color = "white") +
             labs(title = "Distribución diamétrica", x = "DBH (cm)", y = "Frecuencia") +
             theme_minimal()
+    
+    })
+
+    ## Plot
+    output$plot <- renderPlot({
+        histogram_r()
     }, res = 96)
 }
 

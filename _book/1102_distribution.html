@@ -303,7 +303,7 @@ ui &lt;- page_sidebar(
         sliderInput("bins", "Número de intervalos", min = 1, max = 100, value = 30),
     ),
     h2("Test"),
-    plotOutput("histogram", width = 300),
+    plotOutput("plot", width = 300),
     h3("OK")
 )
 
@@ -312,13 +312,19 @@ server &lt;- function(input, output, session) {
 
     ## Load data
     inventario_tbl &lt;- read_rds("data/inventario_prep.rds")
-    print(inventario_tbl)
-    ## Plot
-    output$histogram &lt;- renderPlot({
+    
+    ## React
+    histogram_r &lt;- reactive({
         ggplot(inventario_tbl, aes(x = dbh_mm / 10)) +
             geom_histogram(bins = input$bins, fill = "#0073C2FF", color = "white") +
             labs(title = "Distribución diamétrica", x = "DBH (cm)", y = "Frecuencia") +
             theme_minimal()
+    
+    })
+
+    ## Plot
+    output$plot &lt;- renderPlot({
+        histogram_r()
     }, res = 96)
 }
 
