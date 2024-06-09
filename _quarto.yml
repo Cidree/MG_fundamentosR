@@ -60,11 +60,14 @@ execute:
   freeze: auto
 
 ## Extensions
+filters: 
+    - shinylive
 lightbox: auto
 
 format:
   html:
     ## Code
+    resources: shinylive-sw.js
     highlight-style: tango
     code-copy: hover
     code-link: true

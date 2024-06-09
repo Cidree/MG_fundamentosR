@@ -296,6 +296,9 @@ library(ggplot2)
 library(readr)
 library(shiny)
 
+## Load data
+inventario_tbl &lt;- read_rds("data/inventario_prep.rds")
+
 ## UI
 ui &lt;- page_sidebar(
     sidebar = sidebar(
@@ -310,8 +313,7 @@ ui &lt;- page_sidebar(
 ## Server
 server &lt;- function(input, output, session) {
 
-    ## Load data
-    inventario_tbl &lt;- read_rds("data/inventario_prep.rds")
+    
     
     ## React
     histogram_r &lt;- reactive({
