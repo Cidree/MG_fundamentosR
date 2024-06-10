@@ -55,7 +55,7 @@ facets_gg
 
 Vemos que el resultado de la @fig-components-facet es exactamente igual al de la @fig-components-layer. En el capítulo <!--# añadir referencia --> veremos otras opciones de facetas.
 
-## Escalas
+## Escalas {#sec-components-scales}
 
 Las escalas se encargar de mapear los valores de los datos a los valores estéticos [@layered-grammar]. En nuestro gráfico, hemos utilizado un total de tres estéticas:
 

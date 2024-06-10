@@ -5,7 +5,7 @@ editor_options:
   chunk_output_type: console
 ---
 
-# Primeros pasos con ggplot2
+# Primeros pasos con ggplot2 {#sec-first-steps}
 
 `{ggplot2}` es un paquete de R que permite crear gráficos de forma sencilla y flexible. A diferencia de muchos paquetes de R u otros software, `{ggplot2}` se basa en una gramática de gráficos [@gog] que permite crear gráficos siguiendo una serie de reglas basadas en la construcción de gráficos a partir de capas y otros componentes.
 

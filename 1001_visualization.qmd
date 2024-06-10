@@ -15,3 +15,12 @@ Aunque la visualización de datos es un tema amplio y complejo, en este libro se
 -   Entender la gramática de gráficos y su implicación dentro de `{ggplot2}`
 
 -   Crear gráficos sencillos pero comunicativos con `{ggplot2}`
+
+```{r}
+#| include: false
+## Paquetes de shinylive (necesario para renv.lock)
+library(bslib)
+library(shiny)
+library(shinylive)
+```
+
