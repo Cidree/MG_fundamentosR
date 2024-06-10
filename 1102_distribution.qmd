@@ -38,11 +38,16 @@ En este capítulo vamos a trabajar con dos datasets:
 Para comenzar, vamos a cargar los paquetes necesarios y a leer los datos que utilizaremos en este capítulo.
 
 ```{r}
+#| include: false
+## Paquetes internos
+library(patchwork)
+```
+
+```{r}
 # Cargar paquetes
 library(dplyr)
 library(readr)
 library(ggplot2)
-library(patchwork)
 # Cargar datos
 inventario_tbl <- read_rds("data/inventario_prep.rds")
 ```
@@ -356,6 +361,11 @@ shinyApp(ui = ui, server = server)
 
 Finalmente, al igual que con los histogramas, podemos comparar la distribución de la longitud del pétalo entre las diferentes especies de flores del *dataset* `iris`. Te atreves a intentar añadir la parte del código que falta? El resultado debería ser el indicado en la @fig-distribution-ej1:
 
+::: panel-tabset
+## Gráfico
+
+Intenta replicar este gráfico en la pestaña "Ejercicio"
+
 ```{r}
 #| label: fig-distribution-ej1
 #| fig-cap: Resultado del ejercicio 1
@@ -375,6 +385,8 @@ iris |>
     theme_bw()
 ```
 
+## Ejercicio
+
 En total hay que añadir tres elementos:
 
 -   Transparencia (necesaria para poder ver la superposición de densidades)
@@ -382,9 +394,6 @@ En total hay que añadir tres elementos:
 -   Eliminar color de contorno
 
 -   Crear un gráfico de densidad por especie dentro del mismo gráfico
-
-::: panel-tabset
-## Ejercicio 1
 
 ```{webr-r}
 iris |> 
@@ -420,6 +429,7 @@ iris |>
         y     = "Probabilidad (%)"
     ) +
     theme_bw()
+
 ```
 :::
 

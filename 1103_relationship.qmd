@@ -23,7 +23,9 @@ En este capítulo veremos los siguientes gráficos de relación:
 
 En este capítulo vamos a trabajar con dos datasets:
 
--   `iris`: se utilizará para los ejemplos utilizados en las explicaciones (ver [Tipos de visualización](#sec-visualization-types){target="_blank"}).
+-   `iris`: se utilizará para los ejemplos utilizados en las explicaciones (ver [Tipos de visualización](#sec-visualization-types){target="_blank"}). <!--# eliminar? -->
+
+-   `gapminder`: se utilizará para los ejemplos utilizados en las explicaciones (ver [Tipos de visualización](#sec-visualization-types){target="_blank"}). Filtraremos solamente los datos del 2002.
 
 -   `inventario`: serán los datos que utilizarán los alumnos para los ejercicios propuestos (ver @sec-vis-data).
 
@@ -33,15 +35,19 @@ Para comenzar, vamos a cargar los paquetes necesarios y a leer los datos que uti
 #| include: false
 ## Paquetes internos
 library(ggtext)
+library(gt)
 ```
 
 ```{r}
 # Cargar paquetes
 library(dplyr)
-library(readr)
+library(gapminder)
 library(ggplot2)
+library(readr)
 # Cargar datos
 inventario_tbl <- read_rds("data/inventario_prep.rds")
+gapminder_tbl <- gapminder |> 
+    filter(year == 2002)
 ```
 
 ## Objetivos
@@ -60,47 +66,54 @@ Al final de este capítulo serás capaz de:
 
 ## Gráficos de dispersión
 
-Antes de emepzar, vamos a ver como modificar el tema que viene por defecto en `{ggplot2}`, para que no tengamos que añadirlo en cada gráfico que hagamos.
+Antes de empezar, vamos a ver como modificar el tema que viene por defecto en `{ggplot2}`, para que no tengamos que añadirlo en cada gráfico que hagamos.
 
-Utilizando la función `theme_set()` podemos establecer un tema por defecto para todos los gráficos que hagamos en el documento. En este caso, hemos seleccionado el tema `theme_bw()`, que es uno de los temas más utilizados en `{ggplot2}`.
+Utilizando la función `theme_set()` podemos establecer un tema por defecto para todos los gráficos que hagamos en el documento. En este caso, hemos seleccionado el tema `theme_classic()`, que es uno de los temas más utilizados en `{ggplot2}`.
 
 ```{r}
 theme_set(
-    theme_bw()
+    theme_classic()
 )
 ```
 
 Los gráficos de dispersión son una de las formas más comunes de visualizar la relación entre dos **variables numéricas**. En un gráfico de dispersión, cada punto representa una observación y se coloca en el eje `x` según el valor de la primera variable y en el eje `y` según el valor de la segunda variable.
 
-Para crear un gráfico de dispersión en `ggplot2` se utiliza la función `geom_point()`. A continuación, se muestra un ejemplo de cómo crear un gráfico de dispersión utilizando el *dataset* `iris`.
+Para crear un gráfico de dispersión en `ggplot2` se utiliza la función `geom_point()`. A continuación, se muestra un ejemplo de cómo crear un gráfico de dispersión utilizando el *dataset* `gapminder` relacionando el PIB per cápita con la esperanza de vida, y coloreando los puntos según el continente.
 
 ```{r}
 #| label: fig-dispersion-scatter
 #| fig-cap: Gráfico de dispersión con ggplot2
 ## Crear gráfico
-base_scatter_gg <- iris |> 
+base_scatter_gg <- gapminder_tbl |> 
     ggplot(
-        aes(x = Petal.Length, y = Petal.Width)
+        aes(x = gdpPercap, y = lifeExp, color = continent)
     ) +
     geom_point(
-        aes(color = Species),
         size = 2
+    ) +
+    labs(
+        x = "PIB per cápita",
+        y = "Esperanza de vida"
     )
 ## Imprimir
 base_scatter_gg
 ```
 
-Fíjate que como hemos utilizado `theme_set()` al principio del documento, no hemos tenido que añadir `theme_bw()` en el gráfico.
+Fíjate que como hemos utilizado `theme_set()` al principio del documento, no hemos tenido que añadir `theme_classic()` en el gráfico.
 
 Pues así de sencillo es crear un gráfico de dispersión en `ggplot2`. Como ya estamos familiarizados con la funcionalidad básica, vamos a aprender a cambiar los colores de los puntos y a mover la leyenda.
 
-Vamos a empezar modificando los colores de cada una de las especies para que sean:
+Vamos a empezar modificando los colores de cada uno de los continentes para que sean:
 
--   `Iris setosa`: azul oscuro
+-   `África`: naranja
 
--   `Iris versicolor`: verde oscuro
+-   `América`: negro
 
--   `Iris virginica`: rojo oscuro
+-   `Asia`: lila
+
+-   `Europa`: azul
+
+-   `Oceanía`: verde
 
 Si recordáis, en la @sec-components-scales veíamos que las variables numéricas traen por defecto una escala continua (i.e. `scale_*_continuous()`) y las variables categóricas una escala de discreta (i.e. `scale_*_discrete()`).
 
@@ -112,8 +125,8 @@ En este caso, queremos cambiar los colores de las especies, y para ello tenemos 
 ## Crear gráfico
 scales_scatter_gg <- base_scatter_gg +
     scale_color_manual(
-        name   = "Especies",
-        values = c("darkblue", "darkgreen", "darkred")
+        name   = "Continente",
+        values = c("#FF5733", "black", "#A833FF", "#3366FF", "#33FF57")
     )
 ## Imprimir
 scales_scatter_gg
@@ -122,7 +135,7 @@ scales_scatter_gg
 Con el argumento `name` de las funciones `scale*` podemos cambiar el nombre de la leyenda, y en `values` tenemos que especificar un vector con los colores que queremos asignar a cada categoría.
 
 ::: callout-note
-En @fig-dispersion-scatter-colors hemos asignado a `values` un vector de longitud 3 porque tenemos 3 categorías (1 por especie). Si asignamos más colores de los necesarios, la función los ignorará, mientras que si asignamos menos, la función nos dará el error: `Insufficient values in manual scale`
+En @fig-dispersion-scatter-colors hemos asignado a `values` un vector de longitud 5 porque tenemos 5 categorías (1 por continente). Si asignamos más colores de los necesarios, la función los ignorará, mientras que si asignamos menos, la función nos dará el error: *`Insufficient values in manual scale`*
 :::
 
 Lo siguiente que vamos a aprender es a mover la leyenda. Aquí tenemos dos opciones:
@@ -146,6 +159,8 @@ Lo que estamos haciendo es: (1) utilizar la función `guides`; (2) como argument
 
 ## Load packages
 library(bslib)
+library(dplyr)
+library(gapminder)
 library(ggplot2)
 library(glue)
 library(shiny)
@@ -182,17 +197,21 @@ server <- function(input, output, session) {
 
     ## Plot
     output$plot <- renderPlot({
-        iris |> 
+        gapminder |> 
+            filter(year == 2002) |> 
             ggplot(
-                aes(x = Petal.Length, y = Petal.Width)
+                aes(x = gdpPercap, y = lifeExp, color = continent)
             ) +
             geom_point(
-                aes(color = Species),
                 size = 2
             ) +
+            labs(
+                x = "PIB per cápita",
+                y = "Esperanza de vida"
+            ) +
             scale_color_manual(
-                name   = "Especies",
-                values = c("darkblue", "darkgreen", "darkred")
+                name   = "Continente",
+                values = c("#FF5733", "black", "#A833FF", "#3366FF", "#33FF57")
             ) +
             guides(
                 color = guide_legend(
@@ -200,7 +219,7 @@ server <- function(input, output, session) {
                 )
             ) +
             theme_bw(base_size = 8)
-            }, res = 96
+        }, res = 96
     )
 }
 
@@ -218,6 +237,8 @@ Para la posición absoluta, debemos utilizar `position = "inside"`. Una vez hech
 
 ## Load packages
 library(bslib)
+library(dplyr)
+library(gapminder)
 library(ggplot2)
 library(glue)
 library(shiny)
@@ -267,21 +288,25 @@ server <- function(input, output, session) {
 
     ## Plot
     output$plot <- renderPlot({
-        iris |> 
+        gapminder |> 
+            filter(year == 2002) |> 
             ggplot(
-                aes(x = x = Petal.Length, y = Petal.Width)
+                aes(x = gdpPercap, y = lifeExp, color = continent)
             ) +
             geom_point(
-                aes(color = Species),
                 size = 2
             ) +
+            labs(
+                x = "PIB per cápita",
+                y = "Esperanza de vida"
+            ) +
             scale_color_manual(
-                name   = "Especies",
-                values = c("darkblue", "darkgreen", "darkred")
+                name   = "Continente",
+                values = c("#FF5733", "black", "#A833FF", "#3366FF", "#33FF57")
             ) +
             guides(
                 color = guide_legend(
-                    position = "inside"
+                    position = {input$position_input}
                 )
             ) +
             theme_bw(base_size = 8) +
@@ -296,38 +321,230 @@ shinyApp(ui = ui, server = server)
 ```
 :::
 
-Yo no soy particularmente fan de utilizar leyendas, sobre todo cuando tenemos dos o tres clases nada más. En estos casos crearía un gráfico como el siguiente, pero para un curso de iniciación es algo bastante complejo de abordar:
+## Gráficos de burbujas
+
+Los gráficos de burbujas son una extensión de los gráficos de dispersión, donde se añade una **tercera variable numérica** que se representa mediante el tamaño de los puntos.
+
+::: callout-note
+En la práctica, si utilizamos las estéticas de `color` y `size`, estamos visualizando 4 variables numéricas al mismo tiempo!!
+:::
+
+En `ggplot2`, podemos añadir una tercera variable utilizando la estética `size` en la función `aes()`. Al *scatter plot* anterior, vamos a añadirle como variable de `size` la población. Como vamos a añadir nuevos elementos, vamos a añadir el código paso a paso:
+
+::: panel-tabset
+## 1. Bubble plot
+
+Empezamos generando un *bubble plot* añadiendo la variable *pop:*
 
 ```{r}
-#| label: fig-dispersion-scatter-no-legend
-#| fig-cap: Gráfico de dispersión sin leyenda
-#| echo: false
-## Texto
-txt_title <- "***<span style='color: darkred'>Iris virginica</span>*** tiene los pétalos más grandes, mientras que ***<span style='color: darkblue'>I. setosa</span>*** los más pequeños"
-txt_subtitle <- "***<span style='color: darkgreen'>I. versicolor</span>*** es más similar a ***<span style='color: darkred'>Iris virginica</span>***"
-
-ggplot(
-    iris,
-    aes(x = Petal.Length, y = Petal.Width, color = Species)
-) +
+## Crear gráfico
+bubble_base <- gapminder_tbl |> 
+    ggplot(
+        aes(x = gdpPercap, y = lifeExp, color = continent, size = pop)
+    ) +
     geom_point(
-        size = 2,
-        show.legend = FALSE
+        alpha = 0.7
+    ) +
+    labs(
+        x = "PIB per cápita",
+        y = "Esperanza de vida"
+    ) +
+    scale_color_manual(
+        name   = "Continente",
+        values = c("#FF5733", "black", "#A833FF", "#3366FF", "#33FF57")
+    )
+## Imprimir
+bubble_base
+```
+
+## 2. Tamaño puntos
+
+El tamaño de los puntos al igual que el color de los mismos es una estética. Para modificar una estética mapeada a una variable utilizamos las funciones `scale_*`. Como la estética es `size`, utilizamos `scale_size*()`. En el argumento `range` indicamos el tamaño del punto más pequeño y el tamaño del punto más grande:
+
+```{r}
+## Crear gráfico
+bubble_size <- bubble_base +
+    scale_size(range = c(1, 15))
+## Imprimir
+bubble_size
+```
+
+## 3. Eliminar una leyenda
+
+Recuerdas la función `guides` que vimos antes? Si igualamos una de las estéticas a `"none"` eliminaremos solamente esa leyenda:
+
+```{r}
+## Crear gráfico
+bubble_guides <- bubble_size +
+    guides(
+        size = "none"
+    )
+## Imprimir
+bubble_guides
+```
+
+## 4. Posicionar leyenda
+
+Para terminar, vamos a posicionar la leyenda del continente en la parte inferior derecha del gráfico para aprovechar el espacio:
+
+```{r}
+## Crear gráfico
+bubble_final <- bubble_guides +
+    guides(
+        color = guide_legend(
+            position = "inside"
+        )
+    ) +
+    theme(
+        legend.position.inside = c(.9, .2)
+    ) 
+## Imprimir
+bubble_final
+```
+
+## 5. Resumen
+
+Para terminar, vamos a ver como se vería todo el código en un solo bloque:
+
+```{r}
+gapminder_tbl |> 
+    ## Capas
+    ggplot(
+        aes(x = gdpPercap, y = lifeExp, color = continent, size = pop)
+    ) +
+    geom_point(
+        alpha = 0.7
+    ) +
+    ## Etiquetas
+    labs(
+        x = "PIB per cápita",
+        y = "Esperanza de vida"
+    ) +
+    ## Escalas y guías
+    scale_color_manual(
+        name   = "Continente",
+        values = c("#FF5733", "black", "#A833FF", "#3366FF", "#33FF57")
+    ) +
+    scale_size(range = c(1, 15)) +
+    guides(
+        size  = "none",
+        color = guide_legend(
+            position = "inside"
+        )
+    ) +
+    ## Temas
+    theme(
+        legend.position.inside = c(.9, .2)
+    ) 
+```
+:::
+
+Uff 😥... Si es tu primera vez estudiando `{ggplot2}` es posible que te esté explotando la cabeza. No te preocupes!! Es normal que al principio te cueste, pero poco a poco iremos dominándolo juntos😎.
+
+### Ejercicio 7
+
+Es hora de ponerse manos a la obra! El objetivo del siguiente ejercicio es replicar el siguiente gráfico con el *dataset* de `iris`. Recuerda la estructura de los datos:
+
+```{r}
+#| echo: false
+#| label: tbl-iris-head
+#| tbl-cap: Estructura de los datos de Iris
+head(iris) |> 
+    gt() |> 
+    opt_stylize(style = 5)
+```
+
+::: panel-tabset
+## Gráfico
+
+Intenta replicar este gráfico en la pestaña "Ejercicio"
+
+```{r}
+#| echo: false
+#| label: fig-distribution-ej7
+#| fig-cap: Resultado del ejercicio 7
+iris |> 
+    ggplot(
+        aes(
+            x = Petal.Length, 
+            y = Petal.Width,
+            color = Species,
+            size  = Sepal.Length
+        )
+    ) +
+    geom_point() +
+    labs(
+        title = "Relación entre longitud de pétalo, anchura de pétalo y longitud de sépalo",
+        x = "Longitud de pétalo (mm)",
+        y = "Anchura de pétalo (mm)"
     ) +
     scale_color_manual(
         name   = "Especies",
-        values = c("darkblue", "darkgreen", "darkred")
+        values = c("#FF6347", "#4682B4", "#32CD32")
     ) +
-    labs(
-        title    = txt_title,
-        subtitle = txt_subtitle
+    scale_size(range = c(1, 5)) +
+    guides(
+        size = "none",
+        color = guide_legend(position = "inside")
     ) +
-    theme_bw() +
     theme(
-        plot.title    = element_markdown(size = rel(1), face = "bold"),
-        plot.subtitle = element_markdown()
+        legend.position.inside = c(.1, .8)
     )
+
 ```
 
+## Ejercicio
+
+Completar el código:
+
+```{webr-r}
+iris |> 
+    ## Introducir código
+    labs(
+        title = "Relación entre longitud de pétalo, anchura de pétalo y longitud de sépalo",
+        x = "Longitud de pétalo (mm)",
+        y = "Anchura de pétalo (mm)"
+    ) 
+```
+
+## Solución
+
+```{r}
+#| echo: false
+#| label: fig-distribution-ej7-sol
+#| fig-cap: Solución del ejercicio 7
+iris |> 
+    ggplot(
+        aes(
+            x = Petal.Length, 
+            y = Petal.Width,
+            color = Species,
+            size  = Sepal.Length
+        )
+    ) +
+    geom_point() +
+    labs(
+        title = "Relación entre longitud de pétalo, anchura de pétalo y longitud de sépalo",
+        x = "Longitud de pétalo (mm)",
+        y = "Anchura de pétalo (mm)"
+    ) +
+    scale_color_manual(
+        name   = "Especies",
+        values = c("#FF6347", "#4682B4", "#32CD32")
+    ) +
+    scale_size(range = c(1, 5)) +
+    guides(
+        size = "none",
+        color = guide_legend(position = "inside")
+    ) +
+    theme(
+        legend.position.inside = c(.1, .8)
+    )
+```
+:::
 
 ## Mapas de calor
+
+```{r}
+"hello world of heatmaps"
+```

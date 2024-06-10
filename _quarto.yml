@@ -11,7 +11,7 @@ book:
   abstract: "Libro de programación en R correspondiente al curso de Fundamentos de Programación con R del Máster Geoforest de la Universidad de Córdoba."
   #description: "Descripcion..."
   author: "Adrián Cidre"
-  date: "2024/05/28"
+  date: "2024/06/10"
   ## Book opts
   repo-url: https://github.com/Cidree/MG_fundamentosR
   issue-url: https://github.com/Cidree/MG_fundamentosR/issues

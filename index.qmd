@@ -8,26 +8,8 @@ Este libro ...
 
 ## Sección primera
 
-Sección rimera
+Sección primera
 
 ## Sección segunda
 
 Sección segunda
-
-::: callout-note
-## Prueba
-
-Por defecto
-:::
-
-::: {.callout-note appearance="simple"}
-## Prueba 2
-
-Simple
-:::
-
-::: {.callout-note appearance="minimal"}
-## Prueba 3
-
-Minimal
-:::

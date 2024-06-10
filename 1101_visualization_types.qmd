@@ -1,3 +1,9 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
 ```{r}
 #| include: false
 library(skimr)
@@ -20,3 +26,21 @@ skim(iris)
 ```
 
 En resumen, tenemos 50 muestras de cada una de las tres especies (*I. versicolor, I. setosa* y *I. virginica*) a las cuales hemos medido cuatro variables cuantitativas.
+
+También utilizaremos el *dataset* de `gapminder` que viene dentro del paquete de R `{gapminder}`. Este dataset tiene las siguientes variables:
+
+-   ***country***: país
+
+-   ***continent***: continente
+
+-   ***year***: años desde el 1952 hasta 2007 de 5 en 5 (1952, 1957, 1962 ...)
+
+-   ***lifeExp***: esperanza de vida en ese país para cada año
+
+-   ***pop***: población del país para cada año
+
+-   ***gdpPercap***: PIB per cápita
+
+```{r}
+gapminder::gapminder
+```
