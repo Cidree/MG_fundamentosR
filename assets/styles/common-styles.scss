@@ -1,3 +1,12 @@
+/*-- scss:variables --*/
+$light-main-color: #fff;
+$color-note: #0F5257;
+$color-tip: #A0E8AF;
+$color-caution: #EC7505;
+$color-warning: #FFCF56;
+$color-important: #FF5D73;
+$color-lightblue: #DBEBEA ;
+
 /*-- scss:defaults --*/
 // Base
 body p {
@@ -7,6 +16,11 @@ body p {
 // Code results
 .cell {
     padding-bottom: 1rem;
+}
+
+// Code cells (eliminate extra margin - align with boy)
+div.sourceCode {
+    margin-left: 0 !important;
 }
 
 // Figure captions
@@ -26,4 +40,15 @@ figcaption {
 
 .nav-footer-right p {
     text-align: right;
+}
+
+// Webr code cells format
+.qwebr-output-code-area div {
+    background-color: $color-lightblue;
+    border: 2px solid #777;
+}
+
+// Webr images go over the margin when screen is small
+.qwebr-output-graph-area canvas {
+    max-width: 100%;
 }

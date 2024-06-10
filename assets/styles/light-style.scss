@@ -31,4 +31,9 @@ $callout-color-important: $color-important;
 .cell-output {
     background-color: $color-lightblue;
     border: 2px solid #777;
+    
+    & p {
+        text-align: center;
+    }
+    
 }

@@ -1,6 +1,9 @@
 ## Book options
 project:
   type: book
+  ## Extensions
+  resources: 
+    - shinylive-sw.js
 
 book:
   ## Book metadata
@@ -63,12 +66,14 @@ execute:
 lightbox: auto
 filters: 
     - shinylive
+webr:
+  repos:
+    - https://cidree.github.io/MG_datasets
 
 format:
   html:
     ## Code
     code-fold: true
-    resources: shinylive-sw.js
     highlight-style: tango
     code-copy: hover
     code-link: true

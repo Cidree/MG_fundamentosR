@@ -8,12 +8,8 @@ editor_options:
 filters: 
     - webr
 webr:
-    packages: ["ggplot2"]
+    packages: ["dplyr", "ggplot2"]
 ---
-
-```{r}
-library(shinylive)
-```
 
 # Gráficos de distribución {#sec-plot-distribution}
 
@@ -55,6 +51,8 @@ inventario_tbl <- read_rds("data/inventario_prep.rds")
 
 Al final de este capítulo, serás capaz de:
 
+-   Utilizar etiquetas y temas prediseñados en `{ggplot2}`
+
 -   Crear histogramas en `{ggplot2}`
 
 -   Crear gráficos de densidad en `{ggplot2}`
@@ -63,7 +61,9 @@ Al final de este capítulo, serás capaz de:
 
 -   Crear gráficos de violín en `{ggplot2}`
 
--   Utilizar etiquetas y temas prediseñados en `{ggplot2}`
+-   Añadir líneas a los gráficos
+
+-   Añadir puntos con resúmenes estadísticos a los gráficos
 
 ## Histogramas
 
@@ -414,10 +414,14 @@ ggplot(iris, aes(x = Petal.Length)) +
 
 ### Ejercicio 2
 
-En los siguientes ejercicios vamos a trabajar con los datos de inventario. Puedes utilizar la siguiente celda para explorar los datos:
+En los siguientes ejercicios vamos a trabajar con los datos de inventario. Vamos a empezar cargando los datos, convertirlos a `tibble` y vamos a ver de nuevo su estructura:
 
 ```{webr-r}
-head(inventario_tbl)
+## Url de los datos
+url <- "https://cidree.github.io/MG_datasets/inventario_prep.csv"
+inventario_tbl <- read.csv(url) |> as_tibble()
+## Estructura datos
+inventario_tbl
 ```
 
 El ejercicio consiste en generar un histograma de la distribución diamétrica (en centímetros), además generando un gráfico por especie. Utiliza el siguiente bloque de código y practica todo lo que hemos visto hasta ahora:
@@ -634,6 +638,7 @@ La función `geom_boxplot()` tiene un montón de argumentos que podemos modifica
 base_boxplot <- ggplot(iris, aes(x = Species, y = Petal.Length)) +
     geom_boxplot(
         fill          = "orangered",
+        alpha         = .4,
         outlier.shape = 21,
         outlier.size  = 3,
         outlier.color = "black",
@@ -708,6 +713,7 @@ server <- function(input, output, session) {
         ggplot(iris, aes(x = Species, y = Petal.Length)) +
             geom_boxplot(
                 fill          = "orangered",
+                alpha         = .4,
                 outlier.shape = 21,
                 outlier.size  = 3,
                 outlier.color = "black",
@@ -797,16 +803,248 @@ ggplot(
     theme_minimal()
 ```
 
+### Extra - Añadir media
 
+También es posible añadir la localización de la media mediante un punto en un *boxplot*. Para ello, utilizamos la función `geom_point()`:
 
+```{r}
+base_boxplot +
+    geom_point()
+```
 
+Bueeeno 😅... Recuerdas cuándo hablábamos de las transformaciones estadísticas en @sec-components? Pues por defecto `geom_point()` utiliza `stat = "identity"`, que quería decir que no se aplica ninguna transformación, y por lo tanto $f(x) = x$. Será `{ggplot2}` tan mágico que nos dejará decir que realice una transformación estadística en la que convierta los puntos a la media? Sí, pero debemos utilizar la transformación estadística `summary`, y elegir una función de resumen con el argumento `fun`. En realidad, podemos añadir varias funciones que puedes probar aquí:
 
+```{shinylive-r}
+#| standalone: true
+#| viewerHeight: 600
 
+## Load packages
+library(bslib)
+library(ggplot2)
+library(glue)
+library(shiny)
 
+## UI
+ui <- page_sidebar(
+    sidebar = sidebar(
+        open = "open",
+        width = 200,
+        selectInput(
+            inputId = "fun_input", 
+            label   = "Función", 
+            choices = c("min", "max", "mean", "median", "quantile")
+        )
+    ),
+    verbatimTextOutput("code") |> card(),
+    plotOutput("plot", width = 500) |> card()
+)
 
+## Server
+server <- function(input, output, session) {
+    
+    output$code <- renderPrint({
+        glue(
+            '
+            base_boxplot +
+                geom_point(
+                    stat  = "summary",
+                    fun   = {input$fun_input},
+                    shape = 4,
+                    size  = 3,
+                    color = "red"
+                )'
+            )
+    })
 
+    ## Plot
+    output$plot <- renderPlot({
+        ggplot(iris, aes(x = Species, y = Petal.Length)) +
+            geom_boxplot(
+                fill          = "orangered",
+                alpha         = .4,
+                outlier.shape = 21,
+                outlier.size  = 3,
+                outlier.color = "black",
+                varwidth      = TRUE
+            ) +
+            labs(
+                title = "Distribución de la longitud del pétalo por especie",
+                x     = "Especie", 
+                y     = "Longitud (mm)"
+            ) +
+            theme_minimal() +
+            geom_point(
+                stat  = "summary",
+                fun   = {input$fun_input},
+                shape = 4,
+                size  = 3,
+                color = "red"
+            ) +
+            theme_gray(base_size = 8)
+    }, res = 96)
+}
 
+## Run app
+shinyApp(ui = ui, server = server)
+```
 
+Cualquier función que se pueda aplicar a un vector numérico, se puede añadir dentro del argumento `fun`, y esto incluye funciones personalizadas.
+
+:::callout-tip
+Si quieres ver las opciones del argumento `shape`, puedes consultar la documentación de la función `points()`.
+:::
+
+## Violin plot
+
+El *violin plot* es una forma de visualizar la distribución de una variable numérica. A diferencia del *boxplot*, el *violin plot* muestra la distribución de los datos de forma más detallada, de forma que no es necesario añadir una capa de puntos **jitter** para tener una idea de la distribución de los datos. 
+
+```{r}
+#| label: fig-violin-petal
+#| fig-cap: Violin plot de la longitud del pétalo
+base_violin <- ggplot(iris, aes(x = Species, y = Petal.Length)) +
+  geom_violin(
+      fill  = "#0073C2FF",
+      color = "white"
+  ) +
+  labs(
+      title = "Distribución de la longitud del pétalo por especie",
+      x     = "Especie", 
+      y     = "Longitud (mm)"
+  ) +
+  theme_minimal()
+  
+base_violin
+```
+
+En la @fig-violin-petal vemos que los gráficos son más o menos anchos. Cuanto más anchos, más datos hay en esa zona. Para tener una idea de lo que significa, podemos añadir una capa de puntos y así entenderlo mejor:
+
+```{r}
+#| label: fig-violin-petal-jitter
+#| fig-cap: Violin plot de la longitud del pétalo con `geom_jitter()`
+base_violin +
+  geom_jitter(
+      alpha  = .5,
+      height = 0
+  ) 
+```
+
+Como puedes ver, los puntos se distribuyen en función de la anchura del *violin plot*. Si la anchura es mayor, significa que hay más datos en esa zona.
+
+Opciones interesantes para modificar el *violin plot* son:
+
+-   `trim`: si es `FALSE`, el *violin plot* se extenderá hasta los valores extremos de los datos. Si es `TRUE` (por defecto), se extenderá hasta el valor más extremo que no sea un valor atípico.
+
+-   `scale`: si es `area` (por defecto), el área de cada *violin* es proporcional al número de observaciones. Si es `count`, el ancho de cada *violin* es proporcional al número de observaciones.
+
+-   `draw_quantiles`: si es `TRUE`, se dibujarán los cuantiles del 25%, 50% y 75% en el *violin plot*.
+
+```{r}
+#| label: fig-violin-petal-options
+#| fig-cap: Violin plot de la longitud del pétalo con opciones
+ggplot(iris, aes(x = Species, y = Petal.Length)) +
+  geom_violin(
+      fill  = "#0073C2FF",
+      color = "white",
+      trim  = TRUE,
+      scale = "area",
+      draw_quantiles = c(.25, .5, .75),
+  ) +
+  labs(
+      title = "Distribución de la longitud del pétalo por especie",
+      x     = "Especie", 
+      y     = "Longitud (mm)"
+  ) +
+  theme_minimal()
+```
+
+### Ejercicio 5 {#sec-ej5}
+
+Generar un *violin plot* de la distribución diamétrica por especie de `inventario_tbl`. Además, añadir una capa de puntos para ver la distribución de los datos. Visualizar la diferencia entre `scale = "area"` y `scale = "count"` y quedarse con el que te parezca más adecuado (en la pestaña "Resultado" se explica cuál es la mejor opción).
+
+El resultado de este ejercicio lo utilizaremos en @sec-ej6, así que guarda el *violin plot* en un objeto llamado `violin_ej5_gg`.
+
+::: panel-tabset
+
+## Ejercicio 5
+
+```{webr-r}
+## Escribir código aquí
+```
+
+## Resultado
+
+El siguiente código es una de muchas opciones.
+
+Con `scale = "count"`, vemos que de *P. sylvestris* tenemos muchos más datos. Si utilizamos `scale = "area`, esto no lo sabemos. Por lo tanto, es mejor utilizar `scale = "count"`.
+
+```{r}
+#| label: fig-violin-ej5
+#| fig-cap: Resultado del ejercicio 5
+## Crear violin plot
+violin_ej5_gg <- ggplot(
+    inventario_tbl, 
+    aes(x = nombre_ifn, y = dbh_mm / 10)
+) +
+    geom_violin(
+        fill  = "#82BE1F",
+        color = "transparent",
+        trim  = TRUE,
+        scale = "count"
+    ) +
+    labs(
+        title = "Distribución diamétrica por especie",
+        x     = "Especie", 
+        y     = "Diámetro (cm)"
+    ) +
+    theme_bw()
+## Imprimir
+violin_ej5_gg
+```
+
+:::
+
+### Ejercicio 6 {#sec-ej6}
+
+En la @sec-ej5 hemos generado un diamétrica por especie que guardamos como `violin_ej5_gg`. A este gráfico, añadir un *boxplot* y un punto que represente la media de la distribución.
+
+::: panel-tabset
+
+## Ejercicio 6
+
+```{webr-r}
+## Escribir código aquí
+```
+
+## Resultado
+
+El siguiente código es una de muchas opciones.
+
+```{r}
+#| label: fig-violin-ej6
+#| fig-cap: Resultado del ejercicio 6
+violin_ej5_gg +
+    geom_boxplot(
+        fill          = "transparent",
+        outliers      = FALSE,
+        varwidth      = TRUE,
+        width         = .2
+    ) +
+    geom_point(
+        stat  = "summary",
+        fun   = "mean",
+        shape = 19,
+        size  = 3,
+        color = "red"
+    )
+```
+
+:::
+
+Enhorabuena! Has llegado al final de la sección de distribuciones. En la siguiente sección vamos a ver cómo podemos comparar distribuciones entre diferentes grupos.
+
+## Resumen
+
+En esta sección hemos aprendido a visualizar la distribución de una variable numérica utilizando distintos tipos de gráficos. Hemos visto cómo crear histogramas, gráficos de densidad, *boxplots* y *violin plots*. Además, hemos aprendido a añadir capas de puntos a los gráficos para ver la distribución de los datos, resúmenes estadísticos como la media y a modificar distintos argumentos de las geometrías.
 
 
 
