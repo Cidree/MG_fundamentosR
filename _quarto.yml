@@ -74,7 +74,7 @@ format:
   html:
     ## Code
     code-fold: true
-    highlight-style: tango
+    highlight-style: breeze
     code-copy: hover
     code-link: true
     code-block-border-left: true

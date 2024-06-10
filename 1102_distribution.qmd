@@ -223,7 +223,11 @@ Vamos a ver qué pasa si comparamos la distribución de la longitud de los péta
 ```{r}
 #| label: fig-distribution-species
 #| fig-cap: Distribución de longitud del pétalo por especie
-ggplot(iris, aes(x = Petal.Length, fill = Species)) +
+
+iris |> 
+    ggplot(
+        aes(x = Petal.Length, fill = Species)
+    ) +
     geom_histogram(bins = 30, color = "white") +
     labs(
         title    = "Distribución de longitud del pétalo por especie", 
@@ -356,7 +360,8 @@ Finalmente, al igual que con los histogramas, podemos comparar la distribución 
 #| label: fig-distribution-ej1
 #| fig-cap: Resultado del ejercicio 1
 #| echo: false
-ggplot(iris, aes(x = Petal.Length)) +
+iris |> 
+    ggplot(aes(x = Petal.Length)) +
     geom_density(
         aes(fill = Species),
         color    = NA,
@@ -382,7 +387,10 @@ En total hay que añadir tres elementos:
 ## Ejercicio 1
 
 ```{webr-r}
-ggplot(iris, aes(x = Petal.Length)) +
+iris |> 
+    ggplot(
+        aes(x = Petal.Length)
+    ) +
     geom_density() +
     labs(
         title = "Distribución de longitud del pétalo",
@@ -396,8 +404,11 @@ ggplot(iris, aes(x = Petal.Length)) +
 
 El argumento `aes(fill = Species)` también se puede introducir en la función `ggplot()`.
 
-``` r
-ggplot(iris, aes(x = Petal.Length)) +
+```{r}
+#| label: fig-distribution-ej1-sol
+#| fig-cap: Resultado del ejercicio 1
+iris |> 
+    ggplot(aes(x = Petal.Length)) +
     geom_density(
         aes(fill = Species),
         color    = NA,
@@ -441,10 +452,10 @@ El siguiente código es una de muchas opciones.
 ```{r}
 #| label: fig-distribution-ej2
 #| fig-cap: Resultado del ejercicio 2
-ggplot(
-    inventario_tbl, 
-    aes(x = dbh_mm / 10, fill = nombre_ifn)
-) +
+inventario_tbl |> 
+    ggplot(
+        aes(x = dbh_mm / 10, fill = nombre_ifn)
+    ) +
     geom_histogram(
         bins  = 25, 
         color = "snow"
@@ -480,10 +491,10 @@ El siguiente código es una de muchas opciones.
 ```{r}
 #| label: fig-distribution-ej3
 #| fig-cap: Resultado del ejercicio 3
-ggplot(
-    inventario_tbl, 
-    aes(x = height_m, fill = nombre_ifn)
-) +
+inventario_tbl |> 
+    ggplot(
+        aes(x = height_m, fill = nombre_ifn)
+    ) +
     geom_density(
         alpha = .7
     ) +
@@ -582,13 +593,15 @@ Aunque es un gráfico que nos da un resumen estadístico muy bueno, es un gráfi
 set.seed(123)
 rand_vals <- sample(1:100, 500, replace = TRUE)
 ## Crear boxplot
-g1 <- ggplot(
-    data.frame(x = rand_vals, y = "A"),
-    aes(x = y, y = x)
-) +
+g1 <- data.frame(x = rand_vals, y = "A") |> 
+    ggplot(
+        aes(x = y, y = x)
+    ) +
     geom_boxplot() +
-    geom_jitter(alpha = .3,
-                position = position_jitter(height = 0)) +
+    geom_jitter(
+        alpha = .3,
+        position = position_jitter(height = 0)
+    ) +
     labs(
         title = "Boxplot 1",
         x     = NULL, 
@@ -609,10 +622,10 @@ summary_vals <- data.frame(
 )
 
 ## Crear boxplot
-g2 <- ggplot(
-    summary_vals,
-    aes(x = x, y = y)
-) +
+g2 <- summary_vals |> 
+    ggplot(
+        aes(x = x, y = y)
+    ) +
     geom_boxplot() +
     geom_jitter(alpha = .3, position = position_jitter(height = 0)) +
     labs(
@@ -635,7 +648,10 @@ La función `geom_boxplot()` tiene un montón de argumentos que podemos modifica
 ```{r}
 #| label: fig-boxplot-petal
 #| fig-cap: Boxplot de la longitud del pétalo
-base_boxplot <- ggplot(iris, aes(x = Species, y = Petal.Length)) +
+base_boxplot <- iris |> 
+    ggplot(
+        aes(x = Species, y = Petal.Length)
+    ) +
     geom_boxplot(
         fill          = "orangered",
         alpha         = .4,
@@ -760,7 +776,6 @@ base_boxplot +
 Generar un *boxplot* de la distribución diamétrica por especie. Además, añadir la distribución de los puntos. Para practicar, utiliza la documentación de `geom_boxplot()` para modificar distintos argumentos.
 
 ::: panel-tabset
-
 ## Ejercicio 4
 
 ```{webr-r}
@@ -777,10 +792,10 @@ El siguiente código es una de muchas opciones.
 #| fig-cap: Resultado del ejercicio 4
 
 ## Crear boxplot
-ggplot(
-    inventario_tbl, 
-    aes(x = nombre_ifn, y = dbh_mm / 10)
-) +
+inventario_tbl |> 
+    ggplot(
+        aes(x = nombre_ifn, y = dbh_mm / 10)
+    ) +
     geom_boxplot(
         fill          = "#82BE1F",
         outlier.shape = 21,
@@ -802,6 +817,7 @@ ggplot(
     ) +
     theme_minimal()
 ```
+:::
 
 ### Extra - Añadir media
 
@@ -890,28 +906,33 @@ shinyApp(ui = ui, server = server)
 
 Cualquier función que se pueda aplicar a un vector numérico, se puede añadir dentro del argumento `fun`, y esto incluye funciones personalizadas.
 
-:::callout-tip
+::: callout-tip
 Si quieres ver las opciones del argumento `shape`, puedes consultar la documentación de la función `points()`.
+
+![Opciones de puntos para el argumento \`shape\`](images/point-shape.png){#fig-point-shapes fig-align="center"}
 :::
 
 ## Violin plot
 
-El *violin plot* es una forma de visualizar la distribución de una variable numérica. A diferencia del *boxplot*, el *violin plot* muestra la distribución de los datos de forma más detallada, de forma que no es necesario añadir una capa de puntos **jitter** para tener una idea de la distribución de los datos. 
+El *violin plot* es una forma de visualizar la distribución de una variable numérica. A diferencia del *boxplot*, el *violin plot* muestra la distribución de los datos de forma más detallada, de forma que no es necesario añadir una capa de puntos **jitter** para tener una idea de la distribución de los datos.
 
 ```{r}
 #| label: fig-violin-petal
 #| fig-cap: Violin plot de la longitud del pétalo
-base_violin <- ggplot(iris, aes(x = Species, y = Petal.Length)) +
-  geom_violin(
-      fill  = "#0073C2FF",
-      color = "white"
-  ) +
-  labs(
-      title = "Distribución de la longitud del pétalo por especie",
-      x     = "Especie", 
-      y     = "Longitud (mm)"
-  ) +
-  theme_minimal()
+base_violin <- iris |> 
+    ggplot(
+        aes(x = Species, y = Petal.Length)
+    ) +
+    geom_violin(
+        fill  = "#0073C2FF",
+        color = "white"
+    ) +
+    labs(
+        title = "Distribución de la longitud del pétalo por especie",
+        x     = "Especie", 
+        y     = "Longitud (mm)"
+    ) +
+    theme_minimal()
   
 base_violin
 ```
@@ -941,20 +962,23 @@ Opciones interesantes para modificar el *violin plot* son:
 ```{r}
 #| label: fig-violin-petal-options
 #| fig-cap: Violin plot de la longitud del pétalo con opciones
-ggplot(iris, aes(x = Species, y = Petal.Length)) +
-  geom_violin(
-      fill  = "#0073C2FF",
-      color = "white",
-      trim  = TRUE,
-      scale = "area",
-      draw_quantiles = c(.25, .5, .75),
-  ) +
-  labs(
-      title = "Distribución de la longitud del pétalo por especie",
-      x     = "Especie", 
-      y     = "Longitud (mm)"
-  ) +
-  theme_minimal()
+iris |> 
+    ggplot(
+        aes(x = Species, y = Petal.Length)
+    ) +
+    geom_violin(
+        fill  = "#0073C2FF",
+        color = "white",
+        trim  = TRUE,
+        scale = "area",
+        draw_quantiles = c(.25, .5, .75),
+    ) +
+    labs(
+        title = "Distribución de la longitud del pétalo por especie",
+        x     = "Especie", 
+        y     = "Longitud (mm)"
+    ) +
+    theme_minimal()
 ```
 
 ### Ejercicio 5 {#sec-ej5}
@@ -964,7 +988,6 @@ Generar un *violin plot* de la distribución diamétrica por especie de `inventa
 El resultado de este ejercicio lo utilizaremos en @sec-ej6, así que guarda el *violin plot* en un objeto llamado `violin_ej5_gg`.
 
 ::: panel-tabset
-
 ## Ejercicio 5
 
 ```{webr-r}
@@ -981,10 +1004,10 @@ Con `scale = "count"`, vemos que de *P. sylvestris* tenemos muchos más datos. S
 #| label: fig-violin-ej5
 #| fig-cap: Resultado del ejercicio 5
 ## Crear violin plot
-violin_ej5_gg <- ggplot(
-    inventario_tbl, 
-    aes(x = nombre_ifn, y = dbh_mm / 10)
-) +
+violin_ej5_gg <- inventario_tbl |> 
+    ggplot(
+        aes(x = nombre_ifn, y = dbh_mm / 10)
+    ) +
     geom_violin(
         fill  = "#82BE1F",
         color = "transparent",
@@ -1000,7 +1023,6 @@ violin_ej5_gg <- ggplot(
 ## Imprimir
 violin_ej5_gg
 ```
-
 :::
 
 ### Ejercicio 6 {#sec-ej6}
@@ -1008,7 +1030,6 @@ violin_ej5_gg
 En la @sec-ej5 hemos generado un diamétrica por especie que guardamos como `violin_ej5_gg`. A este gráfico, añadir un *boxplot* y un punto que represente la media de la distribución.
 
 ::: panel-tabset
-
 ## Ejercicio 6
 
 ```{webr-r}
@@ -1024,10 +1045,10 @@ El siguiente código es una de muchas opciones.
 #| fig-cap: Resultado del ejercicio 6
 violin_ej5_gg +
     geom_boxplot(
-        fill          = "transparent",
-        outliers      = FALSE,
-        varwidth      = TRUE,
-        width         = .2
+        fill     = "transparent",
+        outliers = FALSE,
+        varwidth = TRUE,
+        width    = .2
     ) +
     geom_point(
         stat  = "summary",
@@ -1037,7 +1058,6 @@ violin_ej5_gg +
         color = "red"
     )
 ```
-
 :::
 
 Enhorabuena! Has llegado al final de la sección de distribuciones. En la siguiente sección vamos a ver cómo podemos comparar distribuciones entre diferentes grupos.
@@ -1045,7 +1065,3 @@ Enhorabuena! Has llegado al final de la sección de distribuciones. En la siguie
 ## Resumen
 
 En esta sección hemos aprendido a visualizar la distribución de una variable numérica utilizando distintos tipos de gráficos. Hemos visto cómo crear histogramas, gráficos de densidad, *boxplots* y *violin plots*. Además, hemos aprendido a añadir capas de puntos a los gráficos para ver la distribución de los datos, resúmenes estadísticos como la media y a modificar distintos argumentos de las geometrías.
-
-
-
-

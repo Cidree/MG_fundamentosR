@@ -485,7 +485,7 @@ Nota
 <p>Posteriormente se creó <a href="https://ggplot2.tidyverse.org">ggplot2</a> <span class="citation" data-cites="layered-grammar">(<a href="#ref-layered-grammar" role="doc-biblioref">Wickham 2010</a>)</span>, que utiliza las reglas gramaticales de la gramática de gráficos para crear gráficos en R. <a href="https://ggplot2.tidyverse.org">ggplot2</a> se basa en la idea de que un gráfico se puede construir a partir de <strong>capas</strong>, y cada capa se puede añadir al gráfico para añadir información adicional.</p>
 </section><section id="sec-components" class="level2" data-number="2.4"><h2 data-number="2.4" class="anchored" data-anchor-id="sec-components">
 <span class="header-section-number">2.4</span> Componentes</h2>
-<p>La gramática de gráficos tiene una serie de componentes diferenciados <a href="#fig-layers" class="quarto-xref">Figura&nbsp;<span>2.1</span></a> que se definen en <span class="citation" data-cites="layered-grammar">Wickham (<a href="#ref-layered-grammar" role="doc-biblioref">2010</a>)</span>. Estos componentes son:</p>
+<p>La gramática de gráficos tiene una serie de componentes diferenciados <a href="#fig-layers" class="quarto-xref">Figura&nbsp;<span class="quarto-unresolved-ref">fig-layers</span></a> que se definen en <span class="citation" data-cites="layered-grammar">Wickham (<a href="#ref-layered-grammar" role="doc-biblioref">2010</a>)</span>. Estos componentes son:</p>
 <ul>
 <li><p><strong>Datos (<em>data</em>)</strong>: conjunto de datos que utilizamos para generar el gráfico.</p></li>
 <li><p><strong>Geometrías (<em>geom</em>)</strong>: se refiere a la forma de representación de nuestros datos. Algunos ejemplos de geometrías son: puntos, líneas, histograma, diagramas de caja, etc.</p></li>
@@ -658,7 +658,7 @@ Fig.&nbsp;2.4: Ejemplo básico de línea suavizada con geom_smooth()
 </div>
 </div>
 </div>
-<p>Compara las tres gráficas. En <a href="#fig-example-line" class="quarto-xref">Figura&nbsp;<span>2.2</span></a> no utilizamos el argumento <code>stat</code> ya que el que viene por defecto es <code>identity</code>. Del mismo modo, en <a href="#fig-example-suave2" class="quarto-xref">Figura&nbsp;<span>2.4</span></a> tampoco es necesario utilizar el argumento ya que <code>stat = "smooth"</code> viene por defecto.</p>
+<p>Compara las tres gráficas. En <a href="#fig-example-line" class="quarto-xref">Figura&nbsp;<span class="quarto-unresolved-ref">fig-example-line</span></a> no utilizamos el argumento <code>stat</code> ya que el que viene por defecto es <code>identity</code>. Del mismo modo, en <a href="#fig-example-suave2" class="quarto-xref">Figura&nbsp;<span class="quarto-unresolved-ref">fig-example-suave2</span></a> tampoco es necesario utilizar el argumento ya que <code>stat = "smooth"</code> viene por defecto.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -672,7 +672,7 @@ Nota
 <p>En este curso no vamos a trabajar con transformaciones estadísticas en mayor profundidad. Esta sección solamente quiere remarcar que detrás de cada geometría existe una transformación estadística que viene dada por defecto.</p>
 </div>
 </div>
-<p>También te habrás dado cuenta de que no hemos utilizado los componentes: facetas, escalas, coordenadas ni tema. Esto se debe a que estos componentes <strong>siempre</strong>, en <strong>todos los gráficos</strong> tienen un valor por defecto. Pero todo a su tiempo. Vamos a empezar desengranando el código anterior. Para tener una idea de los argumentos que estamos utilizando vamos a comparar los siguientes gráficos derivados de <a href="#fig-example-suave2" class="quarto-xref">Figura&nbsp;<span>2.4</span></a>:</p>
+<p>También te habrás dado cuenta de que no hemos utilizado los componentes: facetas, escalas, coordenadas ni tema. Esto se debe a que estos componentes <strong>siempre</strong>, en <strong>todos los gráficos</strong> tienen un valor por defecto. Pero todo a su tiempo. Vamos a empezar desengranando el código anterior. Para tener una idea de los argumentos que estamos utilizando vamos a comparar los siguientes gráficos derivados de <a href="#fig-example-suave2" class="quarto-xref">Figura&nbsp;<span class="quarto-unresolved-ref">fig-example-suave2</span></a>:</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist">
 <li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">Método 1</a></li>
@@ -940,7 +940,7 @@ Fig.&nbsp;2.7: Ejemplo de scatter plot y línea de tendencia con estética de co
 <li><p>Mapeamos estéticas a variables</p></li>
 <li><p>Asignamos estéticas a valores constantes</p></li>
 </ul>
-<p>Vamos a seguir trabajando con la geometría de puntos, ya que es una de las más sencillas para aprender la teoría. Si buscáis en la documentación oficial de las funciones <code>geom_*</code>, encontraréis una sección de estéticas como la que se muestra en la <a href="#fig-aes-point" class="quarto-xref">Figura&nbsp;<span>2.8</span></a>:</p>
+<p>Vamos a seguir trabajando con la geometría de puntos, ya que es una de las más sencillas para aprender la teoría. Si buscáis en la documentación oficial de las funciones <code>geom_*</code>, encontraréis una sección de estéticas como la que se muestra en la <a href="#fig-aes-point" class="quarto-xref">Figura&nbsp;<span class="quarto-unresolved-ref">fig-aes-point</span></a>:</p>
 <div id="fig-aes-point" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-aes-point-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <a href="images/esteticas-punto.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15" title="Fig.&nbsp;2.8: Estétitcas de la geometría de punto (geom_point)"><img src="images/esteticas-punto.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></a>
@@ -1668,7 +1668,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <p>Este libro ha sido escrito con <a href="https://quarto.org/" target="_blank">Quarto</a>.</p>
 </div>
   </div>
-</footer><script>var lightboxQuarto = GLightbox({"loop":false,"selector":".lightbox","closeEffect":"zoom","descPosition":"bottom","openEffect":"zoom"});
+</footer><script>var lightboxQuarto = GLightbox({"loop":false,"descPosition":"bottom","openEffect":"zoom","selector":".lightbox","closeEffect":"zoom"});
 (function() {
   let previousOnload = window.onload;
   window.onload = () => {

@@ -104,8 +104,8 @@ inventario_tbl |>
     geom_smooth() +
     theme_bw() +
     labs(
-        x = "DBH (cm)",
-        y = "h (m)",
+        x     = "DBH (cm)",
+        y     = "h (m)",
         title = "Relación altura diámetro"
     )
 ```
@@ -436,5 +436,30 @@ Es decir, no tiene nada de sentido. Para finalizar, vamos a resumir esta secció
 -   Mapeamos estéticas a variables
 
 -   Asignamos estéticas a valores constantes
+
+## Resumen
+
+En esta sección hemos aprendido los conceptos básicos de la gramática de gráficos y cómo se aplican en `{ggplot2}`. Hemos visto los componentes básicos de un gráfico y cómo se pueden combinar para crear gráficos complejos. También hemos aprendido cómo se pueden mapear estéticas a variables y asignar estéticas a valores constantes. Lo más importante de esta lección ha sido:
+
+-   Componentes de la gramática de gráficos
+
+-   Estructura de un gráfico sencillo con una o varias capas:
+
+```r
+datos |> 
+  ggplot(
+    aes(x = ..., y = ...)
+  ) +
+  geom_*(...) +
+  geom_*(...)
+```
+
+-   Herencia de datos y estéticas: todas las geometrías heredan las estéticas y los datos de la función `ggplot()`. Las estéticas que se introducen en la geometría se aplican solamente a esa geometría.
+
+-   Mapear y asignar estéticas: las estéticas se pueden mapear a variables o asignar a valores constantes. Las estéticas mapeadas (variables) se introducen dentro de la función `aes()`, mientras que las estéticas asignadas (constantes) se introducen fuera de `aes()` y siempre dentro de la función de `geom_*` y no de `ggplot()`.
+
+En la siguiente sección, veremos los valores por defecto el resto de componentes de la gramática de gráficos.
+
+
 
 {{< include references.qmd >}}

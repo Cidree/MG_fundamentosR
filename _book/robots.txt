@@ -1,1 +1,0 @@
-Sitemap: https://fundamentos-r.netlify.app/sitemap.xml
