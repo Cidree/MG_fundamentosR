@@ -1,0 +1,236 @@
+---
+execute: 
+  warning: false
+editor_options: 
+  chunk_output_type: console
+filters: 
+    - webr
+webr:
+    packages: ["dplyr", "ggplot2"]
+---
+
+# Gráficos de comparación {#sec-comparison-plots}
+
+Los gráficos de comparación son una forma de visualizar diferencias entre grupos o categorías, o también para comparar cambios en el tiempo. Siguiendo la @fig-vis-classification, los gráficos de comparación que veremos en este libro son:
+
+1.  **Gráfico de barras** (*bar plot*): se utiliza para comparar la frecuencia o valor de una variable categórica.
+
+2.  **Gráfico de líneas** (*line plot*): se utiliza para comparar cambios en una variable numérica a lo largo del tiempo.
+
+En este capítulo vamos a trabajar con tres *datasets*:
+
+-   `iris`: *dataset* donde se han medido la longitud y anchura de pétalos y sépalos de 150 flores, además de la especie a la que pertenecen (ver [Tipos de visualización](#sec-visualization-types){target="_blank"}).
+
+-   `gapminder`: *dataset* con la evolución temporal del desarrollo económico, población y esperanza de vida de los países del mundo (ver [Tipos de visualización](#sec-visualization-types){target="_blank"}).
+
+-   `inventario`: *dataset* con datos de inventario de 27 parcelas en los que se ha medido el DBH, altura y especie (ver @sec-vis-data).
+
+Para comenzar, vamos a cargar los paquetes necesarios y a leer los datos que utilizaremos en este capítulo.
+
+```{r}
+#| include: false
+## Paquetes internos
+```
+
+```{r}
+# Cargar paquetes
+library(gapminder)
+library(tidyverse)
+# Cargar datos
+inventario_tbl <- read_rds("data/inventario_prep.rds")
+gapminder_tbl <- gapminder |> 
+    filter(year == 2002)
+```
+
+## Objetivos
+
+Al final de este capítulo serás capaz de:
+
+-   Crear gráficos de barras para comparar la frecuencia de una variable categórica.
+
+-   Crear gráficos de líneas para comparar cambios en una variable numérica a lo largo del tiempo.
+
+## Gráfico de barras
+
+El gráfico de barras es una de las formas más comunes de visualizar la frecuencia de una variable categórica. En este caso, vamos a utilizar el *dataset* de `iris` para comparar la frecuencia de las especies de flores. Para ello, tenemos dos funciones que nos permiten crear gráficos de barras:
+
+-   `geom_bar()`: utiliza `stat = "count"` para contar la frecuencia de cada categoría. Solamente necesita definir una estética (`x` o `y`)
+
+-   `geom_col()`: utiliza `stat = "identity"` para representar los valores de la variable. Necesita definir dos estéticas (`x` e `y`)
+
+Vamos a generar el mismo gráfico utilizando ambas funciones para ver la diferencia. El gráfico que generaremos será la frecuencia de las especies de flores en el *dataset* de `iris`.
+
+::: panel-tabset
+## geom_bar()
+
+Como vemos, solamente indicamos la estética `x`. Como existen 50 flores de cada especie, simplemente nos da ese número para cada especie.
+
+```{r}
+#| label: fig-comparison-bar-example
+#| fig-cap: Gráfico de barras generado con `geom_bar()` para la frecuencia de las especies de Iris
+iris |> 
+    ggplot(aes(x = Species)) +
+    geom_bar() +
+    labs(
+        title = "Frecuencia de especies de flores",
+         x    = "Especies",
+         y    = "Frecuencia"
+    )
+```
+
+## geom_col()
+
+En este caso, necesitamos calcular primero los valores que queremos mostrar:
+
+```{r}
+## Calcular frecuencias
+iris_count <- count(iris, Species)
+## Imprimir
+iris_count
+```
+
+Una vez tenemos los valores, vamos a generar el mismo gráfico. Fíjate que tenemos que añadir la estética `y` para decirle donde tiene que buscar los valores.
+
+```{r}
+#| label: fig-comparison-col-example
+#| fig-cap: Gráfico de barras generado con `geom_col()` para la frecuencia de las especies de Iris
+iris_count |> 
+    ggplot(aes(x = Species, y = n)) +
+    geom_col() +
+    labs(
+        title = "Frecuencia de especies de flores",
+         x    = "Especies",
+         y    = "Frecuencia"
+    )
+```
+:::
+
+Pues esta es la forma más básica de generar un gráfico de barras. Vamos a ver algo más interesante.
+
+### Position
+
+Recuerdas cuando utilizamos `geom_jitter()`, que dijimos que era lo mismo que `geom_point(position = "jitter")`? Pues resulta que `position` es un argumento muy importante en los gráficos de barras para definir cómo se van a posicionar las barras. Esto cobra importancia cuando mapeamos una variable a la estética `fill`. Vamos a utilizar los datos de `gapminder` para los años mayores a 1990 y comparar el PIB per cápita de algunos países europeos.
+
+```{r}
+## Filtrar datos
+gapminder_tbl <- gapminder |> 
+    filter(year > 1990) |>
+    filter(country %in% c("Spain", "Germany", "France", "Italy", "Portugal")) |>
+    mutate(
+        year = as.factor(year)
+    ) 
+## Imprimir
+gapminder_tbl
+```
+
+```{r}
+#| label: fig-col-gapminder
+#| fig-cap: Gráfico de barras por defecto. Evolución temporal del PIB per cápita en algunos países europeos
+gapminder_tbl |> 
+    ggplot(aes(x = year, y = gdpPercap, fill = country)) +
+    geom_col() +
+    labs(
+        x    = NULL,
+        y    = "PIB per cápita",
+        fill = NULL
+    ) +
+    scale_fill_viridis_d() +
+    theme_bw()
+```
+
+Como ves, por defecto las barras se ponen unas encima de otras. Este comportamiento viene definido por el argumento `position`, cuyas opciones son:
+
+-   `position = position_stack()`: valor por defecto. Las barras se acumulan unas encima de otras.
+
+-   `position = position_dodge()`: las barras se separan unas de otras.
+
+-   `position = position_dodge2()`: las barras se separan unas de otras con un espacio entre ellas.
+
+-   `position = position_fill()`: muestra el valor relativo de cada clase. Cada barra suma un total de 1 = 100%.
+
+-   `position = position_nudge()`: todas las barras empiezan en 0 y se ponen unas encima de otras.
+
+En la siguiente aplicación puedes experimentar para ver el comportamiento con los diferentes valores de `position`.
+
+```{shinylive-r}
+#| standalone: true
+#| viewerHeight: 600
+
+## Load packages
+library(bslib)
+library(dplyr)
+library(gapminder)
+library(ggplot2)
+library(glue)
+library(shiny)
+
+## UI
+ui <- page_sidebar(
+    sidebar = sidebar(
+        open = "open",
+        width = 200,
+        selectInput(
+            inputId  = "position_input",
+            label    = "Position",
+            choices  = c("dodge", "dodge2", "fill", "nudge", "stack"),
+            selected = "stack"
+        )
+    ),
+    verbatimTextOutput("code") |> card(),
+    plotOutput("plot", width = 500) |> card()
+)
+
+## Server
+server <- function(input, output, session) {
+    
+    output$code <- renderPrint({
+        glue(
+            '
+            gapminder_tbl |> 
+                ggplot(aes(x = year, y = gdpPercap, fill = country)) +
+                geom_col(
+                    position = position_{input$position_input}()
+                ) +
+                labs(x = NULL,y = "PIB per cápita",fill = NULL) +
+                scale_fill_viridis_d() +
+                theme_bw(base_size = 8)
+            '
+            )
+    })
+
+    ## Plot
+    output$plot <- renderPlot({
+        gapminder |> 
+            filter(year > 1990) |>
+            filter(country %in% c("Spain", "Germany", "France", "Italy", "Portugal")) |>
+            mutate(year = as.factor(year)) |> 
+            ggplot(aes(x = year, y = gdpPercap, fill = country)) +
+            geom_col(
+                position = input$position_input
+            ) +
+            labs(
+                x    = NULL,
+                y    = "PIB per cápita",
+                fill = NULL
+            ) +
+            scale_fill_viridis_d() +
+            theme_bw(base_size = 8)
+        }, res = 96
+    )
+}
+
+## Run app
+shinyApp(ui = ui, server = server)
+```
+
+Tres conclusiones principales:
+
+-   `nudge` es un método peligroso por dos motivos:
+
+    -   Puede ser confundido con `stack`
+
+    -   Una barra con valores altos puede ocultar otras barras con valores más bajos, como ocurre en la imagen anterior.
+
+-   `stack` es un método poco efectivo para comunicar. En el ejemplo anterior, España es sencilla de comparar a lo largo de los años. Pero y el resto? Al no estar en la misma escala, hace más complicado que los usuarios de tu gráfica puedan ver los cambios por ejemplo en Italia o Alemania.
+
+-   De los casos vistos, `dodge2` es el mejor. Aún así, es mejorable.

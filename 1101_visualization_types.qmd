@@ -15,7 +15,7 @@ En los siguientes capítulos nos introduciremos en los tipos de visualización m
 
 ![Clasificación de los tipos de visualización. Fuente: Cédric Scherer, rstudio::conf 2022](images/cheatsheet-visualization.jpg){#fig-vis-classification fig-align="center"}
 
-## Iris  {.unnumbered}
+## Iris {.unnumbered}
 
 En los ejercicios de muestra, trabajaremos con el *dataset* de iris, que viene dentro del paquete `{datasets}` de R. Este *dataset* contiene información sobre 150 flores de iris, con 4 variables numéricas y una variable categórica que indica la especie de la flor [@fig-iris-species].
 

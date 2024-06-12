@@ -1,10 +1,10 @@
-## Book options
+## Project type
 project:
   type: book
-  ## Extensions
   resources: 
     - shinylive-sw.js
 
+## Book options
 book:
   ## Book metadata
   title: "Fundamentos de programación con R"
@@ -52,24 +52,13 @@ book:
       chapters:
         - 1102_distribution.qmd
         - 1103_relationship.qmd
+        - 1104_comparison.qmd
 
   ## Appendices
   appendices:
     - chapters/installation.qmd
 
-## Code executions opts
-execute: 
-  warning: false
-  freeze: auto
-
-## Extensions
-lightbox: auto
-filters: 
-    - shinylive
-webr:
-  repos:
-    - https://cidree.github.io/MG_datasets
-
+## Format specific options
 format:
   html:
     ## Code
@@ -94,3 +83,16 @@ format:
       sidebar-width: 300px
       content-mode: auto
       gutter-width: 3rem
+
+## Code executions opts
+execute: 
+  warning: false
+  freeze: auto
+
+## Extensions
+lightbox: auto
+filters: 
+    - shinylive
+webr:
+  repos:
+    - https://cidree.github.io/MG_datasets
