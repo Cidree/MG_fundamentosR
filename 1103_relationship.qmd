@@ -19,7 +19,7 @@ En este capítulo veremos los siguientes gráficos de relación:
 
 2.  Gráfico de burbujas (*Bubble plot*)
 
-3.  Mapa de calor (*Heatmap*)
+3.  Mapas de calor (*Heatmap*)
 
 En este capítulo vamos a trabajar con dos datasets:
 
@@ -40,10 +40,9 @@ library(gt)
 
 ```{r}
 # Cargar paquetes
-library(dplyr)
 library(gapminder)
-library(ggplot2)
-library(readr)
+library(GGally)
+library(tidyverse)
 # Cargar datos
 inventario_tbl <- read_rds("data/inventario_prep.rds")
 gapminder_tbl <- gapminder |> 
@@ -59,6 +58,10 @@ Al final de este capítulo serás capaz de:
 -   Crear gráficos de dispersión y burbujas
 
 -   Crear mapas de calor
+
+-   Crear gráficos de correlación
+
+-   Añadir texto como geometría a los gráficos
 
 -   Controlar colores utilizando `scales`
 
@@ -306,7 +309,7 @@ server <- function(input, output, session) {
             ) +
             guides(
                 color = guide_legend(
-                    position = {input$position_input}
+                    position = "inside"
                 )
             ) +
             theme_bw(base_size = 8) +
@@ -404,6 +407,8 @@ bubble_final
 
 ## 5. Resumen
 
+Este gráfico nos muestra que los países con menor PIB per cápita son también aquellos con generalmente menor esperanza de vida y se encuentran principalmente en África.
+
 Para terminar, vamos a ver como se vería todo el código en un solo bloque:
 
 ```{r}
@@ -455,14 +460,14 @@ head(iris) |>
 ```
 
 ::: panel-tabset
-## Gráfico
+## Gráfico esperado
 
 Intenta replicar este gráfico en la pestaña "Ejercicio"
 
 ```{r}
 #| echo: false
 #| label: fig-distribution-ej7
-#| fig-cap: Resultado del ejercicio 7
+#| fig-cap: Resultado esperado del ejercicio 7
 iris |> 
     ggplot(
         aes(
@@ -510,7 +515,6 @@ iris |>
 ## Solución
 
 ```{r}
-#| echo: false
 #| label: fig-distribution-ej7-sol
 #| fig-cap: Solución del ejercicio 7
 iris |> 
@@ -545,6 +549,488 @@ iris |>
 
 ## Mapas de calor
 
+Dentro de los mapas de calor voy a hacer una clasificación para entender sus dos principales usos:
+
+1.  **Mapa de calor clásico**: El primero será un mapa de calor donde comparamos el valor de una variable numérica (o una categórica) **en función de dos variables categóricas**.
+
+2.  **Mapa de calor de correlación**: El segundo será un mapa de calor donde comparamos la **correlación** entre las variables numéricas de un *dataset*.
+
+::: calllout-note
+Esta nomenclatura es propia y no tiene por qué ser la misma que se utiliza en la literatura.
+:::
+
+### Mapa de calor clásico
+
+Los mapas de calor son una forma de visualizar la relación entre las categorías de dos variables categóricas y una variable numérica (o otra categórica). Las categorías de las variables categóricas se representan en los ejes `x` e `y`, y la variable numérica se representa mediante el color de las celdas.
+
+::: callout-note
+Existen tres funciones en `ggplot2` que nos permiten crear mapas de calor: `geom_tile()`, `geom_raster()` y `geom_rect()`.
+:::
+
+Vamos a ver la evolución de la esperanza de vida en los países de Europa a lo largo de los años. Para ello, vamos a utilizar el *dataset* `gapminder` y filtrar los datos de Europa:
+
+::: panel-tabset
+## Primer heatmap
+
+Para crear el primer *heatmap* vamos a utilizar la función `geom_tile()`. En el eje `x` utilizamos los años, en el eje `y` los países europeos, y como esta geometría dibuja polígonos, los coloreamos con la estética `fill`:
+
 ```{r}
-"hello world of heatmaps"
+#| label: fig-heatmap
+#| fig-cap: Primer mapa de calor con `{ggplot2}`
+gapminder |> 
+    filter(continent == "Europe") |> 
+    ## Crear gráfico
+    ggplot(
+        aes(x = year, y = country, fill = lifeExp)
+    ) +
+    geom_tile() +
+    labs(
+      x = NULL,
+      y = NULL,
+      fill = "Esperanza de vida"
+    )
 ```
+
+Como primer intento está bien... Pero puedes ver lo que ocurre en el eje `x`? Los años son números sí, pero son una variable categórica en esto datos. Tenemos un número pequeño de años que queremos tratar como categorías, no como números.
+
+::: callout-tip
+Puedes ver que para eliminar los títulos de los ejes utilizamos `y = NULL` y `x = NULL`.
+:::
+
+## Convertir años
+
+Recuerdas cómo hacíamos para convertir una variable a categórica? Exacto, utilizamos la función `as.factor()`, que además es muy conveniente ya que ordena los niveles de la variable alfabéticamente:
+
+```{r}
+#| label: fig-heatmap2
+#| fig-cap: Segundo mapa de calor con `{ggplot2}`
+gapminder |> 
+    filter(continent == "Europe") |> 
+    mutate(
+        year = as.factor(year)
+    ) |> 
+    ## Crear gráfico
+    ggplot(
+        aes(x = year, y = country, fill = lifeExp)
+    ) +
+    geom_tile() +
+    labs(
+      x = NULL,
+      y = NULL,
+      fill = "Esperanza de vida"
+    )
+```
+
+Solucionado! Ahora ya sabemos a qué año pertenece cada celda. Vamos a intentar formatear un poco más el gráfico... Vamos a utilizar una paleta de colores adecuada y ordenar los países para que Albania sea el primero en la parte superior.
+
+## Personalizar
+
+En la @fig-heatmap3 se muestra el resultado final. Vamos a ver lo que hemos hecho:
+
+-   Hemos ordenado los países utilizando la función `fct_rev()` del paquete `{forcats}`. Esta función invierte el orden de los factores.
+
+-   Hemos utilizado la paleta de colores [viridis](https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html) con la función `scale_fill_viridis_c()`. Utilizamos `scale_fill_*`, porque la estética que modificamos es `fill`. A continuación, añadimos `scale_fill_viridis_*` que es una función que tiene unas paletas de colores muy utilizadas y viene implementada en `{ggplot2}`, y finalmente añadimos la `c`, que quiere decir que la variable de la estética `fill` es una variable **c**ontinua.
+
+```{r}
+#| label: fig-heatmap3
+#| fig-cap: Mapa de calor personalizado
+gapminder |> 
+  filter(continent == "Europe") |> 
+  mutate(
+      year = as.factor(year)
+  ) |> 
+  ggplot(
+      aes(x = year, y = fct_rev(country), fill = lifeExp)
+  ) +
+  geom_tile() +
+  labs(
+    x = NULL,
+    y = NULL,
+    fill = "Esperanza de vida"
+  ) +
+  scale_fill_viridis_c() +
+  theme_minimal() 
+```
+
+## Etiquetas
+
+Algo común en los mapas de calor es presentarlos como tablas de colores, donde no solamente tenemos las celdas de colores, si no también el dato real que representan. Para añadirlos, vamos a añadir un nueva geometría que es `geom_text()`, que tiene 3 estéticas obligatorias: `x`, `y` y `label`. Las dos primeras serán la posición de la etiqueta, y `label` será el texto que se muestra:
+
+```{r}
+#| label: fig-heatmap4
+#| fig-cap: Heatmap con etiquetas
+gapminder |> 
+    filter(continent == "Europe") |> 
+    mutate(
+        year    = as.factor(year),
+        lifeExp = round(lifeExp, 1)
+    ) |> 
+    ggplot(
+        aes(x = year, y = fct_rev(country))
+    ) +
+    geom_tile(
+        aes(fill = lifeExp),
+        show.legend = FALSE
+    ) +
+    geom_text(
+        aes(label = lifeExp),
+        size = 2.5
+    ) +
+    labs(
+        x = NULL,
+        y = NULL,
+        title = "La esperanza de vida en los países europeos aumentó considerablemente"
+    ) +
+    scale_fill_gradientn(
+        colours = hcl.colors(10, "Blues", rev = TRUE)
+    ) +
+    theme_minimal() +
+    theme(
+        plot.title = element_text(
+            size  = 10,
+            face  = "bold", 
+            hjust = .5
+        )
+    )
+```
+
+Hemos añadido `scale_fill_grandientn()` que es el equivalente a `scale_fill_manual()` para variables continuas. La función `hcl.colors()` simplemente nos devuelve un vector de colores:
+
+```{r}
+#| code-fold: false
+hcl.colors(10, "Blues", rev = T)
+```
+
+Fíjate que también hemos movido `aes(fill = lifeExp)`. Se te ocurre por qué puede ser esto? Dentro de `ggplot()` introducimos las estéticas que queremos que hereden el resto de geometrías, y `fill` solamente la queremos para `geom_tile()` mientras que `label` solamente la queremos para `geom_text()`.
+
+Y finalmente, modificamos el título del gráfico para reducir su tamaño base, ponerlo en negrita y justificarlo en el medio. No te preocupes si la sintaxis de la componente `theme()` te parece extraña, nos iremos familiarizando con ella poco a poco.
+:::
+
+Y con esto hemos visto el primer tipo de de *heatmaps*. Vamos a realizar un ejercicio utilizando los datos de inventario:
+
+### Ejercicio 8
+
+Utilizar de nuevo los datos de inventario para generar un *heatmap* donde se muestre el **DBH medio por parcela y especie**. Ten en cuenta que debes calcularlo. En la pestaña "Pista" tendrás la parte que genera estos datos, y que serán los datos que utilizarás en `ggplot()`.
+
+La estructura de los datos era la siguiente:
+
+```{webr-r}
+#| context: setup
+#| autorun: true
+## Url de los datos
+url <- "https://cidree.github.io/MG_datasets/inventario_prep.csv"
+inventario_tbl <- read.csv(url) |> as_tibble()
+```
+
+```{webr-r}
+#| autorun: true
+## Estructura datos
+inventario_tbl
+```
+
+::: panel-tabset
+## Gráfico esperado
+
+El resultado esperado es el de la @fig-distribution-ej8.
+
+::: callout-tip
+Para conseguir las dimensiones del gráfico tenemos que añadir la componente `coord_fixed(ratio = .5)`. Esto hace que una unidad del eje `x` sea equivalente a 0.5 unidades del eje `y` y por lo tanto, los rectángulos tengan el doble de longitud en `x`
+:::
+
+```{r}
+#| echo: false
+#| label: fig-distribution-ej8
+#| fig-cap: Resultado esperado del ejercicio 8
+
+inventario_tbl |> 
+    summarise(
+        dbh_mean = mean(dbh_mm, na.rm = TRUE) / 10,
+        .by = c(id_plots, nombre_ifn)
+    ) |> 
+    mutate(
+        dbh_mean = round(dbh_mean)
+    ) |> 
+    ggplot(
+        aes(y = nombre_ifn, x = id_plots)
+    ) +
+    geom_tile(
+        aes(fill = dbh_mean),
+        show.legend = FALSE
+    ) +
+    geom_text(
+        aes(label = dbh_mean),
+        size = 2.5
+    ) +
+    scale_fill_gradientn(
+        colours = hcl.colors(10, "Greens", rev = TRUE)
+    ) +
+    theme_minimal() +
+    labs(
+        x = "Parcela",
+        y = NULL,
+        title = "DBH medio (cm) por parcela y especie"
+    ) +
+    coord_fixed(ratio = .5) +
+    theme(
+        plot.title = element_text(hjust = .5, face = "bold")
+    )
+
+```
+
+## Ejercicio
+
+La paleta de colores utilizada es `hcl.colors(10, "Greens", rev = TRUE)`.
+
+```{webr-r}
+## Escribe el código aquí
+inventario_tbl
+```
+
+## Pista
+
+El procesado de los datos es el siguiente:
+
+```{r}
+inventario_tbl |> 
+    summarise(
+        dbh_mean = mean(dbh_mm, na.rm = TRUE) / 10,
+        .by = c(id_plots, nombre_ifn)
+    ) |> 
+    mutate(
+        dbh_mean = round(dbh_mean)
+    )
+```
+
+## Solución
+
+La solución al ejercicio es:
+
+```{r}
+#| label: fig-distribution-ej8-sol
+#| fig-cap: Resultado final del ejercicio 8
+inventario_tbl |> 
+    summarise(
+        dbh_mean = mean(dbh_mm, na.rm = TRUE) / 10,
+        .by = c(id_plots, nombre_ifn)
+    ) |> 
+    mutate(
+        dbh_mean = round(dbh_mean)
+    ) |> 
+    ggplot(
+        aes(y = nombre_ifn, x = id_plots)
+    ) +
+    geom_tile(
+        aes(fill = dbh_mean),
+        show.legend = FALSE
+    ) +
+    geom_text(
+        aes(label = dbh_mean),
+        size = 3
+    ) +
+    scale_fill_gradientn(
+        colours = hcl.colors(10, "Greens", rev = TRUE)
+    ) +
+    theme_minimal() +
+    labs(
+        x = "Parcela",
+        y = NULL,
+        title = "DBH medio (cm) por parcela y especie"
+    ) +
+    coord_fixed(ratio = .5) +
+    theme(
+        plot.title = element_text(hjust = .5, face = "bold")
+    )
+```
+:::
+
+Felicidades 🥳 !!! Hemos aprendido mucho hasta este punto. Aunque estés confuso por el uso de algunas funciones del tipo `scale_*` o `coords_*`, no te preocupes! Esto será cuestión de otro tema dedicado a ellas. De momento vamos introduciendo poco a poco estas componentes para que los ejercicios no sean solamente geometrías, y para que te vayas familiarizando poco a poco con la gramática. Sin más dilación, vamos a ver el siguiente tipo de *heatmaps*.
+
+### Mapa de calor de correlación
+
+Los mapas de calor de correlación (*correlacion heatmaps*) son una forma de visualizar la relación entre **las variables numéricas** de un *dataset*. En estos mapas, las variables se representan en los ejes `x` e `y`, y la correlación entre ellas se representa mediante el color de las celdas.
+
+Para entender esto, debemos definir la correlación. La correlación es una medida estadística que describe la relación entre dos variables y tiene la siguiente fórmula:
+
+$$
+r_{xy} = \frac{cov(x,y)}{SD_x \cdot SD_y}
+$$ {#eq-pearson1}
+
+$$
+r_{xy} = \frac{\sum_{i=1}^{n} (x_i - \bar{x})(y_i - \bar{y})}{\sqrt{\sum_{i=1}^{n} (x_i - \bar{x})^2 \sum_{i=1}^{n} (y_i - \bar{y})^2}}
+$$ {#eq-pearson2}
+
+Técnicamente, esto es la [correlación de Pearson](https://es.wikipedia.org/wiki/Coeficiente_de_correlaci%C3%B3n_de_Pearson){target="_blank"} y mide el grado de correlación **lineal** entre la variable `x` y la variable `y` dando como resultado un número entre -1 y 1 donde:
+
+-   Valores negativos: cuando los valores de una variable aumentan, los de la otra disminuyen
+
+-   Valores cercanos a 0: no existe relación lineal entre las variables
+
+-   Valores positivos: cuando los valores de una variable aumentan, lo de la otra también
+
+En la siguiente figura se muestran varios ejemplos:
+
+![Ejemplos de valores del coeficiente de correlación de Pearson para distintas combinaciones de dos variables. Fuente: [Wikipedia](https://es.wikipedia.org/wiki/Coeficiente_de_correlaci%C3%B3n_de_Pearson#/media/Archivo:Correlation_examples2.svg){target="_blank"}](images/correlacion-pearson.png){#fig-correlation-types fig-align="center"}
+
+En este sentido, vamos a generar el *correlation heatmap* para los datos de `iris`:
+
+::: panel-tabset
+## Correlación
+
+La correlación se calcula solamente para variables numéricas, así que para seleccionar solamente estas, y calcular la correlación con la función `cor()`:
+
+```{r}
+## Calcular correlación
+iris_cor <- iris |> 
+    select(
+        where(is.numeric)
+    ) |> 
+    cor()
+## Imprimir
+iris_cor
+```
+
+La diagonal será siempre 1, ya que la correlación de una variable consigo misma siempre será una recta.
+
+## Correlation heatmap
+
+Existen muchos paquetes que traen funciones internas que a partir de la matriz de correlación crean un *correlation heatmap*. Uno de mis favoritos es `{GGally}`.
+
+De hecho, gracias a este paquete, no tenemos que realizar el paso anterior, y simplemente añadiendo nuestro datos a la función `ggcor()`, hará el trabajo por nosotros:
+
+```{r}
+#| label: fig-correlation-heatmap
+#| fig-cap: Mapa de calor de correlación simple con `{GGally}`
+ggcorr(iris)
+```
+
+Esta función tiene parámetros que podemos modificar. Además, como es un objeto de `{ggplot2}`, podemos modificarlo como tal:
+
+```{r}
+#| label: fig-correlation-heatmap2
+#| fig-cap: Mapa de calor de correlación personalizado con `{GGally}`
+ggcorr(
+    iris,
+    label       = TRUE,
+    label_round = 2
+) +
+    labs(
+        title = "Correlación de Pearson del dataset de {iris}"
+    ) +
+    theme(
+        plot.title = element_text(
+            hjust = .5,
+            face  = "bold"
+        )
+    )
+```
+
+Compara los valores de las etiquetas con los que obtuvimos al utilizar la función `cor()`.
+
+## Correlación por categorías
+
+Finalmente, tenemos la opción de añadir una variable categórica como puede ser la especie de Iris, y ver la correlación de cada variable por especie. Dentro de `{GGally}` tenemos la siguiente función:
+
+```{r}
+#| label: fig-correlation-heatmap3
+#| fig-cap: Mapa de calor de correlación por especie con `{GGally}`
+ggpairs(
+    data = iris,
+    aes(color = Species)
+) +
+    theme_minimal(base_size = 8)
+```
+
+Madre mía, pero esto qué es 🥵🤯 !! Pues aquí tenemos varias cosas:
+
+-   Colores: cada color representa una especie (rojo = setosa; verde = versicolor; azul = virginica)
+
+-   Triángulo inferior: relación de las variables mediante *scatter plots* para pares de variables numéricas e histogramas para 1 variable numérica y 1 variable categórica.
+
+-   Diagonal: distribución unitaria de cada variable. Gráficos de densidad para numéricas, gráficos de barras para variables categóricas.
+
+-   Triángulo superior: valores de correlación para pares de variables numéricas. *Boxplots* para 1 variable numérica y 1 variable categórica.
+
+Como puedes ver, en básicamente una línea de código esta función nos da una información MUY valiosa sobre nuestros datos. Esta función la utilizo mucho durante el análisis exploratorio de mis datos.
+:::
+
+### Ejercicio 9
+
+Crear un gráfico de correlación con `{GGally}` para los datos de inventario.
+
+La estructura de los datos era la siguiente:
+
+```{webr-r}
+#| autorun: true
+## Estructura datos
+inventario_tbl
+```
+
+::: panel-tabset
+
+## Gráfico esperado
+
+El resultado esperado es el de la @fig-correlation-heatmap4. Fíjate que no incluimos la variable `id_plots` en el gráfico.
+
+Los colores utilizados son `cols <- c("#E56399", "#7F96FF")`. 
+
+```{r}
+#| echo: false
+#| label: fig-correlation-heatmap-ej
+#| fig-cap: Resultado esperado del ejercicio 9
+## Colores
+cols <- c("#E56399", "#7F96FF")
+## Gráfico
+inventario_tbl |> 
+  select(-id_plots) |>
+  ggpairs(
+    aes(color = nombre_ifn)
+  ) +
+  scale_color_manual(
+    values = cols
+  ) +
+  scale_fill_manual(
+    values = cols
+  ) +
+  theme_minimal()
+```
+
+## Ejercicio
+
+Replica el gráfico anterior e intenta entender qué ocurre en cada subgráfico.
+
+```{webr-r}
+## Escribe el código aquí
+inventario_tbl
+```
+
+## Solución
+
+El resultado se muestra en la @fig-correlation-heatmap-sol. Fíjate que tenemos que añadir tanto `scale_color_manual()` para cambiar los colores de los puntos y `scale_fill_manual()` para cambiar los de los rectángulos.
+
+```{r}
+#| label: fig-correlation-heatmap-sol
+#| fig-cap: Resultado final del ejercicio 9
+## Colores
+cols <- c("#E56399", "#7F96FF")
+## Gráfico
+inventario_tbl |> 
+  select(-id_plots) |>
+  ggpairs(
+    aes(color = nombre_ifn)
+  ) +
+  scale_color_manual(
+    values = cols
+  ) +
+  scale_fill_manual(
+    values = cols
+  ) +
+  theme_minimal()
+```
+
+:::
+
+Enhorabuena! Has llegado al final de este capítulo. Sé que ha sido intenso, pero estamos aprendiendo mucho. En el próximo capítulo vamos a ver algunos gráficos de comparación.
+
+## Resumen
+
+En este capítulo hemos aprendido a crear gráficos de dispersión y mapas de calor con `{ggplot2}`. Hemos aprendido a modificar las escalas de los ejes, a cambiar los colores de los puntos y a mover las leyendas. Además, hemos aprendido a crear mapas de calor de correlación y a personalizarlos.

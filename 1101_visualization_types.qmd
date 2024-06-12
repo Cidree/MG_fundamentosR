@@ -15,6 +15,8 @@ En los siguientes capítulos nos introduciremos en los tipos de visualización m
 
 ![Clasificación de los tipos de visualización. Fuente: Cédric Scherer, rstudio::conf 2022](images/cheatsheet-visualization.jpg){#fig-vis-classification fig-align="center"}
 
+## Iris  {.unnumbered}
+
 En los ejercicios de muestra, trabajaremos con el *dataset* de iris, que viene dentro del paquete `{datasets}` de R. Este *dataset* contiene información sobre 150 flores de iris, con 4 variables numéricas y una variable categórica que indica la especie de la flor [@fig-iris-species].
 
 ![Especies de flores del *dataset* iris. Fuente: [Datacamp](https://www.datacamp.com/tutorial/machine-learning-in-r){target="_blank"}](images/iris-species.png){#fig-iris-species fig-align="center"}
@@ -26,6 +28,8 @@ skim(iris)
 ```
 
 En resumen, tenemos 50 muestras de cada una de las tres especies (*I. versicolor, I. setosa* y *I. virginica*) a las cuales hemos medido cuatro variables cuantitativas.
+
+## Gapminder {.unnumbered}
 
 También utilizaremos el *dataset* de `gapminder` que viene dentro del paquete de R `{gapminder}`. Este dataset tiene las siguientes variables:
 

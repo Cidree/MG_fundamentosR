@@ -362,13 +362,13 @@ shinyApp(ui = ui, server = server)
 Finalmente, al igual que con los histogramas, podemos comparar la distribución de la longitud del pétalo entre las diferentes especies de flores del *dataset* `iris`. Te atreves a intentar añadir la parte del código que falta? El resultado debería ser el indicado en la @fig-distribution-ej1:
 
 ::: panel-tabset
-## Gráfico
+## Gráfico esperado
 
 Intenta replicar este gráfico en la pestaña "Ejercicio"
 
 ```{r}
 #| label: fig-distribution-ej1
-#| fig-cap: Resultado del ejercicio 1
+#| fig-cap: Resultado esperado del ejercicio 1
 #| echo: false
 iris |> 
     ggplot(aes(x = Petal.Length)) +
