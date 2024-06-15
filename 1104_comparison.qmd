@@ -6,7 +6,7 @@ editor_options:
 filters: 
     - webr
 webr:
-    packages: ["dplyr", "ggplot2"]
+    packages: ["dplyr", "geomtextpath", "ggplot2"]
 ---
 
 # Gráficos de comparación {#sec-comparison-plots}
@@ -28,13 +28,9 @@ En este capítulo vamos a trabajar con tres *datasets*:
 Para comenzar, vamos a cargar los paquetes necesarios y a leer los datos que utilizaremos en este capítulo.
 
 ```{r}
-#| include: false
-## Paquetes internos
-```
-
-```{r}
 # Cargar paquetes
 library(gapminder)
+library(geomtextpath)
 library(tidyverse)
 # Cargar datos
 inventario_tbl <- read_rds("data/inventario_prep.rds")
@@ -148,7 +144,7 @@ Como ves, por defecto las barras se ponen unas encima de otras. Este comportamie
 
 -   `position = position_fill()`: muestra el valor relativo de cada clase. Cada barra suma un total de 1 = 100%.
 
--   `position = position_nudge()`: todas las barras empiezan en 0 y se ponen unas encima de otras.
+-   `position = position_nudge()`: todas las barras empiezan en 0 y se localizan unas detrás de otras.
 
 En la siguiente aplicación puedes experimentar para ver el comportamiento con los diferentes valores de `position`.
 
@@ -223,7 +219,7 @@ server <- function(input, output, session) {
 shinyApp(ui = ui, server = server)
 ```
 
-Tres conclusiones principales:
+Podemos sacar una serie de conclusiones:
 
 -   `nudge` es un método peligroso por dos motivos:
 
@@ -234,3 +230,421 @@ Tres conclusiones principales:
 -   `stack` es un método poco efectivo para comunicar. En el ejemplo anterior, España es sencilla de comparar a lo largo de los años. Pero y el resto? Al no estar en la misma escala, hace más complicado que los usuarios de tu gráfica puedan ver los cambios por ejemplo en Italia o Alemania.
 
 -   De los casos vistos, `dodge2` es el mejor. Aún así, es mejorable.
+
+-   `fill`: es una buena opción cuando tiene sentido comparar los grupos en términos relativos (en este caso, no tiene sentido decir que una país tiene el 20% del PIB. El 20% de qué?).
+
+### Buenas prácticas
+
+Vamos a volver al ejemplo de las especies de flores en el *dataset* de `iris` [@fig-comparison-bar-example], aunque sea un ejemplo muy sencillo, nos sirve para ver algunas buenas prácticas a la hora de generar gráficos de barras. En lugar de utilizar las 150, vamos a filtrar las 60 aleatorias para que no tengamos el mismo número de flores en cada clase:
+
+```{r}
+## Filtrar datos
+set.seed(111)
+iris_sample <- iris |> 
+    slice_sample(n = 60)
+```
+
+Y ahora vamos a generar el gráfico de barras añadiendo mejoras:
+
+::: panel-tabset
+## Gráifco base
+
+Vamos a generar el primer gráfico:
+
+```{r}
+#| label: fig-comparison-bar-example-sample
+#| fig-cap: Gráfico de barras generado con `geom_bar()` para la frecuencia de las especies de Iris
+iris_sample |> 
+  ggplot(aes(x = Species)) +
+  geom_bar() +
+  labs(
+      title = "Frecuencia de especies de flores",
+       x    = "Especies",
+       y    = "Frecuencia"
+  )
+```
+
+## Mejora 1
+
+Vamos a empezar haciendo un par de cambios:
+
+-   Cambiar el color de las barras y el tema.
+
+-   Utilizar barras horizontales: esto suele ayudar mucho a la lectura de este tipo de gráfico, sobre todo cuando tenemos muchas categorías o tienen nombres largos. Para ello podemos o bien utilizar `y = Species` o `coord_flip()` (siendo este segundo el más común para invertir los ejes).
+
+```{r}
+#| label: fig-comparison-bar-example-sample-improve1
+#| fig-cap: Gráfico de barras horizontal para la frecuencia de las especies de Iris
+iris_sample |> 
+  ggplot(aes(x = Species)) +
+  geom_bar(fill = "#98B6B1") +
+  coord_flip() +
+  labs(
+       x    = NULL,
+       y    = "Frecuencia"
+  ) +
+  theme_minimal()
+```
+
+## Mejora 2
+
+En siguiente lugar, cuando se utilizan gráficos de barras, debemos ordenar las barras siguiendo un orden lógico, que será prácticamente siempre según el tamaño de las barras. Para ello, vamos a utilizar la función `fct_infreq()` del paquete `{forcats}` para ordenar las barras según la frecuencia de las especies.
+
+```{r}
+#| label: fig-comparison-bar-example-sample-improve2
+#| fig-cap: Gráfico de barras horizontales ordenado de menor a mayor para la frecuencia de las especies de Iris
+iris_sample |> 
+  ggplot(
+    aes(x = fct_infreq(Species))
+  ) +
+  geom_bar(fill = "#98B6B1") +
+  coord_flip() +
+  labs(
+       x    = NULL,
+       y    = "Frecuencia"
+  ) +
+  theme_minimal()
+```
+
+Aunque esto pueda ser lo que queramos, normalmente querremos ordenar de mayor a menor. Para ello, podemos añadir `fct_rev()` al final de la función, que invierte los niveles de la variable.
+
+```{r}
+#| label: fig-comparison-bar-example-sample-improve3
+#| fig-cap: Gráfico de barras horizontales ordenado de mayor a menor para la frecuencia de las especies de Iris
+iris_sample |> 
+  ggplot(
+    aes(
+      x = fct_infreq(Species) |> fct_rev()
+    )
+  ) +
+  geom_bar(fill = "#98B6B1") +
+  coord_flip() +
+  labs(
+       x    = NULL,
+       y    = "Frecuencia"
+  ) +
+  theme_minimal()
+```
+
+## Mejora 3
+
+Para finalizar, vamos a cambiar el tamaño de las barras. De verdad es necesario que las barras sean tan gruesas? Normalmente, cuanto más finas sean las barras, más fácil será compararlas. Para ello, vamos a añadir `width = 0.4` a `geom_bar()`.
+
+```{r}
+#| label: fig-comparison-bar-example-sample-improve4
+#| fig-cap: Gráfico de barras horizontales ordenado de mayor a menor y con barras más finas para la frecuencia de las especies de Iris
+iris_sample |> 
+  ggplot(
+    aes(
+      x = fct_infreq(Species) |> fct_rev()
+    )
+  ) +
+  geom_bar(fill = "#98B6B1", width = 0.4) +
+  coord_flip() +
+  labs(
+       x    = NULL,
+       y    = "Frecuencia"
+  ) +
+  theme_minimal()
+```
+
+Este sería el resultado final. Todavía se pueden hacer más mejoras, como utilizar mejores etiquetas del eje Y, y otros ajustes de diseño. Pero eso será cuestión de otro capítulo.
+:::
+
+### Ejercicio 10
+
+Vamos a practicar lo aprendido con un ejercicio. Utiliza los datos de inventario para generar un gráfico de barras que muestre la frecuencia de árboles por parcela siguiendo las buenas prácticas que acabamos de ver.
+
+::: panel-tabset
+## Gráfico esperado
+
+```{r}
+#| label: fig-comparison-bar-exercise
+#| fig-cap: Gráfico de barras horizontal ordenado de mayor a menor para la frecuencia de árboles por parcela
+#| echo: false
+inventario_tbl |> 
+  ggplot(
+    aes(
+      x = fct_infreq(id_plots) |> fct_rev()
+    )
+  ) +
+  geom_bar(fill = "#98B6B1", width = 0.6) +
+  coord_flip() +
+  labs(
+      title = "Árboles muestreados por parcela",
+      x    = NULL,
+      y    = NULL
+  ) +
+  theme_minimal()
+```
+
+## Ejercicio
+
+```{webr-r}
+## Escribe aquí tu código
+inventario_tbl
+```
+
+## Solución
+
+```{r}
+#| label: fig-comparison-bar-exercise-sol
+#| fig-cap: Gráfico de barras horizontal ordenado de mayor a menor para la frecuencia de árboles por parcela
+inventario_tbl |> 
+  ggplot(
+    aes(
+      x = fct_infreq(id_plots) |> fct_rev()
+    )
+  ) +
+  geom_bar(fill = "#98B6B1", width = 0.6) +
+  coord_flip() +
+  labs(
+      title = "Árboles muestreados por parcela",
+      x    = NULL,
+      y    = NULL
+  ) +
+  theme_minimal()
+```
+:::
+
+## Gráfico de líneas
+
+El gráfico de líneas es una de las formas más comunes de visualizar cambios en una variable numérica a lo largo del tiempo. En este caso, vamos a utilizar el *dataset* de `gapminder` para comparar la evolución de la esperanza de vida de algunos países europeos. Para ello, vamos a utilizar la función `geom_line()`.
+
+```{r}
+#| label: fig-line-gapminder
+#| fig-cap: Gráfico de líneas para la evolución de la esperanza de vida en algunos países europeos
+gapminder |> 
+    filter(country %in% c("Spain", "Germany", "France", "Italy", "Portugal")) |>
+    ggplot(aes(x = year, y = lifeExp, color = country)) +
+    geom_line(
+      linewidth = 1
+    ) +
+    labs(
+        x     = NULL,
+        y     = "Esperanza de vida",
+        color = NULL
+    ) +
+    scale_color_viridis_d() +
+    theme_minimal()
+```
+
+### Spaguetti plot
+
+El *spaghetti plot* es un tipo de gráfico de líneas en el que se representan muchas líneas en un mismo gráfico de forma que no nos permite ver ninguna tendencia en los datos. El siguiente gráfico es un ejemplo de *spaghetti plot*:
+
+```{r}
+#| label: fig-line-gapminder-group
+#| fig-cap: Gráfico de líneas para la evolución de la esperanza de vida en algunos países europeos
+gapminder |> 
+    ggplot(aes(x = year, y = lifeExp, color = continent, group = country)) +
+    geom_line() +
+    labs(
+        x     = NULL,
+        y     = "Esperanza de vida",
+        color = NULL
+    ) +
+    theme_minimal()
+```
+
+Fíjate que añadimos la estética `group = country` para que cada país tenga su propia línea (en @fig-line-gapminder no fue necesario porque ya estábamos mapeando la variable a la estética `color`). Este gráfico es algo que debes evitar. A partir de unas 6-7 líneas, deberías considerar presentar tus datos de otra forma.
+
+### Solución spaghetti plot
+
+La primera solución, es hacer que las líneas sean grises, de forma que no destaquen tanto y hacer visible únicamente la que nos interesa enseñar al público. Por ejemplo, vamos a destacar solamente aquellos países cuyo PIB ha decrecido desde 1952 hasta 2007.
+
+Para ello, seleccionamos las columnas que necesitamos, luego filtramos los dos años que queremos comparar, expandimos la tabla para poder calcular la diferencia y finalmente extraemos los países cuya diferencia sea inferior a 0:
+
+```{r}
+## Filtrar datos
+countries_vec <- gapminder |> 
+    select(country, year, lifeExp) |> 
+    filter(
+        year %in% c(1952, 2007)
+    ) |> 
+    pivot_wider(
+        names_from   = year,
+        names_prefix = "year_",
+        values_from  = lifeExp
+    ) |> 
+    mutate(
+        diff = year_2007 - year_1952
+    ) |> 
+    filter(
+        diff < 0
+    ) |> 
+    pull(country) |> 
+    as.character()
+## Ver países
+countries_vec
+```
+
+Una vez tenemos estos países, vamos a generar el gráfico destacando solamente estos dos:
+
+```{r}
+#| label: fig-line-gapminder-group-improve1
+#| fig-cap: Spaguetti plot destancando los países cuya esperanza de vida ha decrecido
+gapminder |> 
+    ggplot(
+        aes(x = year, y = lifeExp, color = continent, group = country)
+    ) +
+    geom_line(color = "grey80") +
+    geom_line(
+        aes(x = year, y = lifeExp),
+        data  = gapminder |> filter(country %in% countries_vec),
+        color = "#BC3908",
+        lwd   = 1
+    ) +
+    labs(
+        x     = NULL,
+        y     = "Esperanza de vida",
+        color = NULL,
+        title = "La mayoría de países aumentaron su esperanza de vida entre 1952 y 2007. \nSwaziland y Zimbabwe no"
+    ) +
+    theme_minimal()
+```
+
+En este caso, fíjate que aunque tengamos un *spaguetti plot*, estamos resaltando que nuestro mensaje solamente se encuentra en dos líneas, y por lo tanto puede ser un gráfico útil.
+
+Todavía podemos mejorar este gráfico diciendo qué línea representa a cada país. Para ello, podemos utilizar la función `geom_textpath()` del paquete `{geomtextpath}`. Lo único que tenemos que cambiar es el nombre de la geometría y añadir la estética `label`:
+
+```{r}
+#| label: fig-line-gapminder-group-improve2
+#| fig-cap: Spaguetti plot destancando los países cuya esperanza de vida ha decrecido
+gapminder |> 
+    ggplot(
+        aes(x = year, y = lifeExp, color = continent, group = country)
+    ) +
+    geom_line(color = "grey80") +
+    geom_textpath(
+        aes(x = year, y = lifeExp, label = country),
+        data  = gapminder |> filter(country %in% countries_vec),
+        color = "#BC3908",
+        lwd   = 1
+    ) +
+    labs(
+        x     = NULL,
+        y     = "Esperanza de vida",
+        color = NULL,
+        title = "La mayoría de países aumentaron su esperanza de vida entre 1952 y 2007. \nSwaziland y Zimbabwe no"
+    ) +
+    theme_minimal()
+```
+
+Y con esto ya tenemos una visualización mucho mejor que la inicial.
+
+### Ejercicio 11
+
+Crear un gráfico de líneas donde se vea la evolución del PIB per cápita de los países del mundo (excepto los países de África), destacando solamente aquellos cuyo PIB per cápita se haya reducido entre 1952 y 2007.
+
+::: panel-tabset
+
+## Gráfico esperado
+
+```{r}
+#| label: fig-line-gapminder-exercise
+#| fig-cap: Gráfico de líneas para la evolución del PIB per cápita de los países del mundo
+#| echo: false
+## Filtrar datos
+countries_vec <- gapminder |> 
+    filter(
+        year %in% c(1952, 2007),
+        continent != "Africa"
+    ) |> 
+    select(country, year, gdpPercap) |> 
+    pivot_wider(
+        names_from   = year,
+        names_prefix = "year_",
+        values_from  = gdpPercap
+    ) |> 
+    mutate(
+        diff = year_2007 - year_1952
+    ) |> 
+    filter(
+        diff < 0
+    ) |> 
+    pull(country) |> 
+    as.character()
+
+## Gráfico
+gapminder |> 
+    filter(continent != "Africa") |>
+    ggplot(
+        aes(x = year, y = gdpPercap, color = country, group = country)
+    ) +
+    geom_line(color = "grey80") +
+    geom_textpath(
+        aes(x = year, y = gdpPercap, label = country),
+        data  = gapminder |> filter(country %in% countries_vec),
+        color = "#BC3908",
+        lwd   = 1,
+        size  = 3
+    ) +
+    labs(
+        x     = NULL,
+        y     = "PIB per cápita",
+        color = NULL,
+        title = "La mayoría de países aumentaron su PIB per cápita entre 1952 y 2007. \nKuwait, Nicaragua y Haiti no"
+    ) +
+    theme_minimal()
+```
+
+## Ejercicio
+
+En el siguiente bloque de código se muestra como filtrar los países cuyo PIB per cápita ha disminuido entre 1952 y 2007. Utiliza estos datos para generar el gráfico de líneas.
+
+```{webr-r}
+countries_vec <- gapminder |> 
+    filter(
+        year %in% c(1952, 2007),
+        continent != "Africa"
+    ) |> 
+    select(country, year, gdpPercap) |> 
+    pivot_wider(
+        names_from   = year,
+        names_prefix = "year_",
+        values_from  = gdpPercap
+    ) |> 
+    mutate(
+        diff = year_2007 - year_1952
+    ) |> 
+    filter(
+        diff < 0
+    ) |> 
+    pull(country) |> 
+    as.character()
+```
+
+Escribe aquí el código para generar el gráfico:
+
+```{webr-r}
+## Escribe aquí tu código
+gapminder
+```
+
+## Solución
+
+```{r}
+#| label: fig-line-gapminder-exercise-sol
+#| fig-cap: Gráfico de líneas para la evolución del PIB per cápita de los países del mundo
+gapminder |> 
+    filter(continent != "Africa") |>
+    ggplot(
+        aes(x = year, y = gdpPercap, color = country, group = country)
+    ) +
+    geom_line(color = "grey80") +
+    geom_textpath(
+        aes(x = year, y = gdpPercap, label = country),
+        data  = gapminder |> filter(country %in% countries_vec),
+        color = "#BC3908",
+        lwd   = 1,
+        size  = 3
+    ) +
+    labs(
+        x     = NULL,
+        y     = "PIB per cápita",
+        color = NULL,
+        title = "La mayoría de países aumentaron su PIB per cápita entre 1952 y 2007. \nKuwait, Nicaragua y Haiti no"
+    ) +
+    theme_minimal()
+```
