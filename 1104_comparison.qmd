@@ -247,7 +247,7 @@ iris_sample <- iris |>
 Y ahora vamos a generar el gráfico de barras añadiendo mejoras:
 
 ::: panel-tabset
-## Gráifco base
+## Gráfico base
 
 Vamos a generar el primer gráfico:
 
@@ -449,6 +449,42 @@ gapminder |>
 
 Fíjate que añadimos la estética `group = country` para que cada país tenga su propia línea (en @fig-line-gapminder no fue necesario porque ya estábamos mapeando la variable a la estética `color`). Este gráfico es algo que debes evitar. A partir de unas 6-7 líneas, deberías considerar presentar tus datos de otra forma.
 
+::: callout-tip
+Los gráficos de líneas son una **geometría conjunta**, lo que quiere decir que cada línea es un solo objeto geométrico. Los gráficos de puntos por lo contrario, son **geometrías individuales**, ya que cada observación tiene su propia representación. En las geometrías conjuntas dibujamos una geometría por cada **grupo**, lo que se traduce en una sola línea para cada país en este caso. Otro ejemplo de geometría conjunta es el *boxplot*:
+
+::: panel-tabset
+## Boxplot base
+
+Un *boxplot* es básicamente la distribución de una sola variable numérica:
+
+```{r}
+gapminder |> 
+    ggplot(aes(y = lifeExp)) +
+    geom_boxplot()
+```
+
+## Boxplot por grupos
+
+Pero si la agrupamos por continente, tendremos un *boxplot* por cada valor distinto de esa variable:
+
+```{r}
+gapminder |> 
+    ggplot(aes(y = lifeExp, group = continent)) +
+    geom_boxplot()
+```
+
+## Boxplot usando x
+
+No obstante, al utilizar la estética `x`, se genera un grupo automáticamente por cada valor de la variable y además añade las etiquetas al eje:
+
+```{r}
+gapminder |> 
+    ggplot(aes(y = lifeExp, x = continent)) +
+    geom_boxplot()
+```
+:::
+:::
+
 ### Solución spaghetti plot
 
 La primera solución, es hacer que las líneas sean grises, de forma que no destaquen tanto y hacer visible únicamente la que nos interesa enseñar al público. Por ejemplo, vamos a destacar solamente aquellos países cuyo PIB ha decrecido desde 1952 hasta 2007.
@@ -538,7 +574,6 @@ Y con esto ya tenemos una visualización mucho mejor que la inicial.
 Crear un gráfico de líneas donde se vea la evolución del PIB per cápita de los países del mundo (excepto los países de África), destacando solamente aquellos cuyo PIB per cápita se haya reducido entre 1952 y 2007.
 
 ::: panel-tabset
-
 ## Gráfico esperado
 
 ```{r}
@@ -648,3 +683,8 @@ gapminder |>
     ) +
     theme_minimal()
 ```
+:::
+
+## Resumen
+
+En este capítulo hemos aprendido a generar gráficos de comparación utilizando `geom_bar()` y `geom_col()` para gráficos de barras y `geom_line()` para gráficos de líneas. Hemos visto cómo utilizar el argumento `position` para posicionar las barras y cómo evitar el *spaghetti plot*.

@@ -639,6 +639,22 @@
       ],
       "Hash": "15e9634c0fcd294799e9b2e929ed1b86"
     },
+    "geomtextpath": {
+      "Package": "geomtextpath",
+      "Version": "0.1.4",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R",
+        "ggplot2",
+        "grid",
+        "rlang",
+        "scales",
+        "systemfonts",
+        "textshaping"
+      ],
+      "Hash": "81892bf514a45a5d905188d391d13e70"
+    },
     "ggplot2": {
       "Package": "ggplot2",
       "Version": "3.5.1",

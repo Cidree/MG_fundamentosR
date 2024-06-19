@@ -53,7 +53,14 @@ book:
         - 1102_distribution.qmd
         - 1103_relationship.qmd
         - 1104_comparison.qmd
-
+        
+    - part: 1201_components.qmd
+      chapters:
+        - 1202_scales.qmd
+        - 1203_facets.qmd
+        # - 1204_coords.qmd
+        # - 1205_themes.qmd
+        
   ## Appendices
   appendices:
     - chapters/installation.qmd
