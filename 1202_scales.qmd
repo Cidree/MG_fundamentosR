@@ -1,0 +1,786 @@
+---
+execute: 
+  warning: false
+editor_options: 
+  chunk_output_type: console
+filters: 
+    - webr
+webr:
+    packages: ["dplyr", "ggplot2"]
+bibliography: references.bib
+---
+
+# Scales {#sec-scales}
+
+Las escalas son una parte fundamental de la visualización de datos. Son las encargadas de mapear los valores de los datos a los elementos visuales de la gráfica. Podemos dividirlas en las siguientes clases:
+
+-   **Escalas continuas**: se utilizan para modificar la apariencia de los elementos visuales en función de valores numéricos.
+
+-   **Escalas discretas**: se utilizan para modificar la apariencia de los elementos visuales en función de valores categóricos.
+
+-   **Escalas en intervalos**: se utilizan para modificar la apariencia de los elementos visuales en función de valores numéricos que se encuentran en un intervalo.
+
+Además, se puede subdividir las escalas en función de la estética que modifican:
+
+-   **Escalas de posición y ejes**: controlar la posición de los elementos visuales además de sus ejes. En esta categoría tenemos la estética `x` e `y`.
+
+-   **Escalas de colores**: controlan el color externo y color de relleno de los elementos visuales y sus leyendas. En esta categoría tenemos las estéticas `color` y `fill`.
+
+-   **Otras escalas y leyendas**: controlar el aspecto de los elementos visuales y sus respectivas leyendas. En esta categoría tenemos las estéticas `alpha`, `linetype`, `linewidth`, `shape` y `size`.
+
+En este capítulo vamos a trabajar con tres *datasets*:
+
+-   `iris`: *dataset* donde se han medido la longitud y anchura de pétalos y sépalos de 150 flores, además de la especie a la que pertenecen (ver [Tipos de visualización](#sec-visualization-types){target="_blank"}).
+
+-   `gapminder`: *dataset* con la evolución temporal del desarrollo económico, población y esperanza de vida de los países del mundo (ver [Tipos de visualización](#sec-visualization-types){target="_blank"}). Filtraremos solamente los datos del 2002.
+
+-   `inventario`: *dataset* con datos de inventario de 27 parcelas en los que se ha medido el DBH, altura y especie (ver @sec-vis-data).
+
+Para comenzar, vamos a cargar los paquetes necesarios y a leer los datos que utilizaremos en este capítulo.
+
+```{r}
+#| echo: false
+## Paquetes internos
+library(RColorBrewer)
+```
+
+```{r}
+library(gapminder)
+library(geomtextpath)
+library(tidyverse)
+```
+
+## Estructura de las escalas
+
+Las escalas en `ggplot2` son funciones que tienen una estructura de generalmente tres palabras separadas por un guión bajo. Estas palabras son:
+
+-   **scale**: es la primera palabra de la función siempre.
+
+-   **Nombre de la estética**: es la segunda palabra de la función y se refiere a la estética que se quiere modificar (`x`, `y`, `color`, `fill`, `alpha`, `linetype`, `linewidth`, `shape` o `size`).
+
+-   **Tipo de escala**: es la tercera palabra de la función y se refiere al tipo de escala que se quiere aplicar (`continuous`, `discrete`, `manual`, `identity`, `log`, ...).
+
+En las siguientes sección veremos algunas de las más importantes.
+
+## Escalas de posición
+
+Las escalas de posición se utilizan para mapear los valores de los datos a las posiciones de los elementos visuales de la gráfica. Todos los gráficos tienen dos escalas de posición que son la estética `x` y la estética `y`. Todos los gráficos traen una escala por defecto que depende de si la variable es categórica o numérica:
+
+-   `scale_x_continuous()` y : escala de posición para variables numéricas en el eje x.
+
+-   `scale_y_continuous()`: escala de posición para variables numéricas en el eje y.
+
+-   `scale_x_discrete()`: escala de posición para variables categóricas en el eje x.
+
+-   `scale_y_discrete()`: escala de posición para variables categóricas en el eje y.
+
+::: callout-note
+Existe alguna excepción como el formato fecha que utiliza `scale_*_date()` o el formato fecha-tiempo que utiliza `scale_*_datetime()`.
+:::
+
+Vamos a empezar con un ejemplo sencillo utilizando el *dataset* `iris`.
+
+::: panel-tabset
+## Sin escalas
+
+En este primer ejemplo, generamos un gráfico de la distribución de la anchura del sépalo según la especie. Tenemos que añadir una semilla para que el proceso aleatorio de `geom_jitter()` sea el mismo en ambos ejemplos.
+
+```{r}
+#| label: fig-jitter-no-scales
+#| fig-cap: Distribución de la anchura del pétalo por especie de Iris
+set.seed(123)
+ggplot(iris, aes(x = Species, y = Sepal.Width)) +
+    geom_jitter(height = 0, width = .2)
+```
+
+## Con escalas
+
+Si añadimos las escalas que supuestamente son las que vienen por defecto, no debería cambiar nada en nuestro gráfico:
+
+```{r}
+#| label: fig-jitter-scales
+#| fig-cap: Distribución de la anchura del pétalo por especie de Iris
+set.seed(123)
+ggplot(iris, aes(x = Species, y = Sepal.Width)) +
+    geom_jitter(height = 0, width = .2) +
+    scale_x_discrete() +
+    scale_y_continuous()
+```
+:::
+
+Pues bien, hasta aquí nada nuevo. Vamos a empezar a ver finalmente qué podemos hacer con las escalas de posición.
+
+### Escalas de posición continuas
+
+Para trabajar sobre escalas de posición continuas vamos a partir de este ejemplo que ya hemos trabajado en secciones anteriores del dataset de `gapminder`. Vamos a empezar preparando los datos:
+
+```{r}
+gapminder_tbl <- gapminder |> 
+    filter(continent != "Africa") |>
+    mutate(year = as_date(
+        paste0(year, "-01-01")
+    ))
+```
+
+Como veis, estamos convirtiendo la columna `year` a tipo de dato `Date` en lugar de `numeric`. En un rato veréis por qué.
+
+```{r}
+#| label: fig-spaguetti-scales
+#| fig-cap: Spaguetti plot mostrando la evolución del PIB per cápita de los países del mundo
+base_plot <- gapminder_tbl |> 
+    ggplot(
+        aes(x = year, y = gdpPercap, color = country, group = country)
+    ) +
+    geom_line(color = "grey80") +
+    geom_textpath(
+        aes(x = year, y = gdpPercap, label = country),
+        data  = gapminder_tbl |> filter(country %in% c("Kuwait", "Nicaragua", "Haiti")),
+        color = "#BC3908",
+        lwd   = 1,
+        size  = 3
+    ) +
+    labs(
+        x     = NULL,
+        y     = "PIB per cápita",
+        color = NULL,
+        title = "La mayoría de países aumentaron su PIB per cápita entre 1952 y 2007. \nKuwait, Nicaragua y Haiti no"
+    ) +
+    theme_minimal()
+
+base_plot
+```
+
+Vamos a ver qué podemos modificar:
+
+::: panel-tabset
+## Intervalos
+
+Podemos indicar un vector de valores para especificar los valores que queremos ver en los ejes. Además, con name también podemos modificar el nombre de este eje (al igual que en la función `labs()`).
+
+```{r}
+base_plot +
+    scale_y_continuous(
+        name   = "PIB per cápita ($)",
+        breaks = seq(0, 100000, 20000)
+    )
+```
+
+Fíjate que al superar los 5 dígitos la notación es decimal. Podemos cambiar este comportamiento del siguiente modo:
+
+```{r}
+options(scipen = 999)
+base_plot +
+    scale_y_continuous(
+        name   = "PIB per cápita ($)",
+        breaks = seq(0, 100000, 20000)
+    )
+```
+
+## Número de intervalos
+
+En lugar de indicar los intervalos que queremos, podemos indicar un número de intervalos para que la función los calcule óptimamente. Vamos a indicar un total de 10 intervalos:
+
+```{r}
+base_plot +
+    scale_y_continuous(
+        name     = "PIB per cápita ($)",
+        n.breaks = 10
+    )
+```
+
+## Intervalos menores
+
+Si te fijas, en la grilla del gráfico tenemos unas líneas más gruesas en las etiquetas y otras más finas entre las etiquetas. Estás líneas más finas son los intervalos menores. Para ver lo que significa esto, vamos a crear un `minor break` cada \$2000.
+
+```{r}
+base_plot +
+    scale_y_continuous(
+        name         = "PIB per cápita ($)",
+        n.breaks     = 10,
+        minor_breaks = seq(0, 110000, 2000)
+    )
+```
+
+## Etiquetas ejes
+
+Las etiquetas son los valores que muestran los intervalos que creamos con `breaks` o `n_breaks`. Podemos poner lo que queramos. Por ver un ejemplo obvio de lo que se puede hacer:
+
+```{r}
+base_plot +
+    scale_y_continuous(
+        name   = "PIB per cápita ($)",
+        breaks = seq(0, 100000, 20000),
+        labels = c("Cero", "Primera", "Segunda", "Tercera", "Cuarta", "Quinta")
+    )
+```
+
+Ahora vamos a ver un ejemplo mucho más útil utilizando el paquete `scales`. Este paquete nos permite añadir símbolos, separar unidades, etc. En lugar de tener valores como 100000, vamos a modificarlos para que muestren \$100,000. Para ello utilizamos la función `label_dollar()` que por defecto modifica el comportamiento al que nosotros queremos.
+
+```{r}
+base_plot +
+    scale_y_continuous(
+        breaks = seq(0, 100000, 20000),
+        labels = scales::label_dollar()
+    )
+```
+
+Como en España es común separar decimales por comas y los miles por puntos, podemos modificar este comportamiento así:
+
+```{r}
+base_plot +
+    scale_y_continuous(
+        breaks = seq(0, 100000, 20000),
+        labels = scales::label_dollar(
+            big.mark     = ".",
+            decimal.mark = ","
+        )
+    )
+```
+
+Puede parecer una sintaxis extraña. Este tipo de funciones se llaman *function factories* y es un tema avanzado y que queda fuera de los objetivos de este curso. En [este enlace](https://adv-r.hadley.nz/function-factories.html) se puede ver una lectura adicional sobre este tipo de funciones.
+
+## Límites ejes
+
+Finalmente, vamos a ver que podemos hacer zoom a un área del gráfico. Vamos a ver el área de \$0 hasta \$20,000.
+
+```{r}
+base_plot +
+    scale_y_continuous(
+        name   = "PIB per cápita ($)",
+        limits = c(0, 20000)
+    )
+```
+:::
+
+Este sería el funcionamiento básico de las funciones `scale_*_continuous()`. No obstante, podemos modificar la función utilizando una aceptable por variables continuas:
+
+::: panel-tabset
+## Transformaciones
+
+Las escalas normales van a mapear los valores originales de nuestros datos. Sin embargo, podemos aplicar transformaciones directas a las escalas como por ejemplo la transformación logarítmica:
+
+```{r}
+base_plot +
+    scale_y_log10()
+```
+
+Del mismo modo, podemos aplicar los mismos argumentos:
+
+```{r}
+base_plot +
+    scale_y_log10(
+        name   = "PIB (escala logarítmica)",
+        breaks = seq(0, 100000, 20000),
+        labels = scales::label_dollar(
+            big.mark     = ".",
+            decimal.mark = ","
+        )
+    )
+```
+
+Como utilizamos logaritmos nos aparecen los decimales que son siempre dos ceros. Podemos eliminarlos:
+
+```{r}
+base_plot +
+    scale_y_log10(
+        name   = "PIB (escala logarítmica)",
+        breaks = seq(0, 100000, 20000),
+        labels = scales::label_dollar(
+            big.mark     = ".",
+            decimal.mark = ",",
+            accuracy     = 1
+        )
+    )
+```
+
+## Fechas
+
+Para variables de tipo fecha tenemos una serie de funciones que nos ayudan a mostrar las etiquetas. Sin embargo, tenemos que convertir el tipo de dato a fecha, algo que hemos hecho previamente cuando creamos `gapminder_tbl`.
+
+```{r}
+base_plot +
+    scale_x_date()
+```
+
+En verdad, cuando la variable es de tipo fecha se aplica esta escala por defecto. Vamos a modificar sus etiquetas para ver los años de cinco en cinco. Podemos utilizar el argumento `date_breaks` que permite una sintaxis muy flexible y amigable:
+
+```{r}
+base_plot +
+    scale_x_date(
+        date_breaks = "5 years"
+    )
+```
+
+Vaya infortunio. Esta función nos añade los meses y los años... Pero no os preocupéis!! Paquete `scales` al rescate:
+
+```{r}
+base_plot +
+    scale_x_date(
+        date_breaks = "5 years",
+        labels      = scales::label_date(format = "%Y")
+    )
+```
+
+El argumento `format` nos permite escribir el formato de fecha siguiendo unos estándares. Busca la ayuda de la función `strptime()` para ver las opciones disponibles. Las más comunes puedes verlas [aquí](https://ggplot2-book.org/scales-position#sec-date-labels). Existe una opción que no necesita del paquete `scales`:
+
+```{r}
+base_plot +
+    scale_x_date(
+        date_breaks = "5 years",
+        date_labels = "%Y"
+    )
+```
+:::
+
+Pues esto sería todo por esta parte de la sección. Como ves, es muy sencillo trabajar con las escalas gracias a la gramática de gráficos adaptada a `{ggplot2}`.
+
+### Escalas de posición discretas
+
+Vamos a ver ahora las escalas que mapean una variable de tipo categórico. La verdad es que aquí no vamos a introducir nada nuevo. La única diferencia con las anteriores es que utilizamos una función distinta y los argumentos que tenemos disponibles. En este caso no tiene sentido crear intervalos en la escala, ya que una variable categórica tiene los valores fijos. Lo que podemos es modificar las etiquetas y también la posición de la escala (esto lo podemos hacer también con las funciones anteriores, pero quería añadir algo nuevo en esta sección).
+
+```{r}
+set.seed(123)
+ggplot(iris, aes(x = Species, y = Sepal.Width)) +
+    geom_jitter(height = 0, width = .2) +
+    scale_x_discrete(
+        name     = NULL,
+        labels   = c("I. setosa", "I. versicolor", "I. virginica"),
+        position = "top"
+    )
+```
+
+Finalmente, puedes ver que todas las funciones tienen un argumento denominado `guide`. Esto lo veremos más adelante.
+
+## Escalas de colores
+
+Las escalas de colores modifican el color de las líneas (`color`) y el color de relleno (`fill`). Las escalas de posición actúan sobre los ejes `x` e `y`, mientras que las que veremos en esta sección actúan sobre los colores de las geometrías generando una leyenda. Por defecto, se aplican las siguientes:
+
+-   `scale_color_continuous()` / `scale_fill_continuous()`: para variables continuas.
+
+-   `scale_color_discrete()` / `scale_fill_discrete()`: para variables categóricas.
+
+### Variables continuas
+
+Vamos a empezar viendo como actúan las escalas por defecto en variables continuas:
+
+```{r}
+#| label: fig-gapminder-scales-scatter
+#| fig-cap: Scatter plot del PIB per cápita, esperanza de vida y población de los países del mundo
+scatter_base <- gapminder |> 
+    filter(year == 2007) |> 
+    ggplot(
+        aes(x = gdpPercap, y = lifeExp, color = pop)
+    ) +
+    geom_point() +
+    labs(
+        x = "PIB per cápita",
+        y = "Esperanza de vida"
+    ) +
+    theme_minimal()
+
+scatter_base
+```
+
+La función `scale_color_continuous()` nos permite modificar la escala de colores con unos argumentos similares a los que vimos en las escalas de posición. Vamos a ver un ejemplo:
+
+::: panel-tabset
+## Intervalos
+
+Los intervalos los definimos de nuevo con `breaks` o `n.breaks`.
+
+```{r}
+scatter_base +
+    scale_color_continuous(
+        name   = "Población",
+        breaks = seq(0, 1e9, 2e8)
+    )
+```
+
+```{r}
+scatter_base +
+    scale_color_continuous(
+        name     = "Población",
+        n.breaks = 3
+    )
+```
+
+## Etiquetas ejes
+
+Las etiquetas las definimos con `labels`. Vamos a ver un ejemplo con el paquete `scales`:
+
+```{r}
+scatter_base +
+    scale_color_continuous(
+        name   = "Población",
+        labels = scales::label_number(
+            big.mark     = ".",
+            decimal.mark = ","
+        )
+    )
+```
+
+## Tipo de paleta
+
+Podemos modificar el tipo de paleta de colores con el argumento `type`. Este es un argumento que las escalas de posición no tienen.
+
+```{r}
+scatter_base +
+    scale_color_continuous(
+        name = "Población",
+        type = "viridis"
+    )
+
+```
+:::
+
+En la última pestaña hemos visto como utilizar una paleta de colores mediante el argumento `type`. Sin embargo, algunas paletas comunes traen sus propias funciones del tipo `scale_color_*()` con una mayor flexibilidad.
+
+#### Paletas predefinidas
+
+Las escalas `viridis` [@garnier2018viridis] son una familia de paletas de colores que seguramente has visto en muchos gráficos. Estas son unas paletas con un gran diseño y que además son amigables con problemas de visión como el daltonismo. En la siguiente aplicación puedes ver las escalas `viridis` modificando el argumento `option` de la función `scale_color_viridis_c()`.
+
+```{shinylive-r}
+#| standalone: true
+#| viewerHeight: 600
+
+## Load packages
+library(bslib)
+library(dplyr)
+library(gapminder)
+library(ggplot2)
+library(glue)
+library(shiny)
+library(shinyWidgets)
+
+## UI
+ui <- page_sidebar(
+    sidebar = sidebar(
+        open = "open",
+        width = 200,
+        selectInput(
+            inputId = "option", 
+            label   = "Paleta", 
+            choices = c("A", "B", "C", "D", "E", "F", "G", "H"),
+            selected = "D"
+        ),
+        prettySwitch(
+            inputId  = "direction",
+            label    = "Invertir paleta",
+            status   = "success",
+            fill     = TRUE
+        ),
+        prettySwitch(
+            inputId = "binned",
+            label   = "Binned",
+            status  = "success",
+            fill    = TRUE
+        )
+    ),
+    verbatimTextOutput("code") |> card(),
+    plotOutput("plot", width = 500) |> card()
+)
+
+## Server
+server <- function(input, output, session) {
+    
+    output$code <- renderPrint({
+        glue(
+            
+            if (input$binned) {
+                'scatter_base +
+                    scale_color_viridis_b(
+                        option    = "{input$option}",
+                        direction = {if (input$direction) -1 else 1}
+                    )'
+            } else {
+                'scatter_base +
+                    scale_color_viridis_c(
+                        option    = "{input$option}",
+                        direction = {if (input$direction) -1 else 1}
+                    )'
+            }
+            
+            )
+    })
+
+    ## Plot
+    output$plot <- renderPlot({
+        
+        if (input$binned) {
+            gapminder |> 
+            filter(year == 2007) |> 
+            ggplot(
+                aes(x = gdpPercap, y = lifeExp, color = pop)
+            ) +
+            geom_point() +
+            labs(
+                x = "PIB per cápita",
+                y = "Esperanza de vida"
+            ) +
+            theme_minimal(base_size = 8) +
+            scale_color_viridis_b(
+                option    = input$option,
+                direction = if (input$direction) -1 else 1
+            )
+        } else {
+            gapminder |> 
+            filter(year == 2007) |> 
+            ggplot(
+                aes(x = gdpPercap, y = lifeExp, color = pop)
+            ) +
+            geom_point() +
+            labs(
+                x = "PIB per cápita",
+                y = "Esperanza de vida"
+            ) +
+            theme_minimal(base_size = 8) +
+            scale_color_viridis_c(
+                option    = input$option,
+                direction = if (input$direction) -1 else 1
+            )
+        }
+        
+        }, res = 96
+    )
+}
+
+## Run app
+shinyApp(ui = ui, server = server)
+```
+
+Estas funciones pueden terminar en:
+
+-   `scale_color_viridis_c()`: para variables continuas.
+
+-   `scale_color_viridis_d()`: para variables discretas.
+
+-   `scale_color_viridis_b()`: para variables continuas que se quieren dividir en intervalos.
+
+Por otro lado, tenemos la familia de paletas de colores `ColorBrewer` [@RColorBrewer], que podemos ver en la siguiente figura:
+
+```{r}
+#| label: fig-brewer-pals
+#| fig-cap: Paletas de colores Brewer
+#| echo: false
+#| fig-height: 7
+display.brewer.all()
+```
+
+Para acceder a ellas, podemos utilizar las funciones:
+
+-   `scale_color_distiller()`: para variables continuas
+
+-   `scale_color_brewer()`: para variables discretas
+
+-   `scale_color_fermenter()`: para variables continuas que se quieren dividir en intervalos
+
+A medida que utilices `ggplot2` irás descubriendo paquetes que traen sus propias escalas de colores. Algunos ejemplos son `{ggsci}` [@ggsci], `{MetBrewer}` [@MetBrewer], o `{scico}` [@scico].
+
+En la siguiente aplicación puedes probar distintas paletas `ColorBrewer`:
+
+```{shinylive-r}
+#| standalone: true
+#| viewerHeight: 600
+
+## Load packages
+library(bslib)
+library(dplyr)
+library(gapminder)
+library(ggplot2)
+library(glue)
+library(RColorBrewer)
+library(shiny)
+library(shinyWidgets)
+
+## UI
+ui <- page_sidebar(
+    sidebar = sidebar(
+        open = "open",
+        width = 200,
+        selectInput(
+            inputId  = "option", 
+            label    = "Paleta", 
+            choices  = rownames(brewer.pal.info),
+            selected = "Reds"
+        ),
+        prettySwitch(
+            inputId  = "direction",
+            label    = "Invertir paleta",
+            status   = "success",
+            fill     = TRUE
+        ),
+        prettySwitch(
+            inputId = "binned",
+            label   = "Binned",
+            status  = "success",
+            fill    = TRUE
+        )
+    ),
+    verbatimTextOutput("code") |> card(),
+    plotOutput("plot", width = 500) |> card()
+)
+
+## Server
+server <- function(input, output, session) {
+    
+    output$code <- renderPrint({
+        glue(
+            
+            if (input$binned) {
+                'scatter_base +
+                    scale_color_fermenter(
+                        palette   = "{input$option}",
+                        direction = {if (input$direction) -1 else 1}
+                    )'
+            } else {
+                'scatter_base +
+                    scale_color_distiller(
+                        palette   = "{input$option}",
+                        direction = {if (input$direction) -1 else 1}
+                    )'
+            }
+            
+            )
+    })
+
+    ## Plot
+    output$plot <- renderPlot({
+        
+        if (input$binned) {
+            gapminder |> 
+            filter(year == 2007) |> 
+            ggplot(
+                aes(x = gdpPercap, y = lifeExp, color = pop)
+            ) +
+            geom_point() +
+            labs(
+                x = "PIB per cápita",
+                y = "Esperanza de vida"
+            ) +
+            theme_minimal(base_size = 8) +
+            scale_color_fermenter(
+                palette   = input$option,
+                direction = if (input$direction) -1 else 1
+            )
+        } else {
+            gapminder |> 
+            filter(year == 2007) |> 
+            ggplot(
+                aes(x = gdpPercap, y = lifeExp, color = pop)
+            ) +
+            geom_point() +
+            labs(
+                x = "PIB per cápita",
+                y = "Esperanza de vida"
+            ) +
+            theme_minimal(base_size = 8) +
+            scale_color_distiller(
+                palette   = input$option,
+                direction = if (input$direction) -1 else 1
+            )
+        }
+        
+        }, res = 96
+    )
+}
+
+## Run app
+shinyApp(ui = ui, server = server)
+```
+
+#### Paletas manuales
+
+En algunos paquetes tenemos una infinidad de paletas de colores predefinidas, pero puede haber ocasiones en las que prefiramos definir nosotros mismos la paleta de colores. Para ello, tenemos tres funciones que nos permiten definir una paleta de colores continua de forma manual:
+
+-   `scale_color_gradient()`: a partir de dos colores, generamos un gradiente (definimos color mínimo y color máximo).
+
+-   `scale_color_gradient2()`: a partir de tres colores (siendo el tercero el punto medio)
+
+-   `scale_color_gradientn()`: a partir de *n* colores
+
+Vamos a ver estos tres en acción:
+
+::: panel-tabset
+## Gradient
+
+En este caso, debemos especificar dos colores, y el resto se interpola entre ellos:
+
+```{r}
+scatter_base +
+    scale_color_gradient(
+        name = "Población",
+        low  = "blue",
+        high = "green"
+    )
+```
+
+## Gradient2
+
+En este caso, especificaremos además el color del medio. Por defecto, este punto es el valor de 0, por lo que podemos modificarlo a nuestro parecer con `midpoint`:
+
+```{r}
+scatter_base +
+    scale_color_gradient2(
+        name = "Población",
+        low  = "blue",
+        mid  = "red",
+        high = "green",
+        midpoint = 7e8
+    )
+```
+
+## Gradientn
+
+Finalmente, esta es una de las opciones más flexibles ya que en muchas ocasiones utilizaremos paletas de colores de varios colores que vienen dentro de algún paquete, y que en lugar de traer funciones del tipo `scale_color_*`, traen vectores de códigos hexadecimales con los colores. Un ejemplo son las paletas que vienen dentro de la función `hcl.colors()`:
+
+```{r}
+scatter_base +
+    scale_color_gradientn(
+        name   = "Población",
+        colors = hcl.colors(50, palette = "Spectral")
+    )
+```
+
+Las paletas pueden explorarse [aquí](https://colorspace.r-forge.r-project.org/articles/hcl_palettes.html).
+:::
+
+### Variables discretas
+
+Las escala que se aplica por defecto a las variables discretas es `scale_color_discrete()`. Vamos a partir del siguiente gráfico, donde la estética color utiliza la variable del continente:
+
+```{r}
+#| label: fig-gapminder-scales-scatter-discrete
+#| fig-cap: Scatter plot del PIB per cápita, esperanza de vida y continente
+scatter_base <- gapminder |> 
+    filter(year == 2007) |> 
+    ggplot(
+        aes(x = gdpPercap, y = lifeExp, color = continent)
+    ) +
+    geom_point() +
+    labs(
+        x = "PIB per cápita",
+        y = "Esperanza de vida"
+    ) +
+    theme_minimal()
+
+scatter_base
+```
+
+Vamos a ver a continuación las opciones más comunes para modificar en la función base:
+
+-   name: título de la leyenda
+
+-   labels: etiquetas que se muestran en la leyenda
+
+-   type: vector de colores
+
+```{r}
+scatter_base +
+    scale_color_discrete(
+        name   = "Continente",
+        labels = c("África", "América", "Asia", "Europa", "Oceanía"),
+        type   = hcl.colors(n = 5, palette = "Dark 2")
+    )
+```
+
+{{< include references.qmd >}}
