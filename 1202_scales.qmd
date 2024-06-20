@@ -26,7 +26,7 @@ Además, se puede subdividir las escalas en función de la estética que modific
 
 -   **Escalas de colores**: controlan el color externo y color de relleno de los elementos visuales y sus leyendas. En esta categoría tenemos las estéticas `color` y `fill`.
 
--   **Otras escalas y leyendas**: controlar el aspecto de los elementos visuales y sus respectivas leyendas. En esta categoría tenemos las estéticas `alpha`, `linetype`, `linewidth`, `shape` y `size`.
+-   **Otras escalas**: controlar el aspecto de los elementos visuales y sus respectivas leyendas. En esta categoría tenemos las estéticas `alpha`, `linetype`, `linewidth`, `shape` y `size`.
 
 En este capítulo vamos a trabajar con tres *datasets*:
 
@@ -41,7 +41,11 @@ Para comenzar, vamos a cargar los paquetes necesarios y a leer los datos que uti
 ```{r}
 #| echo: false
 ## Paquetes internos
+library(reactable)
+library(gt)
+library(patchwork)
 library(RColorBrewer)
+library(readxl)
 ```
 
 ```{r}
@@ -744,6 +748,46 @@ scatter_base +
 Las paletas pueden explorarse [aquí](https://colorspace.r-forge.r-project.org/articles/hcl_palettes.html).
 :::
 
+### Leyendas
+
+La apariencia de las leyendas se controla mediante las guías (*guides*). En el caso de variables continuas tenemos `guide_colorbar()`. Para modificar esto, debemos añadir la función `guides()`, y dentro elegir una estética que igualaremos a `guide_colorbar()`, como en este ejemplo:
+
+```{r}
+scatter_base +
+    guides(
+        color = guide_colorbar()
+    )
+```
+
+Dentro de esta función tenemos un montón de argumentos que podemos modificar para cambiar la apariencia de la leyenda, como pueden ser:
+
+-   `title`: de nuevo, el título de la leyenda.
+
+-   `title.position`: posición del título con respecto a la barra
+
+-   `title.hjust`: justificación del título
+
+-   `direction`: dirección de la barra
+
+-   `position`: posición de la leyenda con respecto al gráfico
+
+-   `barwidth` y `barheight`: anchura y altura de la barra
+
+```{r}
+scatter_base +
+    guides(
+        color = guide_colorbar(
+            title          = "Población",
+            title.position = "top",
+            title.hjust    = .5,
+            direction      = "horizontal",
+            position       = "top",
+            barwidth       = unit(10, "cm"),
+            barheight      = unit(2, "mm")
+        )
+    )
+```
+
 ### Variables discretas
 
 Las escala que se aplica por defecto a las variables discretas es `scale_color_discrete()`. Vamos a partir del siguiente gráfico, donde la estética color utiliza la variable del continente:
@@ -766,13 +810,15 @@ scatter_base <- gapminder |>
 scatter_base
 ```
 
+#### Paletas manuales
+
 Vamos a ver a continuación las opciones más comunes para modificar en la función base:
 
--   name: título de la leyenda
+-   `name`: título de la leyenda
 
--   labels: etiquetas que se muestran en la leyenda
+-   `labels`: etiquetas que se muestran en la leyenda
 
--   type: vector de colores
+-   `type`: vector de colores
 
 ```{r}
 scatter_base +
@@ -783,4 +829,337 @@ scatter_base +
     )
 ```
 
+Eque `scale_color_discrete()`, pero con un nombre más intuitivo: `scale_color_manual()`. Como diferencia, utiliza el argumento `values` para definir los colores. Vamos a ver cómo se utiliza:
+
+```{r}
+scatter_base +
+    scale_color_manual(
+        name   = "Continente",
+        labels = c("África", "América", "Asia", "Europa", "Oceanía"),
+        values = hcl.colors(n = 5, palette = "Dark 2")
+    )
+```
+
+
+#### Paletas predefinidas
+
+Para el caso de las variables categóricas, también tenemos la opción de utilizar `scale_color_brewer()` para una paleta de colores ColorBrewer [@fig-brewer-pals]. Para variables categóricas, es más interesante utilizar el segundo grupo de paletas de la @fig-brewer-pals, debido a que nos interesa tener colores distintos para cada clase, y no una paleta secuencial donde los colores son similares.
+
+Si queremos utilizar una paleta de `viridis`, podemos utilizar la función `scale_color_viridis_d()`.
+
+::: panel-tabset
+## Color Brewer
+
+
+```{shinylive-r}
+#| standalone: true
+#| viewerHeight: 600
+
+## Load packages
+library(bslib)
+library(dplyr)
+library(gapminder)
+library(ggplot2)
+library(glue)
+library(RColorBrewer)
+library(shiny)
+library(shinyWidgets)
+
+## UI
+ui <- page_sidebar(
+    sidebar = sidebar(
+        open = "open",
+        width = 200,
+        selectInput(
+            inputId  = "option", 
+            label    = "Paleta", 
+            choices  = rownames(brewer.pal.info),
+            selected = "Reds"
+        ),
+        prettySwitch(
+            inputId  = "direction",
+            label    = "Invertir paleta",
+            status   = "success",
+            fill     = TRUE
+        )
+    ),
+    verbatimTextOutput("code") |> card(),
+    plotOutput("plot", width = 500) |> card()
+)
+
+## Server
+server <- function(input, output, session) {
+    
+    output$code <- renderPrint({
+        glue(
+                'scatter_base +
+                    scale_color_brewer(
+                        palette   = "{input$option}",
+                        direction = {if (input$direction) -1 else 1}
+                    )'
+            
+            
+            )
+    })
+
+    ## Plot
+    output$plot <- renderPlot({
+      
+      gapminder |> 
+        filter(year == 2007) |> 
+        ggplot(
+            aes(x = gdpPercap, y = lifeExp, color = continent)
+        ) +
+        geom_point() +
+        labs(
+            x = "PIB per cápita",
+            y = "Esperanza de vida"
+        ) +
+        theme_minimal(base_size = 8) +
+        scale_color_brewer(
+            palette   = input$option,
+            direction = if (input$direction) -1 else 1
+        )
+        
+        }, res = 96
+    )
+}
+
+## Run app
+shinyApp(ui = ui, server = server)
+```
+
+
+## Viridis
+
+```{shinylive-r}
+#| standalone: true
+#| viewerHeight: 600
+
+## Load packages
+library(bslib)
+library(dplyr)
+library(gapminder)
+library(ggplot2)
+library(glue)
+library(shiny)
+library(shinyWidgets)
+
+## UI
+ui <- page_sidebar(
+    sidebar = sidebar(
+        open = "open",
+        width = 200,
+        selectInput(
+            inputId = "option", 
+            label   = "Paleta", 
+            choices = c("A", "B", "C", "D", "E", "F", "G", "H"),
+            selected = "D"
+        ),
+        prettySwitch(
+            inputId  = "direction",
+            label    = "Invertir paleta",
+            status   = "success",
+            fill     = TRUE
+        )
+    ),
+    verbatimTextOutput("code") |> card(),
+    plotOutput("plot", width = 500) |> card()
+)
+
+## Server
+server <- function(input, output, session) {
+    
+    output$code <- renderPrint({
+        glue(
+        
+        'scatter_base +
+            scale_color_viridis_d(
+            option    = "{input$option}",
+            direction = {if (input$direction) -1 else 1}
+        )'
+            
+            
+            )
+    })
+
+    ## Plot
+    output$plot <- renderPlot({
+      
+      gapminder |>
+        filter(year == 2007) |> 
+        ggplot(
+            aes(x = gdpPercap, y = lifeExp, color = continent)
+        ) +
+        geom_point() +
+        labs(
+            x = "PIB per cápita",
+            y = "Esperanza de vida"
+        ) +
+        theme_minimal(base_size = 8) +
+        scale_color_viridis_d(
+            option    = input$option,
+            direction = if (input$direction) -1 else 1
+        )
+        
+        }, res = 96
+    )
+}
+
+## Run app
+shinyApp(ui = ui, server = server)
+```
+
+:::
+
+Y estas serían las escalas de colores más comunes.
+
+#### Leyendas
+
+Para las variables discretas, la leyenda se controla mediante `guide_legend()`. Además de los argumentos que veíamos con `guide_colorbar()`, tenemos la opción de `nrow` para definir el número de filas de la leyenda o en su caso `ncol` para definir el número de columnas. Vamos a ver un ejemplo:
+
+```{r}
+scatter_base +
+    guides(
+        color = guide_legend(
+            title          = "Continente",
+            title.position = "top",
+            title.hjust    = .5,
+            position       = "top",
+            nrow           = 2
+        )
+    )
+```
+
+## Otras escalas
+
+Finalmente, existen escalas para otro tipo de estéticas. Estas funcionan de manera similar a las escalas de colores, ya que también generan una leyenda. En este libro, vamos a ver las escalas de tamaño y de forma.
+
+### Escalas de tamaño
+
+Las escalas de tamaño (`scale_size_*`) se utilizan para modificar el tamaño de elementos de la gráfica, como el tamaño de los puntos o de texto. Esta se puede aplicar tanto a variables continuas como a variables discretas, y las funciones que tenemos disponibles son:
+
+-   `scale_size_continuous()`: para variables continuas.
+
+-   `scale_size_discrete()`: para variables discretas.
+
+-   `scale_size()` y `scale_radius()`: neutrales para modificar el área o el radio. Son las que utilizaremos generalmente.
+
+-   Otras: tenemos otras que sirven para fechas, intervalos, manual para variables discretas, etc.
+
+Vamos a empezar trabajando sobre este gráfico:
+
+```{r}
+#| label: fig-gapminder-scales-size
+#| fig-cap: Scatter plot del PIB per cápita, esperanza de vida y población de los países del mundo
+bubble_base <- gapminder |> 
+  filter(year == 2007) |> 
+  ggplot(
+      aes(x = gdpPercap, y = lifeExp, fill = continent, size = pop)
+  ) +
+  geom_point(
+    shape = 21
+  ) +
+  labs(
+      x = "PIB per cápita",
+      y = "Esperanza de vida"
+  ) +
+  theme_minimal()
+
+bubble_base
+```
+
+El argumento más importante de estas funciones es `range`, que nos permite modificar el rango de tamaños que se van a mostrar en la leyenda. En el siguiente caso, el punto más pequeño tiene tamaño de 1, mientras que el más grande tiene tamaño de 20:
+
+```{r}
+bubble_base +
+  scale_size(
+    name  = "Población",
+    range = c(1, 20)
+  )
+```
+
+También podemos modificar utilizando una medida del radio en lugar del área:
+
+```{r}
+bubble_base +
+  scale_radius(
+    name  = "Población",
+    range = c(1, 20)
+  )
+```
+
+Como véis, el objetivo de las funciones es el mismo pero midiendo el tamaño de distinta manera.
+
+### Escalas de forma
+
+Las escalas de forma (`scale_shape_*`) se utilizan para modificar la forma de los elementos de la gráfica, como la forma de los puntos. Esta se puede aplicar tanto a variables continuas como a variables discretas, y las funciones que tenemos disponibles son:
+
+-   `scale_shape_continuous()`: para variables continuas.
+
+-   `scale_shape_manual()`: para variables discretas.
+
+-   `scale_shape()`: neutral. Es la que utilizaremos generalmente.
+
+En el siguiente ejemplo se muestran los continentes con las formas que vienen por defecto. Son solid indicamos si las formas son sólidas, o si tienen un borde y relleno:
+
+```{r}
+base_plot <- gapminder |> 
+  filter(year == 2007) |> 
+  ggplot(
+      aes(x = gdpPercap, y = lifeExp, shape = continent)
+  ) +
+  geom_point(size = 2) +
+  labs(
+      x = "PIB per cápita",
+      y = "Esperanza de vida"
+  ) +
+  theme_minimal()
+
+solid_gg <- base_plot +
+  scale_shape(
+    name   = "Continente",
+    labels = c("África", "América", "Asia", "Europa", "Oceanía")
+  )
+
+no_solid_gg <- base_plot +
+  scale_shape(
+    name   = "Continente",
+    labels = c("África", "América", "Asia", "Europa", "Oceanía"),
+    solid  = FALSE
+  )
+
+solid_gg + no_solid_gg
+```
+
+## Resumen
+
+En este capítulo hemos visto diversos tipos de escalas y sus funciones. Hemos visto cómo modificar los intervalos, el número de intervalos, las etiquetas, los límites, las transformaciones, las fechas, las paletas de colores, las paletas manuales, las leyendas, y las escalas de tamaño y forma. En la @tbl-scales-summary se muestra un resumen de las escalas vistas en este capítulo, además de otras que pueden ser utilizadas para otras estéticas.
+
+```{r}
+#| echo: false
+#| tbl-cap: Resumen de las escalas vistas en este capítulo
+#| label: tbl-scales-summary
+read_excel("data/scales-summary.xlsx") |> 
+  gt() |> 
+  opt_stylize(
+    style = 3,
+    color = "cyan"
+  )
+```
+
+
 {{< include references.qmd >}}
+
+
+
+
+
+
+
+
+
+
+
+
+
