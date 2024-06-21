@@ -1,0 +1,208 @@
+---
+execute: 
+  warning: false
+editor_options: 
+  chunk_output_type: console
+filters: 
+    - webr
+webr:
+    packages: ["dplyr", "ggplot2"]
+---
+
+# Facetas {#sec-facets}
+
+Las facetas son una forma de dividir un gráfico en subgráficos, de acuerdo a una o más variables categóricas. En `ggplot2` tenemos las siguientes funciones para crear facetas:
+
+-   `facet_null()`: sin facetas (por defecto).
+
+-   `facet_wrap()`: facetas en forma de una grilla.
+
+-   `facet_grid()`: crea una matriz de paneles donde las filas y columnas se definen por variables categóricas.
+
+En este capítulo vamos a trabajar con dos *datasets*:
+
+-   `gapminder`: *dataset* con la evolución temporal del desarrollo económico, población y esperanza de vida de los países del mundo (ver [Tipos de visualización](#sec-visualization-types){target="_blank"}). Filtraremos solamente los datos del 2002.
+
+-   `inventario`: *dataset* con datos de inventario de 27 parcelas en los que se ha medido el DBH, altura y especie (ver @sec-vis-data).
+
+Para comenzar, vamos a cargar los paquetes necesarios y a leer los datos que utilizaremos en este capítulo.
+
+```{r}
+library(gapminder)
+library(tidyverse)
+```
+
+## Facet wrap
+
+La función `facet_wrap()` permite dividir un gráfico en subgráficos, de acuerdo a una variable categórica. Por ejemplo, si queremos dividir un gráfico de dispersión en subgráficos de acuerdo a la especie de la flor, podemos hacer lo siguiente:
+
+```{r}
+#| label: fig-fwrap-iris
+#| fig-cap: Gráfico de dispersión de longitud y ancho de sépalo, dividido por especie.
+iris |> 
+    ggplot(aes(x = Sepal.Length, y = Sepal.Width)) +
+    geom_point() +
+    facet_wrap(vars(Species))
+```
+
+Fíjate que las variables las hemos definido dentro de la función `vars()`. Esto es necesario para que `{ggplot2}` pueda interpretarlas correctamente.
+
+::: callout-note
+Otra forma aceptada y que verás de forma más común es sin el uso de `~variable`. En este caso, se debe usar `~` antes de la variable categórica. Por ejemplo, `facet_wrap(~Species)`. El uso de `vars()` es el recomendable actualmente.
+:::
+
+Vamos a ver otro ejemplo con el dataset de `gapminder`. En este caso, vamos a filtrar los datos del año 1952 y 2007 y vamos a dividir el gráfico en subgráficos de acuerdo al continente. Como puedes ver, no estamos limitados a utilizar una sola variable categórica para dividir el gráfico (aunque este ejemplo no sea muy útil).
+
+```{r}
+#| label: fig-fwrap-gapminder
+#| fig-cap: Gráfico de dispersión de longitud y ancho de sépalo, dividido por especie.
+## Filtrar datos
+gapminder_filter_tbl <- gapminder %>% 
+  filter(year %in% c(1952, 2007))
+
+## Gráfico
+gapminder_filter_tbl |> 
+    ggplot(aes(x = gdpPercap, y = lifeExp)) +
+    geom_point() +
+    facet_wrap(vars(continent, year))
+```
+
+Algo que también podemos hacer es cambiar el número de filas y columnas que vienen por defecto con los argumentos `ncol` y `nrow`. Otro argumento útil es `scales` que permite controlar si las escalas de los ejes deben ser libres o no. Este tiene cuatro opciones:
+
+-   `"fixed"` (por defecto): los ejes x e y son fijos.
+
+-   `"free"`: los ejes x e y son libres.
+
+-   `"free_x"`: el ejes x es libre mientras que el eje y es fijo.
+
+-   `"free_y"`: el eje y es libre mientras que el eje x es fijo.
+
+Prueba en la siguiente aplicación los distintos argumento para ver como varían los gráficos.
+
+```{shinylive-r}
+#| standalone: true
+#| viewerHeight: 800
+
+## Load packages
+library(bslib)
+library(dplyr)
+library(gapminder)
+library(ggplot2)
+library(glue)
+library(shiny)
+
+## UI
+ui <- page_sidebar(
+    sidebar = sidebar(
+        open = "open",
+        width = 200,
+        numericInput(
+            inputId = "nrow", 
+            label   = "nrow",
+            min     = 0,
+            max     = 5,
+            value   = 2
+        ),
+        selectInput(
+            inputId = "scales", 
+            label   = "scales",
+            choices = c("fixed", "free", "free_x", "free_y"),
+            selected = "fixed"
+        )
+    ),
+    verbatimTextOutput("code") |> card(),
+    plotOutput("plot", width = 500, height = 500) |> card()
+)
+
+## Server
+server <- function(input, output, session) {
+    
+    output$code <- renderPrint({
+        glue(
+            '
+            ggplot(gapminder, aes(x = gdpPercap, y = lifeExp)) +
+                geom_point() +
+                facet_wrap(
+                    vars(continent),
+                    nrow   = {input$nrow},
+                    scales = {input$scales}
+                ) +
+                theme_bw()
+            '
+            )
+    })
+
+    ## Plot
+    output$plot <- renderPlot({
+        ggplot(gapminder, aes(x = gdpPercap, y = lifeExp)) +
+            geom_point() +
+            facet_wrap(
+                vars(continent),
+                nrow   = input$nrow,
+                scales = input$scales
+            ) +
+            theme_bw(base_size = 8)
+            }, res = 96
+    )
+}
+
+## Run app
+shinyApp(ui = ui, server = server)
+```
+
+## Facet grid
+
+La función `facet_grid()` permite dividir un gráfico en subgráficos, de acuerdo a una o dos variables categóricas, aunque su mayor utilidad ocurre cuando utilizamos dos variables. Tenemos 3 formas de utilizar esta función:
+
+-   `facet_grid(variable1 ~ variable2)`: crea una matriz de paneles donde las filas se definen por `variable1` y las columnas por `variable2`.
+
+-   `facet_grid(variable1 ~ .)`: crea una matriz de paneles donde las filas se definen por `variable1`.
+
+-   `facet_grid(. ~ variable2)`: crea una matriz de paneles donde las columnas se definen por `variable2`.
+
+En el siguiente *tabset* puedes ver un ejemplo de cada para ver las diferencias con `facet_wrap()`.
+
+::: panel-tabset
+## Filas y columnas
+
+```{r}
+gapminder_filter_tbl |> 
+    ggplot(aes(x = gdpPercap, y = lifeExp)) +
+    geom_point() +
+    facet_grid(continent ~ year)
+```
+
+## Filas
+
+```{r}
+gapminder_filter_tbl |> 
+    ggplot(aes(x = gdpPercap, y = lifeExp)) +
+    geom_point() +
+    facet_grid(continent ~ .)
+```
+
+## Columnas
+
+```{r}
+gapminder_filter_tbl |> 
+    ggplot(aes(x = gdpPercap, y = lifeExp)) +
+    geom_point() +
+    facet_grid(. ~ year)
+```
+:::
+
+Como puedes ver, el ejemplo de las columnas nos da el mismo resultado que `facet_wrap()` para una sola variable. Además, al igual que la función anterior, podemos controlar el número de filas y columnas, además de las escalas que queremos fijas o libres aunque en este caso, todas las gráficas que pertenecen a la misma columna van a tener siempre las misma escala en `x`, y las que pertenecen a la misma fila van a tener la misma escala en `y`. Podéis verlo en este ejemplo:
+
+```{r}
+gapminder_filter_tbl |> 
+    ggplot(aes(x = gdpPercap, y = lifeExp)) +
+    geom_point() +
+    facet_grid(
+        continent ~ year,
+        scales = "free"
+    )
+```
+
+::: callout-tip
+Las escalas fijas permiten ven mejor los patrones globales (comparar las gráficas), mientras que las escalas libres permiten mejor ver los patrones locales (de cada gráfica).
+:::
