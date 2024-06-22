@@ -28,8 +28,11 @@ En este capítulo vamos a trabajar con dos *datasets*:
 Para comenzar, vamos a cargar los paquetes necesarios y a leer los datos que utilizaremos en este capítulo.
 
 ```{r}
+## Cargar paquetes
 library(gapminder)
 library(tidyverse)
+## Cargar datos
+inventario_tbl <- read_rds("data/inventario_prep.rds")
 ```
 
 ## Facet wrap
@@ -205,4 +208,80 @@ gapminder_filter_tbl |>
 
 ::: callout-tip
 Las escalas fijas permiten ven mejor los patrones globales (comparar las gráficas), mientras que las escalas libres permiten mejor ver los patrones locales (de cada gráfica).
+:::
+
+## Ejercicio 13
+
+En este ejercicio, vamos a ver la relación diámetro-altura de los árboles de inventario, generando un subgráfico por cada parcela. Para ello, vamos a cargar los datos de inventario, convertirlos a `tibble` y vamos a ver de nuevo su estructura:
+
+```{webr-r}
+## Url de los datos
+url <- "https://cidree.github.io/MG_datasets/inventario_prep.csv"
+inventario_tbl <- read.csv(url) |>
+  as_tibble() |> 
+  select(-X)
+## Estructura datos
+inventario_tbl
+```
+
+En la @fig-ejercicio-13 tienes el resultado esperado en este ejercicio, que puedes escribir en la pestaña de *Ejercicio*.
+
+::: panel-tabset
+## Gráfico esperado
+
+```{r}
+#| echo: false
+#| label: fig-ejercicio-13
+#| fig-cap: Resultado esperado del ejercicio 13
+inventario_tbl |> 
+    ggplot(aes(x = dbh_mm / 10, y = height_m, color = nombre_ifn)) +
+    geom_point() +
+    facet_wrap(
+      vars(id_plots), 
+      nrow = 3
+    ) +
+    labs(
+        x     = "DBH (cm)",
+        y     = "Altura (m)",
+        color = NULL
+    ) +
+    theme_bw() +
+    guides(
+        color = guide_legend(
+          position = "top"
+        )
+    )
+```
+
+## Ejercicio
+
+```{webr-r}
+inventario_tbl
+```
+
+## Solución
+
+```{r}
+#| echo: false
+#| label: fig-ejercicio-solucion-13
+#| fig-cap: Resultado del ejercicio 13
+inventario_tbl |> 
+    ggplot(aes(x = dbh_mm / 10, y = height_m, color = nombre_ifn)) +
+    geom_point() +
+    facet_wrap(
+      vars(id_plots), 
+      nrow = 3
+    ) +
+    labs(
+        x     = "DBH (cm)",
+        y     = "Altura (m)",
+        color = NULL
+    ) +
+    theme_bw() +
+    guides(
+        color = guide_legend(
+          position = "top"
+        )
+    )
+```
 :::

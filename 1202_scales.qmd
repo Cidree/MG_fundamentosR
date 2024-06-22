@@ -49,9 +49,12 @@ library(readxl)
 ```
 
 ```{r}
+## Cargar paquetes
 library(gapminder)
 library(geomtextpath)
 library(tidyverse)
+## Cargar datos
+inventario_tbl <- read_rds("data/inventario_prep.rds")
 ```
 
 ## Estructura de las escalas
@@ -840,7 +843,6 @@ scatter_base +
     )
 ```
 
-
 #### Paletas predefinidas
 
 Para el caso de las variables categóricas, también tenemos la opción de utilizar `scale_color_brewer()` para una paleta de colores ColorBrewer [@fig-brewer-pals]. Para variables categóricas, es más interesante utilizar el segundo grupo de paletas de la @fig-brewer-pals, debido a que nos interesa tener colores distintos para cada clase, y no una paleta secuencial donde los colores son similares.
@@ -849,7 +851,6 @@ Si queremos utilizar una paleta de `viridis`, podemos utilizar la función `scal
 
 ::: panel-tabset
 ## Color Brewer
-
 
 ```{shinylive-r}
 #| standalone: true
@@ -928,7 +929,6 @@ server <- function(input, output, session) {
 ## Run app
 shinyApp(ui = ui, server = server)
 ```
-
 
 ## Viridis
 
@@ -1009,7 +1009,6 @@ server <- function(input, output, session) {
 ## Run app
 shinyApp(ui = ui, server = server)
 ```
-
 :::
 
 Y estas serían las escalas de colores más comunes.
@@ -1034,6 +1033,141 @@ scatter_base +
 ## Otras escalas
 
 Finalmente, existen escalas para otro tipo de estéticas. Estas funcionan de manera similar a las escalas de colores, ya que también generan una leyenda. En este libro, vamos a ver las escalas de tamaño y de forma.
+
+### Ejercicio 12
+
+En este ejercicio vamos a trabajar con los datos de inventario. Vamos a empezar cargando los datos, convertirlos a `tibble` y vamos a ver de nuevo su estructura:
+
+```{webr-r}
+## Url de los datos
+url <- "https://cidree.github.io/MG_datasets/inventario_prep.csv"
+inventario_tbl <- read.csv(url) |>
+  as_tibble() |> 
+  select(-X)
+## Estructura datos
+inventario_tbl 
+```
+
+El siguiente ejercicio tiene cierta complejidad para preparar los datos. Fíjate que:
+
+-   Las únicas parcelas que se visualizan, son las parcelas mixtas, no las monoespecíficas.
+
+-   Se han ordenado los *boxplot* en orden descendente según el valor del DBH.
+
+-   La parcela debe ser una variable categórica, no numérica
+
+-   La paleta de colores utilizada es *Set3* de ColorBrewer.
+
+-   Para que las líneas de los intervalos mayores sean más llamativas que los intervalos menores, añadir:
+
+``` r
+theme(
+    panel.grid.major = element_line(color = "grey85")
+  )
+```
+
+Si en algún momento te atascas con el preprocesado, puedes ver esa parte en la pestaña de *Pista*.
+
+::: panel-tabset
+## Gráfico esperado
+
+```{r}
+#| echo: false
+#| label: fig-ejercicio-12
+#| fig-cap: Resultado esperado del ejercicio 12
+inventario_tbl |>
+  filter(
+    all(c("Pinus sylvestris", "Pinus nigra") %in% nombre_ifn),
+    .by = id_plots
+  ) |> 
+  mutate(
+    id_plots = as.factor(id_plots) |> 
+      fct_reorder(dbh_mm)
+  ) |>
+  ggplot(
+    aes(x = dbh_mm / 10, y = id_plots, fill = nombre_ifn)
+  ) +
+  geom_boxplot() +
+  scale_fill_brewer(
+    name    = NULL,
+    palette = "Set3",
+  ) +
+  scale_x_continuous(
+    position     = "top",
+    breaks       = seq(0, 40, 10),
+    minor_breaks = seq(0, 40, 2.5)
+  ) +
+  labs(
+    x = "DBH (cm)",
+    y = "Parcela"
+  ) +
+  theme_minimal() +
+  theme(
+    panel.grid.major = element_line(color = "grey85")
+  )
+```
+
+## Ejercicio
+
+```{webr-r}
+inventario_tbl
+```
+
+## Pista
+
+Primero se filtran las filas cuyas parcelas (`id_plots`) tengan presentes las dos especies dentro de la columna `nombre_ifn`.
+
+En siguiente lugar, se convierte `id_plots` a variable categórica y se ordena según la variable `dbh_mm`.
+
+```{r}
+inventario_tbl |>
+  filter(
+    all(c("Pinus sylvestris", "Pinus nigra") %in% nombre_ifn),
+    .by = id_plots
+  ) |> 
+  mutate(
+    id_plots = as.factor(id_plots) |> 
+      fct_reorder(dbh_mm)
+  )
+```
+
+## Solución
+
+```{r}
+#| label: fig-ejercicio-solucion-12
+#| fig-cap: Resultado del ejercicio 12
+inventario_tbl |>
+  filter(
+    all(c("Pinus sylvestris", "Pinus nigra") %in% nombre_ifn),
+    .by = id_plots
+  ) |> 
+  mutate(
+    id_plots = as.factor(id_plots) |> 
+      fct_reorder(dbh_mm)
+  ) |>
+  ggplot(
+    aes(x = dbh_mm / 10, y = id_plots, fill = nombre_ifn)
+  ) +
+  geom_boxplot() +
+  scale_fill_brewer(
+    name    = NULL,
+    palette = "Set3",
+  ) +
+  scale_x_continuous(
+    position     = "top",
+    breaks       = seq(0, 40, 10),
+    minor_breaks = seq(0, 40, 2.5)
+  ) +
+  labs(
+    x = "DBH (cm)",
+    y = "Parcela"
+  ) +
+  theme_minimal() +
+  theme(
+    panel.grid.major = element_line(color = "grey85")
+  )
+```
+:::
 
 ### Escalas de tamaño
 
@@ -1148,18 +1282,4 @@ read_excel("data/scales-summary.xlsx") |>
   )
 ```
 
-
 {{< include references.qmd >}}
-
-
-
-
-
-
-
-
-
-
-
-
-

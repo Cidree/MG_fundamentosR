@@ -969,13 +969,13 @@ inventario_tbl
 
 ## Gráfico esperado
 
-El resultado esperado es el de la @fig-correlation-heatmap4. Fíjate que no incluimos la variable `id_plots` en el gráfico.
+El resultado esperado es el de la @fig-ejercicio-9. Fíjate que no incluimos la variable `id_plots` en el gráfico.
 
 Los colores utilizados son `cols <- c("#E56399", "#7F96FF")`. 
 
 ```{r}
 #| echo: false
-#| label: fig-correlation-heatmap-ej
+#| label: fig-ejercicio-9
 #| fig-cap: Resultado esperado del ejercicio 9
 ## Colores
 cols <- c("#E56399", "#7F96FF")
@@ -1005,10 +1005,10 @@ inventario_tbl
 
 ## Solución
 
-El resultado se muestra en la @fig-correlation-heatmap-sol. Fíjate que tenemos que añadir tanto `scale_color_manual()` para cambiar los colores de los puntos y `scale_fill_manual()` para cambiar los de los rectángulos.
+El resultado se muestra en la @fig-ejercicio-solucion-9. Fíjate que tenemos que añadir tanto `scale_color_manual()` para cambiar los colores de los puntos y `scale_fill_manual()` para cambiar los de los rectángulos.
 
 ```{r}
-#| label: fig-correlation-heatmap-sol
+#| label: fig-ejercicio-solucion-9
 #| fig-cap: Resultado final del ejercicio 9
 ## Colores
 cols <- c("#E56399", "#7F96FF")
