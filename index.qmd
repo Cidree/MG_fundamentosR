@@ -1,15 +1,18 @@
-# Bienvenida {.unnumbered}
 
 ::: callout-warning
 Este libro está en progreso. No se recomienda leer por el momento.
 :::
 
-Este libro ...
+# Bienvenida {.unnumbered}
 
-## Sección primera
+El Máster en Geomática, Teledetección y Modelos espaciales aplicado a la gestión forestal tiene por objetivo formar a especialistas de alta calidad en tecnologías geoinformáticas aplicadas al estudio y a la gestión del territorio y del medio ambiente forestal a diferentes escalas; mediante una amplia gama de competencias geoespaciales que incluyen la integración de técnicas de adquisición y procesado de bases de datos espaciales; el desarrollo y programación de aplicaciones SIG; los geoportales y dispositivos móviles, el análisis y modelado ambiental, la teledetección pasiva (sensores multiespectrales o hiperespectrales) y activa (LiDAR o Radar); y la representación y visualización cartográfica en 3D (Teledetección próxima terrestre).
 
-Sección primera
+## Fundamentos matemáticos de programación
 
-## Sección segunda
+Este libro está diseñado para la asignatura "Fundamentos Matemáticos de Programación", una materia optativa de 4 ECTS, incluida en la categoría de formación transversal e instrumental. El objetivo de esta asignatura es introducir a los estudiantes en el manejo del lenguaje de programación R, aplicado al análisis y visualización de datos. Se trata de una asignatura de carácter eminentemente práctico, en la que el uso del lenguaje R será fundamental para alcanzar los objetivos propuestos.
 
-Sección segunda
+## Requisitos previos
+
+Ninguno.
+
+

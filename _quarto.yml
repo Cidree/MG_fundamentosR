@@ -59,7 +59,7 @@ book:
         - 1202_scales.qmd
         - 1203_coords.qmd
         - 1204_facets.qmd
-        # - 1205_themes.qmd
+        - 1205_themes.qmd
         
   ## Appendices
   appendices:

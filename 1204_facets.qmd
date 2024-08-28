@@ -23,7 +23,7 @@ En este capítulo vamos a trabajar con dos *datasets*:
 
 -   `gapminder`: *dataset* con la evolución temporal del desarrollo económico, población y esperanza de vida de los países del mundo (ver [Tipos de visualización](#sec-visualization-types){target="_blank"}). Filtraremos solamente los datos del 2002.
 
--   `inventario`: *dataset* con datos de inventario de 27 parcelas en los que se ha medido el DBH, altura y especie (ver @sec-vis-data).
+-   `inventario`: *dataset* con datos de inventario forestal de 27 parcelas en los que se ha medido el DBH, altura y especie (ver @sec-vis-data).
 
 Para comenzar, vamos a cargar los paquetes necesarios y a leer los datos que utilizaremos en este capítulo.
 

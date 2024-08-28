@@ -9,7 +9,10 @@ editor_options:
 ```{r packages}
 #| include: false
 library(duckdb)
+library(ggtext)
+library(geomtextpath)
 library(patchwork)
+library(scales)
 library(tidyverse)
 ```
 
@@ -18,6 +21,10 @@ library(tidyverse)
 Desde nuestra época escolar, hemos estado expuestos a una gran variedad de gráficos. En la actualidad, cualquiera puede crear un gráfico utilizando herramientas comunes como Excel. Sin embargo, existe una gran diferencia entre hacer un gráfico y hacer un buen gráfico. La mayoría de las personas pueden generar gráficos, pero pocos son capaces de diseñar visualizaciones que realmente expliquen los datos y transmitan el mensaje deseado al público objetivo.
 
 En el mundo actual, los datos son abundantes y la necesidad de comunicarlos de manera efectiva es crucial. Una buena visualización no solo presenta datos, sino que también cuenta una historia, resalta patrones importantes y facilita la comprensión de información compleja. Aquí es donde entra en juego `{ggplot2}`, una poderosa herramienta de visualización de datos en R que nos permite crear gráficos claros, informativos y estéticamente agradables. No obstante, antes de sumergirnos en los detalles de `{ggplot2}`, es importante entender la importancia de la visualización de datos y algunos de los principios básicos que la rigen.
+
+::: callout-note
+Existen muchas otras herramientas que sirven para visualizar datos como pueden ser: D3, Excel, Python, R, Tableau... En este curso utilizaremos el paquete de R `{ggplot2}` dado que a lo largo del Máster será una herramienta con la que os familiarizaréis. Esta es una herramienta que se basa en una gramática de gráficos que nos permite personalizar nuestros gráficos de una forma increíble, además de proveernos de todas las ventajas de trabajar con un lenguaje de programación. A fecha de edición de este libro, `{ggplot2}` es el paquete de R más descargado con algo más de 147 millones de descargas ([paquetes de R por número de descargas](https://www.datasciencemeta.com/rpackages)).
+:::
 
 ## Ejemplos de visualización de datos
 
@@ -55,8 +62,7 @@ Si revisas tus facturas, verás que muchas de ellas incluyen gráficos para ilus
 
 ![Visualización de la factura de [Naturgy](https://www.naturgy.es/ "Visitar aquí")](images/example-bill.jpg){#fig-example-bill-naturgy fig-align="center"}
 
-Aquí podemos ver dos gráficos. Una gráfico de barras apilado y un gráfico circular. Desafortunadamente, muchos profesionales utilizan este tipo de gráficos para presentar información, pero no son los más adecuados para ello. 
-Por ejemplo, en el gráfico circular, es difícil comparar las proporciones de los diferentes conceptos, ya que no es fácil comparar ángulos. Para tener una idea clara de lo que estamos comparando, tenemos que acudir a las etiquetas, lo que no es lo más adecuado.
+Aquí podemos ver dos gráficos. Una gráfico de barras apilado y un gráfico circular. Desafortunadamente, muchos profesionales utilizan este tipo de gráficos para presentar información, pero no son los más adecuados para ello. Por ejemplo, en el gráfico circular, es difícil comparar las proporciones de los diferentes conceptos, ya que no es fácil comparar ángulos. Para tener una idea clara de lo que estamos comparando, tenemos que acudir a las etiquetas, que no es lo más adecuado.
 
 ::: callout-warning
 Los gráficos circulares son utilizados por un montón de gente, y odiados por los expertos en visualización de datos. En el siguiente ejemplo puedes ver un ejemplo de por qué no son recomendables.
@@ -109,14 +115,24 @@ barchart_gg <- data_tbl |>
 piechart_gg + barchart_gg
 ```
 
-En el gráfico anterior, se comparan los mismos datos utilizando un gráfico circular y un gráfico de barras. Cuál de los dos gráficos te parece más fácil de interpretar? 
+En el gráfico anterior, se comparan los mismos datos utilizando un gráfico circular y un gráfico de barras. Cuál de los dos gráficos te parece más fácil de interpretar?
 :::
 
 Por otro lado, en el gráfico de barras apilado, es sencillo comparar la primera barra ya que todas tienen el mismo origen (0). Sin embargo, comparar las barras siguientes es más complicado, ya que no podemos comparar directamente las alturas de las barras. Además, al no tener un eje de referencia, no podemos saber cuánto representa cada barra.
 
 ### Otros
 
-En general, la visualización de datos está presente en muchos aspectos de nuestra vida diaria, desde la televisión, las redes sociales hasta la ciencia. Desafortunadamente, en este curso no nos dará tiempo a cubrir muchos aspectos de la visualización de datos y de las buenas prácticas, si no que estará enfocado principalmente en aprender a utilizar `{ggplot2}` para crear gráficos sencillos pero efectivos. 
+En general, la visualización de datos está presente en muchos aspectos de nuestra vida diaria, desde la televisión, las redes sociales hasta la ciencia. Desafortunadamente, en este curso no nos dará tiempo a cubrir muchos aspectos de la visualización de datos y de las buenas prácticas, si no que estará enfocado principalmente en aprender a utilizar `{ggplot2}` para crear gráficos sencillos pero efectivos.
+
+Algo que sí quiero decir antes de comenzar con el material, es que antes de generar una visualización es mejor detenernos a pensar qué variables queremos mostrar, y pensar cuál es la geometría que mejor se puede adaptar para comunicar los datos. Vamos a ver un ejemplo rápido de como visualizar las detecciones de *Cerambyx* sp. en tres provincias de Andalucía. Vamos a graficar tres variables:
+
+-   Provincia: variable categórica
+
+-   Año: variable categórica ordinal
+
+-   Detecciones: variable continua
+
+Una opción que se utiliza de forma común es la siguiente:
 
 ```{r cargar_datos}
 ## Connect
@@ -164,6 +180,7 @@ agent_filtered_tbl |>
         position = position_dodge(width = .9),
         vjust    = -.5
     ) +
+    scale_fill_brewer(palette = "Set1") +
     labs(
         x     = "Año", 
         y     = "Total",
@@ -176,22 +193,44 @@ agent_filtered_tbl |>
     )
 ```
 
+Esta opción nos da toda la información que queremos. Pero es esta la mejor forma de representar estos datos? Para interpretarlos tenemos que mirar muchas veces a las barras y se hace algo tedioso. Fíjate como el siguiente gráfico nos muestra los mismos datos, y con un solo vistazo podemos sacar muchas conclusiones:
+
 ```{r}
 agent_filtered_tbl |> 
+    mutate(
+        CAMP = as.character(CAMP) |> as.numeric()
+    ) |> 
     ggplot(
         aes(x = CAMP, y = n, color = PROV, group = PROV)
     ) +
-    geom_line() +
+    geom_textsmooth(
+        aes(label = PROV),
+        size      = 3,
+        hjust     = .7,
+        linewidth = 1.2
+    ) +
     labs(
         x     = NULL, 
-        y     = "Total",
-        title = "Detecciones de Cerambyx sp.",
-        fill  = "Provincia"
+        y     = "Detecciones",
+        title = "Evolución de las detecciones de *Cerambyx* sp. por provincia"
     ) +
-    theme_bw() +
+    scale_color_brewer(palette = "Set1") + 
+    scale_x_continuous(breaks = pretty_breaks(n = 5)) +
+    scale_y_continuous(labels = comma) +
+    theme_bw(base_size = 12) +
     theme(
-        legend.position = "bottom"
+        legend.position = "none",
+        plot.title = element_markdown(face = "bold", hjust = 0.5),
+        plot.subtitle = element_text(face = "italic", hjust = 0.5),
+        plot.caption = element_text(size = 10, hjust = 1),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank()
+    ) +
+    coord_cartesian(
+        ylim = c(0, 220)
     )
 ```
+
+Con este simple ejemplo quiero destacar que muchas veces intentamos hacer un gráfico muy complejo cuando tenemos una opción muy sencilla que va a comunicar los datos de manera mucho más efectiva.
 
 {{< include references.qmd >}}
