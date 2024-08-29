@@ -1,0 +1,15 @@
+{
+  "hash": "cfb8f69fe3b3f53190f96fad6fcf25fe",
+  "result": {
+    "engine": "knitr",
+    "markdown": "# Visualización {.unnumbered #sec-visualization}\n\nEn este capítulo se presenta una introducción a la visualización de datos y a la generación de gráficos en R con el paquete `{ggplot2}`. En el primer capítulo, veremos una introducción a la visualización de datos para resaltar su importancia y cómo puede ayudar a entender los datos. En el segundo capítulo, se presentará el paquete `{ggplot2}` y se mostrará cómo se puede utilizar para generar gráficos sencillos en R.\n\nAunque la visualización de datos es un tema amplio y complejo, en este libro se presentarán los conceptos básicos y se mostrarán ejemplos sencillos para que el estudiante pueda comenzar a utilizarlos en sus propios proyectos.\n\n## Objetivos {.unnumbered}\n\n-   Entender la necesidad de comunicar nuestros datos de una forma clara\n\n-   Aprender algunos de los principios de la visualización de datos\n\n-   Aprender a elegir el gráfico adecuado para nuestros datos y nuestros objetivos\n\n-   Entender la gramática de gráficos y su implicación dentro de `{ggplot2}`\n\n-   Crear gráficos sencillos pero comunicativos con `{ggplot2}`\n\n\n\n\n\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

@@ -42,24 +42,24 @@ book:
   chapters:
     - index.qmd
     
-    - part: 1001_visualization.qmd
+    - part: chapters/1001_visualization.qmd
       chapters:
-        - 1002_introduction.qmd
-        - 1003_first_steps.qmd
-        - 1004_components.qmd
+        - chapters/1002_introduction.qmd
+        - chapters/1003_first_steps.qmd
+        - chapters/1004_components.qmd
     
-    - part: 1101_visualization_types.qmd
+    - part: chapters/1101_visualization_types.qmd
       chapters:
-        - 1102_distribution.qmd
-        - 1103_relationship.qmd
-        - 1104_comparison.qmd
+        - chapters/1102_distribution.qmd
+        - chapters/1103_relationship.qmd
+        - chapters/1104_comparison.qmd
         
-    - part: 1201_components.qmd
+    - part: chapters/1201_components.qmd
       chapters:
-        - 1202_scales.qmd
-        - 1203_coords.qmd
-        - 1204_facets.qmd
-        - 1205_themes.qmd
+        - chapters/1202_scales.qmd
+        - chapters/1203_coords.qmd
+        - chapters/1204_facets.qmd
+        - chapters/1205_themes.qmd
         
   ## Appendices
   appendices:

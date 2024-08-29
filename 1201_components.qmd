@@ -1,9 +1,0 @@
----
-output: html_document
-editor_options: 
-  chunk_output_type: console
----
-
-# Componentes {#sec-components}
-
-Esta parte del libro se enfoca en los componentes de la gramática de gráficos de `{ggplot2}`. En las partes anteriores nos hemos familiarizado con la estructura básica de `{ggplot2}` y más concretamente con una serie de geometrías. En esta sección, nos enfocaremos en mejorar algunos de los gráficos que hemos creado hasta ahora introduciendo nuevas funciones.
