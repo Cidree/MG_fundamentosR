@@ -7,7 +7,6 @@ filters:
     - webr
 webr:
     packages: ["dplyr", "ggplot2"]
-bibliography: ../references.bib
 ---
 
 # Scales {#sec-scales}

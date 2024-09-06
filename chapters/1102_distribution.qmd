@@ -589,7 +589,7 @@ Como solamente utilizamos un valor que generamos con `mean()` y `median()`, no e
 
 Los *boxplot* (gráficos de cajas o bigotes) son una forma de visualizar la distribución de una variable numérica. En un gráfico de cajas, se muestra un resumen de la distribución de los datos, incluyendo la mediana, los cuartiles y los valores atípicos. Los gráficos de cajas son útiles para identificar la presencia de valores atípicos y la simetría de la distribución.
 
-![Partes de un boxplot. Fuente: [R Graph Gallery](https://r-graph-gallery.com/boxplot.html){target="_blank"}](images/boxplot.png){#fig-boxplot-explanation fig-align="center"}
+![Partes de un boxplot. Fuente: [R Graph Gallery](https://r-graph-gallery.com/boxplot.html){target="_blank"}](/images/boxplot.png){#fig-boxplot-explanation fig-align="center"}
 
 Aunque es un gráfico que nos da un resumen estadístico muy bueno, es un gráfico que **nunca** se debe utilizar solo. Un boxplot nos está mostrando cinco valores principales: mínimo, primer cuartil, mediana, tercer cuartil y máximo. Sin embargo, no sabemos nada del resto de valores. Fíjate en los siguientes boxplot:
 
@@ -917,7 +917,7 @@ Cualquier función que se pueda aplicar a un vector numérico, se puede añadir 
 ::: callout-tip
 Si quieres ver las opciones del argumento `shape`, puedes consultar la documentación de la función `points()`.
 
-![Opciones de puntos para el argumento \`shape\`](images/point-shape.png){#fig-point-shapes fig-align="center"}
+![Opciones de puntos para el argumento \`shape\`](/images/point-shape.png){#fig-point-shapes fig-align="center"}
 :::
 
 ## Violin plot

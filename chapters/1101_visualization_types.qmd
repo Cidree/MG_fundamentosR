@@ -13,13 +13,13 @@ library(skimr)
 
 En los siguientes capítulos nos introduciremos en los tipos de visualización más comunes en el análisis de datos. Existen muchas formas de crear una jerarquía de tipos de visualización, pero en este curso nos enfocaremos en una clasificación según el tipo de visualización y la cantidad de variables que se desean representar. En este sentido, la @fig-vis-classification muestra una clasificación de algunas de las visualizaciones más comunes y que veremos a lo largo del curso.
 
-![Clasificación de los tipos de visualización. Fuente: Cédric Scherer, rstudio::conf 2022](images/cheatsheet-visualization.jpg){#fig-vis-classification fig-align="center"}
+![Clasificación de los tipos de visualización. Fuente: Cédric Scherer, rstudio::conf 2022](/images/cheatsheet-visualization.jpg){#fig-vis-classification fig-align="center"}
 
 ## Iris {.unnumbered}
 
 En los ejercicios de muestra, trabajaremos con el *dataset* de iris, que viene dentro del paquete `{datasets}` de R. Este *dataset* contiene información sobre 150 flores de iris, con 4 variables numéricas y una variable categórica que indica la especie de la flor [@fig-iris-species].
 
-![Especies de flores del *dataset* iris. Fuente: [Datacamp](https://www.datacamp.com/tutorial/machine-learning-in-r){target="_blank"}](images/iris-species.png){#fig-iris-species fig-align="center"}
+![Especies de flores del *dataset* iris. Fuente: [Datacamp](https://www.datacamp.com/tutorial/machine-learning-in-r){target="_blank"}](/images/iris-species.png){#fig-iris-species fig-align="center"}
 
 A continuación mostramos la estructura del *dataset* utilizando la función `{skimr::skim}`:
 

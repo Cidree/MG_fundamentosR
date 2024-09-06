@@ -1,3 +1,7 @@
+---
+code-fold: false
+---
+
 # Instalación
 
 La instalación de R se compone de dos pasos:
@@ -83,10 +87,10 @@ Estos paquetes son necesarios para poder abrir Positron.
 
 Finalmente, podemos instalar Python en [este enlace](https://www.python.org/downloads/){target="_blank"} siguiendo las instrucciones del siguiente vídeo:
 
-{{< video images/videos/install-python.mp4 >}}
+{{< video ../images/videos/install-python.mp4 >}}
 
 Una vez hayáis terminado, podéis instalar Positron y utilizarlo sin ningún problema. Las instalaciones se encuentran en [este enlace](https://github.com/posit-dev/positron/releases){target="_blank"}, que podéis instalar siguiendo las instrucciones de este vídeo:
 
-{{< video images/videos/install-positron.mp4 >}}
+{{< video ../images/videos/install-positron.mp4 >}}
 
 Una vez hecho esto, estaríamos listos para utilizar Positron.

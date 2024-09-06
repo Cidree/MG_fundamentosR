@@ -82,7 +82,7 @@ Existe una escala por cada estética utilizada.
 
 -   **Tema (*theme*)**: nos permite controlar todos los aspectos relacionados con la apariencia del gráfico, como puede ser la fuente de texto, tamaño de fuente, posición de elementos como la leyenda, colores de relleno, etc.
 
-![Componentes principales de la gramática de gráficos](images/layers.png){#fig-layers fig-align="center"}
+![Componentes principales de la gramática de gráficos](/images/layers.png){#fig-layers fig-align="center"}
 
 Finalmente, podemos definir una **capa** como la combinación de datos, estéticas, geometrías y transformaciones estadísticas [@book-ggplot2], y en la mayoría de las ocasiones, estos cuatro componentes se especificarán dentro de una función que comienza por `geom_*`, aunque los datos y las estéticas también se pueden especificar dentro de la función `ggplot()`. No os preocupéis, pronto veremos las diferencias entre estas opciones.
 
@@ -344,7 +344,7 @@ Para finalizar este capítulo, vamos a ver dos conceptos que al principio pueden
 
 Vamos a seguir trabajando con la geometría de puntos, ya que es una de las más sencillas para aprender la teoría. Si buscáis en la documentación oficial de las funciones `geom_*`, encontraréis una sección de estéticas como la que se muestra en la @fig-aes-point:
 
-![Estétitcas de la geometría de punto (geom_point)](images/esteticas-punto.png){#fig-aes-point fig-align="center"}
+![Estétitcas de la geometría de punto (geom_point)](/images/esteticas-punto.png){#fig-aes-point fig-align="center"}
 
 ::: callout-important
 Todas las geometrías tienen una serie de estéticas obligatorias y otras opcionales. Para la geometría de punto las obligatorias son **x** e **y**

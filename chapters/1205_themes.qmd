@@ -55,7 +55,7 @@ iris_gg
 
 En este caso tenemos un histograma que hemos creado en la @sec-plot-distribution con el tema predefinido de `ggplot2`. Si vamos a la pestaña *Environment* podemos ver que es una lista con 11 elementos [@fig-ggplot2-list].
 
-![Estructura objeto ggplot2](images/ggplot2-list.png){#fig-ggplot2-list fig-align="center"}
+![Estructura objeto ggplot2](/images/ggplot2-list.png){#fig-ggplot2-list fig-align="center"}
 
 Entre los 11 elementos tenemos uno que se llama `theme` y que podemos imprimir del siguiente modo:
 
@@ -250,7 +250,7 @@ iris_gg +
     -   `element_blank`: eliminaremos el elemento.
     -   Otros: existen otras funciones como `margin()` para establecer los márgenes de algún elemento o `unit()` para establecer dimensiones. También se puede modificar la posición de la leyenda como hemos visto en temas previos.
 
-![Elementos de tema](images/theme_elements.png){#fig-theme-elements fig-align="center"}
+![Elementos de tema](/images/theme_elements.png){#fig-theme-elements fig-align="center"}
 
 ### Elementos de texto {#sec-element-text}
 
@@ -458,3 +458,5 @@ Existen muchos otros elementos con los que experimentar, pero entendiendo lo vis
 ## Resumen
 
 En este capítulo hemos visto el último componente de `ggplot2` que son los temas. Tenemos temas predefinidos que en algunas ocasiones serán suficientes, aunque en la mayoría de las ocasiones vamos a modificar otros elementos. Tenemos tres clases de elementos principales: `element_text`, `element_line` y `element_rect`, que clasifican a los elementos según su forma: texto, línea o rectángulo. Cada una de estas clases tiene argumentos específicos que nos permiten personalizar nuestros gráficos de manera exhaustiva, brindándonos la capacidad de ajustar hasta el más mínimo detalle. De esta forma, la única limitación para el diseño de nuestros gráficos será nuestra propia creatividad.
+
+{{< include references.qmd >}}

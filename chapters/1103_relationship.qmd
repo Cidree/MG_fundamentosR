@@ -869,7 +869,7 @@ Técnicamente, esto es la [correlación de Pearson](https://es.wikipedia.org/wik
 
 En la siguiente figura se muestran varios ejemplos:
 
-![Ejemplos de valores del coeficiente de correlación de Pearson para distintas combinaciones de dos variables. Fuente: [Wikipedia](https://es.wikipedia.org/wiki/Coeficiente_de_correlaci%C3%B3n_de_Pearson#/media/Archivo:Correlation_examples2.svg){target="_blank"}](images/correlacion-pearson.png){#fig-correlation-types fig-align="center"}
+![Ejemplos de valores del coeficiente de correlación de Pearson para distintas combinaciones de dos variables. Fuente: [Wikipedia](https://es.wikipedia.org/wiki/Coeficiente_de_correlaci%C3%B3n_de_Pearson#/media/Archivo:Correlation_examples2.svg){target="_blank"}](/images/correlacion-pearson.png){#fig-correlation-types fig-align="center"}
 
 En este sentido, vamos a generar el *correlation heatmap* para los datos de `iris`:
 

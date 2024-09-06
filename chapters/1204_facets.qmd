@@ -285,3 +285,6 @@ inventario_tbl |>
     )
 ```
 :::
+
+
+{{< include references.qmd >}}
