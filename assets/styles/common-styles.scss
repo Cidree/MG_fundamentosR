@@ -52,3 +52,9 @@ figcaption {
 .qwebr-output-graph-area canvas {
     max-width: 100%;
 }
+
+body.quarto-dark .qwebr-output-code-stdout,
+p pre code:not(.sourceCode), li pre code:not(.sourceCode), pre code:not(.sourceCode) {
+    color: #0D1821 !important;
+}
+

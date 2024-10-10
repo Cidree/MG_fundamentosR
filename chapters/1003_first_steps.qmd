@@ -205,27 +205,25 @@ ggplot(inventario_completo_tbl, aes(x = dbh_mm, y = height_m)) +
 
 ```{r}
 ggplot(
-    inventario_completo_tbl, 
-    aes(x = dbh_mm, y = height_m)
+  inventario_completo_tbl, 
+  aes(x = dbh_mm, y = height_m)
 ) +
-    geom_smooth()
+  geom_smooth()
 ```
 
 ## Método 4
 
 ```{r}
 inventario_completo_tbl |> 
-    ggplot(
-        aes(x = dbh_mm, y = height_m)
-    ) +
-    geom_smooth()
+  ggplot(aes(x = dbh_mm, y = height_m)) +
+  geom_smooth()
 ```
 :::
 
-Como veis, el resultado es exactamente el mismo. Normalmente utilizaremos el *pipe operator* (`|>` o `%>%`) como hacemos en el método 4 para inyectar los datos en el primer argumento de la función `ggplot()` que es `data`. El argumento `mapping` también se sabe perfectamente que es el segundo argumento de la función, por lo que no es necesario escribir `mapping = ...` si no directamente `aes(...)`. En resumen, cualquier método de escritura de código de los anteriores se adecua en mayor o menor medida a los principios de diseño ordenado [@tidy-data]. No obstante, los métodos más adecuados serán los métodos 3 y 4 ya que nos ayudarán a que nuestro código sea más legible dado que la indentación nos ayuda a ver a qué función pertenece cada argumento y hará que nuestro código sea mucho más fácil de leer y mantener. Finalmente, para añadir componentes a nuestro gráfico utilizamos el operador matemático `+`.
+Como veis, el resultado es exactamente el mismo. Normalmente utilizaremos el *pipe operator* (`|>` o `%>%`) como hacemos en el método 4 para inyectar los datos en el primer argumento de la función `ggplot()` que es `data`. El argumento `mapping` también se sabe perfectamente que es el segundo argumento de la función, por lo que no es necesario escribir `mapping = ...` si no directamente `aes(...)`. En resumen, cualquier método de escritura de código de los anteriores se adecua en mayor o menor medida a los principios de diseño ordenado [@tidy-data]. No obstante, el método 2 solamente será adecuado cuando no introduzcamos más argumentos dentro de la función, ya que haría que tuviésemos demasiado código en una sola línea. Mi método favorito es el método 4, aunque el 3 también es perfectamente válido. La indentación nos ayuda a ver a qué función pertenece cada argumento y hará que nuestro código sea mucho más fácil de leer y mantener. Finalmente, para añadir componentes a nuestro gráfico utilizamos el operador matemático `+`.
 
 ::: callout-warning
-Desgraciadamente, mucha gente utiliza el método 2 para escribir código. Aunque en el ejemplo anterior no es algo grave, es una mala costumbre para muchos otros casos. Entiendes el siguiente código?
+Desgraciadamente, mucha gente utiliza el método 2 para escribir código. En el ejemplo anterior estamos al límite de lo máximo recomendado por línea que son 80 caracteres [@tidy-data]. Pero si cogemos esa mala costumbre podemos escribir código como el siguiente. Lo entiendes?
 
 ```{r}
 filter(select(filter(inventario_completo_tbl, dbh_mm >= 300), dbh_mm:nombre_ifn), nombre_ifn == "Pinus sylvestris")

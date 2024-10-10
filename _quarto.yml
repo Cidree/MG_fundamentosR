@@ -19,6 +19,7 @@ book:
   cover-image: assets/img/logo-geoforest.png
   reader-mode: true
   language: es
+  license: "CC BY-SA"
   ## Book sidebar
   sidebar:
     id: book_sidebar
@@ -70,7 +71,7 @@ format:
   html:
     ## Code
     code-fold: true
-    highlight-style: breeze
+    highlight-style: kate
     code-copy: hover
     code-link: true
     code-block-border-left: true
