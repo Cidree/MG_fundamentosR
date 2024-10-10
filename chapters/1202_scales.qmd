@@ -831,7 +831,7 @@ scatter_base +
     )
 ```
 
-Eque `scale_color_discrete()`, pero con un nombre más intuitivo: `scale_color_manual()`. Como diferencia, utiliza el argumento `values` para definir los colores. Vamos a ver cómo se utiliza:
+A parte de la función `scale_color_discrete()`, tenemos con un nombre más intuitivo: `scale_color_manual()`. Como diferencia, utiliza el argumento `values` para definir los colores. Vamos a ver cómo se utiliza:
 
 ```{r}
 scatter_base +
