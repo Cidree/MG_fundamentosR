@@ -4,13 +4,15 @@ code-fold: false
 
 # Instalación
 
-La instalación de R se compone de dos pasos:
+La instalación de R se compone de tres pasos:
 
 -   Instalar el lenguaje de programación
 
 -   Instalar el entorno de desarrollo integrado (IDE por sus siglas en inglés)
 
-Para entender la diferencia entre estos dos vamos a intentar hacer una comparativa con los idiomas. El lenguaje de programación (R, Python, Julia...) es el idioma que utilizamos para programar. Este idioma lo podemos escribir en distintas libretas que pueden tener características diferentes. Estas libretas donde escribimos es los que llamamos IDE. Existen distintas libretas donde podemos escribir el lenguaje de programación R y que comentaremos a continuación, pero estas pueden ser: RStudio, Positron, VS Code, Neovim...
+-   Instalar Quarto
+
+Para entender la diferencia entre los dos primeros vamos a intentar hacer una comparativa con los idiomas. El lenguaje de programación (R, Python, Julia...) es el idioma que utilizamos para programar. Este idioma lo podemos escribir en distintas libretas que pueden tener características diferentes. Estas libretas donde escribimos es los que llamamos IDE. Existen distintas libretas donde podemos escribir el lenguaje de programación R y que comentaremos a continuación, pero estas pueden ser: RStudio, Positron, VS Code, Neovim...
 
 ## Lenguaje de programación
 
@@ -94,3 +96,21 @@ Una vez hayáis terminado, podéis instalar Positron y utilizarlo sin ningún pr
 {{< video ../images/videos/install-positron.mp4 >}}
 
 Una vez hecho esto, estaríamos listos para utilizar Positron.
+
+## Quarto
+
+[Quarto](https://quarto.org/){target="_blank"} es un *software* que nos permite generar una infinidad de documentos construidos sobre [Pandoc](https://pandoc.org/){target="_blank"}. Quarto es un *software* que debemos instalar en nuestro ordenador, podemos utilizarlo con R, Python, Julia y JavaScript y es una versión mejorada de RMarkdown mucho más sencilla, integrada y que ofrece muchas más novedades. Con Quarto podemos:
+
+-   Crear documentos con texto plano escrito en lenguaje [markdown](https://en.wikipedia.org/wiki/Markdown){target="_blank"} que incluyen código de R u otros lenguajes.
+
+-   Crear páginas web o blogs (ejemplo: [mi blog](https://adrian-cidre.com/){target="_blank"}).
+
+-   Crear libros (ejemplo: el libro que estás leyendo).
+
+-   Presentaciones, artículos científicos...
+
+Si quieres aprender a utilizar Quarto de manera más profesional te recomiendo que visites [mi curso](https://adrian-cidre.com/02_courses/00_quarto_es.html){target="_blank"}, donde además muestro como escribí mi trabajo de fin de máster utilizando R y Quarto.
+
+Para instalarlo, puedes ir a [este enlace](https://quarto.org/docs/get-started/){target="_blank"} y seguir las instrucciones del siguiente vídeo:
+
+{{< video ../images/videos/install-quarto.mp4 >}}
