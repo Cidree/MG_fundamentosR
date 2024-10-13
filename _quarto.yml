@@ -70,7 +70,7 @@ book:
 format:
   html:
     ## Code
-    code-fold: true
+    # code-fold: true
     highlight-style: kate
     code-copy: hover
     code-link: true

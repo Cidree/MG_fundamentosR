@@ -23,8 +23,10 @@ Desde nuestra época escolar, hemos estado expuestos a una gran variedad de grá
 En el mundo actual, los datos son abundantes y la necesidad de comunicarlos de manera efectiva es crucial. Una buena visualización no solo presenta datos, sino que también cuenta una historia, resalta patrones importantes y facilita la comprensión de información compleja. Aquí es donde entra en juego `{ggplot2}`, una poderosa herramienta de visualización de datos en R que nos permite crear gráficos claros, informativos y estéticamente agradables. No obstante, antes de sumergirnos en los detalles de `{ggplot2}`, es importante entender la importancia de la visualización de datos y algunos de los principios básicos que la rigen.
 
 ::: callout-note
-Existen muchas otras herramientas que sirven para visualizar datos como pueden ser: D3, Excel, Python, R, Tableau... En este curso utilizaremos el paquete de R `{ggplot2}` dado que a lo largo del Máster será una herramienta con la que os familiarizaréis. Esta es una herramienta que se basa en una gramática de gráficos que nos permite personalizar nuestros gráficos de una forma increíble, además de proveernos de todas las ventajas de trabajar con un lenguaje de programación. A fecha de edición de este libro, `{ggplot2}` es el paquete de R más descargado con algo más de 147 millones de descargas ([paquetes de R por número de descargas](https://www.datasciencemeta.com/rpackages)).
+Existen muchas otras herramientas que sirven para visualizar datos como pueden ser: D3, Excel, Python, R, Tableau... En este curso utilizaremos el paquete de R `{ggplot2}` dado que a lo largo del Máster será una herramienta con la que os familiarizaréis. Esta es una herramienta que se basa en una gramática de gráficos que nos permite personalizar nuestros gráficos de una forma increíble, además de proveernos de todas las ventajas de trabajar con un lenguaje de programación. A fecha de edición de este libro, `{ggplot2}` es el paquete de R más descargado con casi 150 millones de descargas ([paquetes de R por número de descargas](https://www.datasciencemeta.com/rpackages)).
 :::
+
+Una de las ventajas de trabajar en un lenguaje de programación como R o Python es que la cantidad de paquetes y funcionalidades que existen dentro de estos es absurdamente enorme, y gracias a las comunidades que desarrollan estos paquetes podemos analizar datos de todo tipo, realizar análisis con técnicas muy enfocadas al tipo de dato que tenemos y por supuesto, generar gráficos con un altísimo grado de personalización. Es decir, con un lenguaje de programación podemos ir desde la limpieza de datos, a la exploración, el análisis, el modelado, y terminar con la generación de resultados que pueden incluir gráficas o tablas.
 
 ## Ejemplos de visualización de datos
 
@@ -67,7 +69,7 @@ Aquí podemos ver dos gráficos. Una gráfico de barras apilado y un gráfico ci
 ::: callout-warning
 Los gráficos circulares son utilizados por un montón de gente, y odiados por los expertos en visualización de datos. En el siguiente ejemplo puedes ver un ejemplo de por qué no son recomendables.
 
-```{r comparacion_pie_bar}
+```{r}
 #| label: fig-comparacion-pie-bar
 #| fig-cap: Comparación de gráficos circulares y de barras
 ## Datos ficticios
