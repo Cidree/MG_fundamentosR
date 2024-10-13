@@ -1,7 +1,5 @@
 
-::: callout-warning
-Este libro está en progreso. No se recomienda leer por el momento.
-:::
+
 
 # Bienvenida {.unnumbered}
 
@@ -13,6 +11,6 @@ Este libro está diseñado para la asignatura "Fundamentos Matemáticos de Progr
 
 ## Requisitos previos
 
-Ninguno.
+Instalar el software necesario. Ver @sec-install.
 
 

@@ -2,7 +2,7 @@
 code-fold: false
 ---
 
-# Instalación
+# Instalación {#sec-install}
 
 La instalación de R se compone de tres pasos:
 
